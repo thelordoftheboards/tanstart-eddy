@@ -1,0 +1,10 @@
+import { createFileRoute } from '@tanstack/react-router';
+import { PageExampleLayout2 } from '~/tanstart-cumberland-examples/components/page-example-layout-2';
+
+export const Route = createFileRoute('/(authenticated)/dashboard/cumberland/example-layout-2')({
+  component: DashboardIndex,
+});
+
+function DashboardIndex() {
+  return <PageExampleLayout2 />;
+}

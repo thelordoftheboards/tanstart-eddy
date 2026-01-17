@@ -1,49 +1,10 @@
+import { IconFerry, IconHorse } from '@tabler/icons-react';
 import { BookOpen, Bot, Frame, Map as IconMap, PieChart, Settings2, SquareTerminal } from 'lucide-react';
 import { SidebarContent } from '~/components/ui/sidebar';
 import { NavAppSidebarItemMenu } from '../../base-nav-and-auth/components/nav-app-side-bar-item-menu';
 import { NavAppSidebarItemProject } from '../../base-nav-and-auth/components/nav-app-side-bar-item-project';
 
 const arrNavAppSidebarItemMenu = [
-  {
-    title: 'Cumberland',
-    icon: SquareTerminal,
-    isActive: true,
-    items: [
-      {
-        title: 'Website Index',
-        url: '/',
-      },
-      {
-        title: 'Dashboard Index',
-        url: '/dashboard/',
-      },
-      {
-        title: 'Layout Example',
-        url: '/dashboard/cumberland/example-layout',
-      },
-    ],
-  },
-  {
-    title: 'Menu w sub icons',
-    icon: Bot,
-    items: [
-      {
-        icon: SquareTerminal,
-        title: 'Dashboard Index',
-        url: '/dashboard/',
-      },
-      {
-        icon: IconMap,
-        title: 'Layout Example',
-        url: '/dashboard/cumberland/example-layout',
-      },
-    ],
-  },
-  {
-    title: 'Dashboard',
-    url: '/dashboard/',
-    icon: PieChart,
-  },
   {
     title: 'Documentation',
     icon: BookOpen,
@@ -62,6 +23,22 @@ const arrNavAppSidebarItemMenu = [
       },
       {
         title: 'Changelog',
+        url: '/dashboard/',
+      },
+    ],
+  },
+  {
+    title: 'Sub icons',
+    icon: Bot,
+    items: [
+      {
+        icon: SquareTerminal,
+        title: 'Square Terminal',
+        url: '/dashboard/',
+      },
+      {
+        icon: IconMap,
+        title: 'Map',
         url: '/dashboard/',
       },
     ],
@@ -88,6 +65,45 @@ const arrNavAppSidebarItemMenu = [
       },
     ],
   },
+  {
+    title: 'Main Level Link',
+    icon: Bot,
+    url: '/dashboard/',
+  },
+  {
+    title: 'Cumberland',
+    icon: IconFerry,
+    isActive: true,
+    items: [
+      {
+        title: 'Website Index',
+        url: '/',
+      },
+      {
+        title: 'Dashboard Index',
+        url: '/dashboard/',
+      },
+      {
+        title: 'Example Layout 1',
+        url: '/dashboard/cumberland/example-layout-1',
+      },
+      {
+        title: 'Example Layout 2',
+        url: '/dashboard/cumberland/example-layout-2',
+      },
+    ],
+  },
+  {
+    title: 'Eddy',
+    icon: IconFerry,
+    items: [
+      {
+        Icon: IconHorse,
+        title: 'Horses',
+        url: '/dashboard/eddy/horses/horse-list',
+      },
+    ],
+  },
 ];
 
 const arrNavAppSidebarItemProject = [
@@ -98,12 +114,12 @@ const arrNavAppSidebarItemProject = [
   },
   {
     name: 'Sales & Marketing',
-    url: '#',
+    url: '/dashboard/',
     icon: PieChart,
   },
   {
     name: 'Travel',
-    url: '#',
+    url: '/dashboard/',
     icon: IconMap,
   },
 ];

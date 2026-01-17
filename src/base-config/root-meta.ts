@@ -10,7 +10,7 @@ export const meta: (React.DetailedHTMLProps<React.MetaHTMLAttributes<HTMLMetaEle
       content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
     },
     {
-      title: 'Tanstart Cumberland',
+      title: 'Tanstart Eddy',
     },
     {
       name: 'description',
