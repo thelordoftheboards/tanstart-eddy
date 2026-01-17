@@ -1,0 +1,23 @@
+name: "${PROJECT_NAME}-standalone-db"
+
+services:
+  db:
+    image: pgvector/pgvector:pg18
+    env_file:
+      - ../devconfig/standalone-db.env
+    ports:
+      - "${POSTGRES_EXPOSED_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    restart: unless-stopped
+    networks:
+      - dev-network
+
+volumes:
+  postgres_data:
+    name: "${PROJECT_NAME}-standalone-db-volume"
+
+networks:
+  dev-network:
+    name: "${PROJECT_NAME}-standalone-db-network"
+    external: true

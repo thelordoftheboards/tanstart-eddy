@@ -1,0 +1,15 @@
+ #!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+COMMIT_MSG_FILE=$1
+
+VERSION=$(bun -p "require('./package.json').version")
+
+# Read the original commit message
+ORIGINAL_MESSAGE=$(cat "$COMMIT_MSG_FILE")
+
+# Prepend the issue number
+NEW_MESSAGE="Version $VERSION: $ORIGINAL_MESSAGE"
+
+# Write the new message back to the file
+echo "$NEW_MESSAGE" > "$COMMIT_MSG_FILE"

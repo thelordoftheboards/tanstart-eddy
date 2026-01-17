@@ -1,0 +1,32 @@
+name: "${PROJECT_NAME}-full"
+
+services:
+  db:
+    image: pgvector/pgvector:pg18
+    env_file:
+      - ../devconfig/full.env
+    ports:
+      - "${POSTGRES_EXPOSED_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    restart: unless-stopped
+    networks:
+      - dev-network
+  app:
+    image: "${PROJECT_NAME}:latest"
+    env_file:
+      - ../.env
+      - ../devconfig/full.env
+    ports:
+      - "8088:8088"
+    restart: unless-stopped
+    networks:
+      - dev-network
+
+volumes:
+  postgres_data:
+    name: "${PROJECT_NAME}-full-db-volume"
+
+networks:
+  dev-network:
+    name: "${PROJECT_NAME}-full-network"

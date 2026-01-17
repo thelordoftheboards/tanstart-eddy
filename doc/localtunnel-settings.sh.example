@@ -1,0 +1,4 @@
+#!/bin/bash
+
+export LOCALTUNNEL_SUBDOMAIN=tanstart-https
+export SERVER_HOST=tanstart-https.loca.lt

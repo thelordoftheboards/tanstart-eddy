@@ -1,0 +1,26 @@
+node_modules
+
+# Ignore lockfiles we don't use
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+# bun.lock
+
+.DS_Store
+.cache
+*.env
+
+.data
+.vercel
+# Comment to use the .output directory to run make before building the container in source
+.output
+.wrangler
+.netlify
+devconfig
+dist
+/build/
+/api/
+/server/build
+/public/build
+
+.tanstack
