@@ -1,4 +1,4 @@
-# [TanStart Cumberland](https://github.com/thelordoftheboards/tanstart-cumberland)
+# [TanStart Eddy](https://github.com/thelordoftheboards/tanstart-eddy)
 
 
 
