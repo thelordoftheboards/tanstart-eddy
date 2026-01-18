@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { SelectUserType } from '~/lib/db/schema/auth.schema';
-import { PageDashboardIndex } from '~/tanstart-barren-examples/components/page-dashboard-index';
+import { PageDashboardIndex } from '~/tanstart-cumberland-examples/components/page-dashboard-index';
 
 export const Route = createFileRoute('/(authenticated)/dashboard/')({
   component: DashboardIndex,

@@ -91,6 +91,10 @@ const arrNavAppSidebarItemMenu = [
         title: 'Example Layout 2',
         url: '/dashboard/cumberland/example-layout-2',
       },
+      {
+        title: 'Example Layout 3',
+        url: '/dashboard/cumberland/example-layout-3',
+      },
     ],
   },
   {

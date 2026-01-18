@@ -19,6 +19,7 @@ import { Route as authenticatedDashboardIndexRouteImport } from './routes/(authe
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as authenticatedDashboardAdminIndexRouteImport } from './routes/(authenticated)/dashboard/admin/index'
 import { Route as authenticatedDashboardAccountIndexRouteImport } from './routes/(authenticated)/dashboard/account/index'
+import { Route as authenticatedDashboardCumberlandExampleLayout3RouteImport } from './routes/(authenticated)/dashboard/cumberland/example-layout-3'
 import { Route as authenticatedDashboardCumberlandExampleLayout2RouteImport } from './routes/(authenticated)/dashboard/cumberland/example-layout-2'
 import { Route as authenticatedDashboardCumberlandExampleLayout1RouteImport } from './routes/(authenticated)/dashboard/cumberland/example-layout-1'
 import { Route as authenticatedDashboardAdminUsersRouteImport } from './routes/(authenticated)/dashboard/admin/users'
@@ -78,6 +79,12 @@ const authenticatedDashboardAccountIndexRoute =
     path: '/account/',
     getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
+const authenticatedDashboardCumberlandExampleLayout3Route =
+  authenticatedDashboardCumberlandExampleLayout3RouteImport.update({
+    id: '/cumberland/example-layout-3',
+    path: '/cumberland/example-layout-3',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
 const authenticatedDashboardCumberlandExampleLayout2Route =
   authenticatedDashboardCumberlandExampleLayout2RouteImport.update({
     id: '/cumberland/example-layout-2',
@@ -123,6 +130,7 @@ export interface FileRoutesByFullPath {
   '/dashboard/admin/users': typeof authenticatedDashboardAdminUsersRoute
   '/dashboard/cumberland/example-layout-1': typeof authenticatedDashboardCumberlandExampleLayout1Route
   '/dashboard/cumberland/example-layout-2': typeof authenticatedDashboardCumberlandExampleLayout2Route
+  '/dashboard/cumberland/example-layout-3': typeof authenticatedDashboardCumberlandExampleLayout3Route
   '/dashboard/account': typeof authenticatedDashboardAccountIndexRoute
   '/dashboard/admin': typeof authenticatedDashboardAdminIndexRoute
   '/dashboard/eddy/horses/horse-list': typeof authenticatedDashboardEddyHorsesHorseListRoute
@@ -138,6 +146,7 @@ export interface FileRoutesByTo {
   '/dashboard/admin/users': typeof authenticatedDashboardAdminUsersRoute
   '/dashboard/cumberland/example-layout-1': typeof authenticatedDashboardCumberlandExampleLayout1Route
   '/dashboard/cumberland/example-layout-2': typeof authenticatedDashboardCumberlandExampleLayout2Route
+  '/dashboard/cumberland/example-layout-3': typeof authenticatedDashboardCumberlandExampleLayout3Route
   '/dashboard/account': typeof authenticatedDashboardAccountIndexRoute
   '/dashboard/admin': typeof authenticatedDashboardAdminIndexRoute
   '/dashboard/eddy/horses/horse-list': typeof authenticatedDashboardEddyHorsesHorseListRoute
@@ -157,6 +166,7 @@ export interface FileRoutesById {
   '/(authenticated)/dashboard/admin/users': typeof authenticatedDashboardAdminUsersRoute
   '/(authenticated)/dashboard/cumberland/example-layout-1': typeof authenticatedDashboardCumberlandExampleLayout1Route
   '/(authenticated)/dashboard/cumberland/example-layout-2': typeof authenticatedDashboardCumberlandExampleLayout2Route
+  '/(authenticated)/dashboard/cumberland/example-layout-3': typeof authenticatedDashboardCumberlandExampleLayout3Route
   '/(authenticated)/dashboard/account/': typeof authenticatedDashboardAccountIndexRoute
   '/(authenticated)/dashboard/admin/': typeof authenticatedDashboardAdminIndexRoute
   '/(authenticated)/dashboard/eddy/horses/horse-list': typeof authenticatedDashboardEddyHorsesHorseListRoute
@@ -175,6 +185,7 @@ export interface FileRouteTypes {
     | '/dashboard/admin/users'
     | '/dashboard/cumberland/example-layout-1'
     | '/dashboard/cumberland/example-layout-2'
+    | '/dashboard/cumberland/example-layout-3'
     | '/dashboard/account'
     | '/dashboard/admin'
     | '/dashboard/eddy/horses/horse-list'
@@ -190,6 +201,7 @@ export interface FileRouteTypes {
     | '/dashboard/admin/users'
     | '/dashboard/cumberland/example-layout-1'
     | '/dashboard/cumberland/example-layout-2'
+    | '/dashboard/cumberland/example-layout-3'
     | '/dashboard/account'
     | '/dashboard/admin'
     | '/dashboard/eddy/horses/horse-list'
@@ -208,6 +220,7 @@ export interface FileRouteTypes {
     | '/(authenticated)/dashboard/admin/users'
     | '/(authenticated)/dashboard/cumberland/example-layout-1'
     | '/(authenticated)/dashboard/cumberland/example-layout-2'
+    | '/(authenticated)/dashboard/cumberland/example-layout-3'
     | '/(authenticated)/dashboard/account/'
     | '/(authenticated)/dashboard/admin/'
     | '/(authenticated)/dashboard/eddy/horses/horse-list'
@@ -296,6 +309,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticatedDashboardAccountIndexRouteImport
       parentRoute: typeof authenticatedDashboardRouteRoute
     }
+    '/(authenticated)/dashboard/cumberland/example-layout-3': {
+      id: '/(authenticated)/dashboard/cumberland/example-layout-3'
+      path: '/cumberland/example-layout-3'
+      fullPath: '/dashboard/cumberland/example-layout-3'
+      preLoaderRoute: typeof authenticatedDashboardCumberlandExampleLayout3RouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
     '/(authenticated)/dashboard/cumberland/example-layout-2': {
       id: '/(authenticated)/dashboard/cumberland/example-layout-2'
       path: '/cumberland/example-layout-2'
@@ -360,6 +380,7 @@ interface authenticatedDashboardRouteRouteChildren {
   authenticatedDashboardAdminUsersRoute: typeof authenticatedDashboardAdminUsersRoute
   authenticatedDashboardCumberlandExampleLayout1Route: typeof authenticatedDashboardCumberlandExampleLayout1Route
   authenticatedDashboardCumberlandExampleLayout2Route: typeof authenticatedDashboardCumberlandExampleLayout2Route
+  authenticatedDashboardCumberlandExampleLayout3Route: typeof authenticatedDashboardCumberlandExampleLayout3Route
   authenticatedDashboardAccountIndexRoute: typeof authenticatedDashboardAccountIndexRoute
   authenticatedDashboardAdminIndexRoute: typeof authenticatedDashboardAdminIndexRoute
   authenticatedDashboardEddyHorsesHorseListRoute: typeof authenticatedDashboardEddyHorsesHorseListRoute
@@ -374,6 +395,8 @@ const authenticatedDashboardRouteRouteChildren: authenticatedDashboardRouteRoute
       authenticatedDashboardCumberlandExampleLayout1Route,
     authenticatedDashboardCumberlandExampleLayout2Route:
       authenticatedDashboardCumberlandExampleLayout2Route,
+    authenticatedDashboardCumberlandExampleLayout3Route:
+      authenticatedDashboardCumberlandExampleLayout3Route,
     authenticatedDashboardAccountIndexRoute:
       authenticatedDashboardAccountIndexRoute,
     authenticatedDashboardAdminIndexRoute:

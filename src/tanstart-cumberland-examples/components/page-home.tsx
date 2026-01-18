@@ -88,7 +88,7 @@ export function PageHome() {
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-background">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
         <div className="flex h-16 w-full items-center justify-between px-4">
           <div className="flex items-center gap-2">
             <IconFerry className="h-6 w-6 text-primary" />
@@ -121,7 +121,7 @@ export function PageHome() {
                   </Button>
                 }
               />
-              <SheetContent className="w-[300px] sm:w-[400px]" side="right">
+              <SheetContent className="w-75 sm:w-100" side="right">
                 <div className="flex flex-col gap-6 pt-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -163,7 +163,7 @@ export function PageHome() {
 
       <main className="flex-1 px-4 py-12 md:py-16 lg:py-20">
         <div className="mb-12 text-center md:mb-16">
-          <h1 className="mb-4 bg-gradient-to-r bg-clip-text font-bold text-3xl text-primary tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
+          <h1 className="mb-4 bg-linear-to-r bg-clip-text font-bold text-3xl text-primary tracking-tight sm:text-4xl md:text-5xl lg:text-6xl">
             Tanstart Cumberland
           </h1>
           <p className="mx-auto max-w-2xl text-lg text-muted-foreground md:text-xl">
@@ -224,11 +224,11 @@ export function PageHome() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="flex items-center gap-2 text-sm">
-                    <IconNumber12Small className="h-4 w-4 flex-shrink-0 text-green-500" />
+                    <IconNumber12Small className="h-4 w-4 shrink-0 text-green-500" />
                     <span>Suspendisse semper</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
-                    <IconNumber13Small className="h-4 w-4 flex-shrink-0 text-green-500" />
+                    <IconNumber13Small className="h-4 w-4 shrink-0 text-green-500" />
                     <span>Proin rhoncus sagittis lacus</span>
                   </div>
                 </CardContent>
@@ -241,11 +241,11 @@ export function PageHome() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="flex items-center gap-2 text-sm">
-                    <IconNumber15Small className="h-4 w-4 flex-shrink-0 text-green-500" />
+                    <IconNumber15Small className="h-4 w-4 shrink-0 text-green-500" />
                     <span>Praesent tempor sagittis laoreet</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
-                    <IconNumber16Small className="h-4 w-4 flex-shrink-0 text-yellow-500" />
+                    <IconNumber16Small className="h-4 w-4 shrink-0 text-yellow-500" />
                     <span>Duis lorem augue</span>
                   </div>
                 </CardContent>
@@ -258,15 +258,15 @@ export function PageHome() {
                 </CardHeader>
                 <CardContent className="space-y-2">
                   <div className="flex items-center gap-2 text-sm">
-                    <IconNumber18Small className="h-4 w-4 flex-shrink-0 text-green-500" />
+                    <IconNumber18Small className="h-4 w-4 shrink-0 text-green-500" />
                     <span>Integer fermentum dignissim</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
-                    <IconNumber19Small className="h-4 w-4 flex-shrink-0 text-yellow-500" />
+                    <IconNumber19Small className="h-4 w-4 shrink-0 text-yellow-500" />
                     <span>Mauris felis nibh</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
-                    <IconNumber20Small className="h-4 w-4 flex-shrink-0 text-yellow-500" />
+                    <IconNumber20Small className="h-4 w-4 shrink-0 text-yellow-500" />
                     <span>Nullam ligula ante, malesuada nec libero</span>
                   </div>
                 </CardContent>
