@@ -5,5 +5,5 @@ import { type HorseType } from '../schema/horse';
 export const queryOptionsHorses = () =>
   queryOptions({
     queryKey: ['horse'],
-    queryFn: () => queryFnGet<HorseType>('/api/v1/eddy/horses'),
+    queryFn: () => queryFnGet<HorseType[]>('/api/v1/eddy/horses'),
   });

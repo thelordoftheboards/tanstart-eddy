@@ -6,7 +6,7 @@ export async function queryFnGet<T>(queryStringApi: string) {
   const queryString = `${getBaseUrl()}${queryStringApi}${queryStringApi.includes('?') ? '&' : '?'}t=${Date.now()}`;
 
   try {
-    const result = await axios.get<T[]>(queryString, {
+    const result = await axios.get<T>(queryString, {
       withCredentials: true,
     });
 

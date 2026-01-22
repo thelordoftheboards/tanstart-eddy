@@ -1,5 +1,6 @@
 import { createEnv } from '@t3-oss/env-core';
 import { z } from 'zod';
+import { envServerParts } from '~/base-config/lib/env-server-all-parts';
 
 export const env = createEnv({
   server: {
@@ -12,6 +13,8 @@ export const env = createEnv({
     GITHUB_CLIENT_SECRET: z.string().optional(),
     GOOGLE_CLIENT_ID: z.string().optional(),
     GOOGLE_CLIENT_SECRET: z.string().optional(),
+
+    ...envServerParts,
   },
   runtimeEnv: process.env,
 });

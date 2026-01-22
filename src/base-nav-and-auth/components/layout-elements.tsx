@@ -66,7 +66,7 @@ function SidebarTriggerDefaultVariant({ className, onClick, ...props }: React.Co
 }
 
 export function NavHeadlessFloatingTrigger() {
-  return <SidebarTriggerDefaultVariant className="absolute top-4 left-4" />;
+  return <SidebarTriggerDefaultVariant className="absolute top-2.5 left-2.5 z-10" />;
 }
 
 export function InsetContainerWithFloatingTriggerAndTitle({
@@ -84,7 +84,7 @@ export function InsetContainerWithFloatingTriggerAndTitle({
     <div className="container mx-auto flex max-h-dvh min-h-dvh max-w-8xl flex-col space-y-2 overflow-hidden py-2 md:space-y-4 lg:space-y-6">
       <NavHeadlessFloatingTrigger />
 
-      <div className="flex gap-2 pl-16">
+      <div className="flex gap-2 pl-13">
         {subTitle && (
           <div>
             <h1 className="font-bold text-2xl tracking-tight">{title}</h1>

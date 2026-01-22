@@ -19,10 +19,14 @@ import { Route as authenticatedDashboardIndexRouteImport } from './routes/(authe
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 import { Route as authenticatedDashboardAdminIndexRouteImport } from './routes/(authenticated)/dashboard/admin/index'
 import { Route as authenticatedDashboardAccountIndexRouteImport } from './routes/(authenticated)/dashboard/account/index'
+import { Route as authenticatedDashboardEddyExampleLayout6RouteImport } from './routes/(authenticated)/dashboard/eddy/example-layout-6'
+import { Route as authenticatedDashboardEddyExampleLayout5RouteImport } from './routes/(authenticated)/dashboard/eddy/example-layout-5'
+import { Route as authenticatedDashboardEddyExampleLayout4RouteImport } from './routes/(authenticated)/dashboard/eddy/example-layout-4'
 import { Route as authenticatedDashboardCumberlandExampleLayout3RouteImport } from './routes/(authenticated)/dashboard/cumberland/example-layout-3'
 import { Route as authenticatedDashboardCumberlandExampleLayout2RouteImport } from './routes/(authenticated)/dashboard/cumberland/example-layout-2'
 import { Route as authenticatedDashboardCumberlandExampleLayout1RouteImport } from './routes/(authenticated)/dashboard/cumberland/example-layout-1'
 import { Route as authenticatedDashboardAdminUsersRouteImport } from './routes/(authenticated)/dashboard/admin/users'
+import { Route as ApiV1SystemGlobalClientSettingsIndexRouteImport } from './routes/api/v1/system/global-client-settings/index'
 import { Route as ApiV1EddyHorsesIndexRouteImport } from './routes/api/v1/eddy/horses/index'
 import { Route as ApiV1EddyHorsesIdRouteImport } from './routes/api/v1/eddy/horses/$id'
 import { Route as authenticatedDashboardEddyHorsesHorseListRouteImport } from './routes/(authenticated)/dashboard/eddy/horses/horse-list'
@@ -79,6 +83,24 @@ const authenticatedDashboardAccountIndexRoute =
     path: '/account/',
     getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
+const authenticatedDashboardEddyExampleLayout6Route =
+  authenticatedDashboardEddyExampleLayout6RouteImport.update({
+    id: '/eddy/example-layout-6',
+    path: '/eddy/example-layout-6',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardEddyExampleLayout5Route =
+  authenticatedDashboardEddyExampleLayout5RouteImport.update({
+    id: '/eddy/example-layout-5',
+    path: '/eddy/example-layout-5',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardEddyExampleLayout4Route =
+  authenticatedDashboardEddyExampleLayout4RouteImport.update({
+    id: '/eddy/example-layout-4',
+    path: '/eddy/example-layout-4',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
 const authenticatedDashboardCumberlandExampleLayout3Route =
   authenticatedDashboardCumberlandExampleLayout3RouteImport.update({
     id: '/cumberland/example-layout-3',
@@ -102,6 +124,12 @@ const authenticatedDashboardAdminUsersRoute =
     id: '/admin/users',
     path: '/admin/users',
     getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const ApiV1SystemGlobalClientSettingsIndexRoute =
+  ApiV1SystemGlobalClientSettingsIndexRouteImport.update({
+    id: '/api/v1/system/global-client-settings/',
+    path: '/api/v1/system/global-client-settings/',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const ApiV1EddyHorsesIndexRoute = ApiV1EddyHorsesIndexRouteImport.update({
   id: '/api/v1/eddy/horses/',
@@ -131,11 +159,15 @@ export interface FileRoutesByFullPath {
   '/dashboard/cumberland/example-layout-1': typeof authenticatedDashboardCumberlandExampleLayout1Route
   '/dashboard/cumberland/example-layout-2': typeof authenticatedDashboardCumberlandExampleLayout2Route
   '/dashboard/cumberland/example-layout-3': typeof authenticatedDashboardCumberlandExampleLayout3Route
-  '/dashboard/account': typeof authenticatedDashboardAccountIndexRoute
-  '/dashboard/admin': typeof authenticatedDashboardAdminIndexRoute
+  '/dashboard/eddy/example-layout-4': typeof authenticatedDashboardEddyExampleLayout4Route
+  '/dashboard/eddy/example-layout-5': typeof authenticatedDashboardEddyExampleLayout5Route
+  '/dashboard/eddy/example-layout-6': typeof authenticatedDashboardEddyExampleLayout6Route
+  '/dashboard/account/': typeof authenticatedDashboardAccountIndexRoute
+  '/dashboard/admin/': typeof authenticatedDashboardAdminIndexRoute
   '/dashboard/eddy/horses/horse-list': typeof authenticatedDashboardEddyHorsesHorseListRoute
   '/api/v1/eddy/horses/$id': typeof ApiV1EddyHorsesIdRoute
-  '/api/v1/eddy/horses': typeof ApiV1EddyHorsesIndexRoute
+  '/api/v1/eddy/horses/': typeof ApiV1EddyHorsesIndexRoute
+  '/api/v1/system/global-client-settings/': typeof ApiV1SystemGlobalClientSettingsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -147,11 +179,15 @@ export interface FileRoutesByTo {
   '/dashboard/cumberland/example-layout-1': typeof authenticatedDashboardCumberlandExampleLayout1Route
   '/dashboard/cumberland/example-layout-2': typeof authenticatedDashboardCumberlandExampleLayout2Route
   '/dashboard/cumberland/example-layout-3': typeof authenticatedDashboardCumberlandExampleLayout3Route
+  '/dashboard/eddy/example-layout-4': typeof authenticatedDashboardEddyExampleLayout4Route
+  '/dashboard/eddy/example-layout-5': typeof authenticatedDashboardEddyExampleLayout5Route
+  '/dashboard/eddy/example-layout-6': typeof authenticatedDashboardEddyExampleLayout6Route
   '/dashboard/account': typeof authenticatedDashboardAccountIndexRoute
   '/dashboard/admin': typeof authenticatedDashboardAdminIndexRoute
   '/dashboard/eddy/horses/horse-list': typeof authenticatedDashboardEddyHorsesHorseListRoute
   '/api/v1/eddy/horses/$id': typeof ApiV1EddyHorsesIdRoute
   '/api/v1/eddy/horses': typeof ApiV1EddyHorsesIndexRoute
+  '/api/v1/system/global-client-settings': typeof ApiV1SystemGlobalClientSettingsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -167,11 +203,15 @@ export interface FileRoutesById {
   '/(authenticated)/dashboard/cumberland/example-layout-1': typeof authenticatedDashboardCumberlandExampleLayout1Route
   '/(authenticated)/dashboard/cumberland/example-layout-2': typeof authenticatedDashboardCumberlandExampleLayout2Route
   '/(authenticated)/dashboard/cumberland/example-layout-3': typeof authenticatedDashboardCumberlandExampleLayout3Route
+  '/(authenticated)/dashboard/eddy/example-layout-4': typeof authenticatedDashboardEddyExampleLayout4Route
+  '/(authenticated)/dashboard/eddy/example-layout-5': typeof authenticatedDashboardEddyExampleLayout5Route
+  '/(authenticated)/dashboard/eddy/example-layout-6': typeof authenticatedDashboardEddyExampleLayout6Route
   '/(authenticated)/dashboard/account/': typeof authenticatedDashboardAccountIndexRoute
   '/(authenticated)/dashboard/admin/': typeof authenticatedDashboardAdminIndexRoute
   '/(authenticated)/dashboard/eddy/horses/horse-list': typeof authenticatedDashboardEddyHorsesHorseListRoute
   '/api/v1/eddy/horses/$id': typeof ApiV1EddyHorsesIdRoute
   '/api/v1/eddy/horses/': typeof ApiV1EddyHorsesIndexRoute
+  '/api/v1/system/global-client-settings/': typeof ApiV1SystemGlobalClientSettingsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -186,11 +226,15 @@ export interface FileRouteTypes {
     | '/dashboard/cumberland/example-layout-1'
     | '/dashboard/cumberland/example-layout-2'
     | '/dashboard/cumberland/example-layout-3'
-    | '/dashboard/account'
-    | '/dashboard/admin'
+    | '/dashboard/eddy/example-layout-4'
+    | '/dashboard/eddy/example-layout-5'
+    | '/dashboard/eddy/example-layout-6'
+    | '/dashboard/account/'
+    | '/dashboard/admin/'
     | '/dashboard/eddy/horses/horse-list'
     | '/api/v1/eddy/horses/$id'
-    | '/api/v1/eddy/horses'
+    | '/api/v1/eddy/horses/'
+    | '/api/v1/system/global-client-settings/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -202,11 +246,15 @@ export interface FileRouteTypes {
     | '/dashboard/cumberland/example-layout-1'
     | '/dashboard/cumberland/example-layout-2'
     | '/dashboard/cumberland/example-layout-3'
+    | '/dashboard/eddy/example-layout-4'
+    | '/dashboard/eddy/example-layout-5'
+    | '/dashboard/eddy/example-layout-6'
     | '/dashboard/account'
     | '/dashboard/admin'
     | '/dashboard/eddy/horses/horse-list'
     | '/api/v1/eddy/horses/$id'
     | '/api/v1/eddy/horses'
+    | '/api/v1/system/global-client-settings'
   id:
     | '__root__'
     | '/'
@@ -221,11 +269,15 @@ export interface FileRouteTypes {
     | '/(authenticated)/dashboard/cumberland/example-layout-1'
     | '/(authenticated)/dashboard/cumberland/example-layout-2'
     | '/(authenticated)/dashboard/cumberland/example-layout-3'
+    | '/(authenticated)/dashboard/eddy/example-layout-4'
+    | '/(authenticated)/dashboard/eddy/example-layout-5'
+    | '/(authenticated)/dashboard/eddy/example-layout-6'
     | '/(authenticated)/dashboard/account/'
     | '/(authenticated)/dashboard/admin/'
     | '/(authenticated)/dashboard/eddy/horses/horse-list'
     | '/api/v1/eddy/horses/$id'
     | '/api/v1/eddy/horses/'
+    | '/api/v1/system/global-client-settings/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -235,6 +287,7 @@ export interface RootRouteChildren {
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
   ApiV1EddyHorsesIdRoute: typeof ApiV1EddyHorsesIdRoute
   ApiV1EddyHorsesIndexRoute: typeof ApiV1EddyHorsesIndexRoute
+  ApiV1SystemGlobalClientSettingsIndexRoute: typeof ApiV1SystemGlobalClientSettingsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -298,15 +351,36 @@ declare module '@tanstack/react-router' {
     '/(authenticated)/dashboard/admin/': {
       id: '/(authenticated)/dashboard/admin/'
       path: '/admin'
-      fullPath: '/dashboard/admin'
+      fullPath: '/dashboard/admin/'
       preLoaderRoute: typeof authenticatedDashboardAdminIndexRouteImport
       parentRoute: typeof authenticatedDashboardRouteRoute
     }
     '/(authenticated)/dashboard/account/': {
       id: '/(authenticated)/dashboard/account/'
       path: '/account'
-      fullPath: '/dashboard/account'
+      fullPath: '/dashboard/account/'
       preLoaderRoute: typeof authenticatedDashboardAccountIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/eddy/example-layout-6': {
+      id: '/(authenticated)/dashboard/eddy/example-layout-6'
+      path: '/eddy/example-layout-6'
+      fullPath: '/dashboard/eddy/example-layout-6'
+      preLoaderRoute: typeof authenticatedDashboardEddyExampleLayout6RouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/eddy/example-layout-5': {
+      id: '/(authenticated)/dashboard/eddy/example-layout-5'
+      path: '/eddy/example-layout-5'
+      fullPath: '/dashboard/eddy/example-layout-5'
+      preLoaderRoute: typeof authenticatedDashboardEddyExampleLayout5RouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/eddy/example-layout-4': {
+      id: '/(authenticated)/dashboard/eddy/example-layout-4'
+      path: '/eddy/example-layout-4'
+      fullPath: '/dashboard/eddy/example-layout-4'
+      preLoaderRoute: typeof authenticatedDashboardEddyExampleLayout4RouteImport
       parentRoute: typeof authenticatedDashboardRouteRoute
     }
     '/(authenticated)/dashboard/cumberland/example-layout-3': {
@@ -337,10 +411,17 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticatedDashboardAdminUsersRouteImport
       parentRoute: typeof authenticatedDashboardRouteRoute
     }
+    '/api/v1/system/global-client-settings/': {
+      id: '/api/v1/system/global-client-settings/'
+      path: '/api/v1/system/global-client-settings'
+      fullPath: '/api/v1/system/global-client-settings/'
+      preLoaderRoute: typeof ApiV1SystemGlobalClientSettingsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/v1/eddy/horses/': {
       id: '/api/v1/eddy/horses/'
       path: '/api/v1/eddy/horses'
-      fullPath: '/api/v1/eddy/horses'
+      fullPath: '/api/v1/eddy/horses/'
       preLoaderRoute: typeof ApiV1EddyHorsesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -381,6 +462,9 @@ interface authenticatedDashboardRouteRouteChildren {
   authenticatedDashboardCumberlandExampleLayout1Route: typeof authenticatedDashboardCumberlandExampleLayout1Route
   authenticatedDashboardCumberlandExampleLayout2Route: typeof authenticatedDashboardCumberlandExampleLayout2Route
   authenticatedDashboardCumberlandExampleLayout3Route: typeof authenticatedDashboardCumberlandExampleLayout3Route
+  authenticatedDashboardEddyExampleLayout4Route: typeof authenticatedDashboardEddyExampleLayout4Route
+  authenticatedDashboardEddyExampleLayout5Route: typeof authenticatedDashboardEddyExampleLayout5Route
+  authenticatedDashboardEddyExampleLayout6Route: typeof authenticatedDashboardEddyExampleLayout6Route
   authenticatedDashboardAccountIndexRoute: typeof authenticatedDashboardAccountIndexRoute
   authenticatedDashboardAdminIndexRoute: typeof authenticatedDashboardAdminIndexRoute
   authenticatedDashboardEddyHorsesHorseListRoute: typeof authenticatedDashboardEddyHorsesHorseListRoute
@@ -397,6 +481,12 @@ const authenticatedDashboardRouteRouteChildren: authenticatedDashboardRouteRoute
       authenticatedDashboardCumberlandExampleLayout2Route,
     authenticatedDashboardCumberlandExampleLayout3Route:
       authenticatedDashboardCumberlandExampleLayout3Route,
+    authenticatedDashboardEddyExampleLayout4Route:
+      authenticatedDashboardEddyExampleLayout4Route,
+    authenticatedDashboardEddyExampleLayout5Route:
+      authenticatedDashboardEddyExampleLayout5Route,
+    authenticatedDashboardEddyExampleLayout6Route:
+      authenticatedDashboardEddyExampleLayout6Route,
     authenticatedDashboardAccountIndexRoute:
       authenticatedDashboardAccountIndexRoute,
     authenticatedDashboardAdminIndexRoute:
@@ -429,6 +519,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiAuthSplatRoute: ApiAuthSplatRoute,
   ApiV1EddyHorsesIdRoute: ApiV1EddyHorsesIdRoute,
   ApiV1EddyHorsesIndexRoute: ApiV1EddyHorsesIndexRoute,
+  ApiV1SystemGlobalClientSettingsIndexRoute:
+    ApiV1SystemGlobalClientSettingsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

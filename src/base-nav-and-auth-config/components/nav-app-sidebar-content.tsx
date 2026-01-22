@@ -106,6 +106,18 @@ const arrNavAppSidebarItemMenu = [
         title: 'Horses',
         url: '/dashboard/eddy/horses/horse-list',
       },
+      {
+        title: 'Example Layout 4',
+        url: '/dashboard/eddy/example-layout-4',
+      },
+      {
+        title: 'Example Layout 5',
+        url: '/dashboard/eddy/example-layout-5',
+      },
+      {
+        title: 'Example Layout 6',
+        url: '/dashboard/eddy/example-layout-6',
+      },
     ],
   },
 ];
