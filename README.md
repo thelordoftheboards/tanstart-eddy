@@ -62,6 +62,9 @@ Features:
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.shadcn&label=shadcn) [Shadcn](https://ui.shadcn.com/)
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.%40base-ui%2Freact&label=@base-ui/react) [Base UI](https://base-ui.com/)
 
+- Mapping:
+  - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.maplibre-gl&label=maplibre-gl) [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/API/)
+  - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.react-map-gl&label=react-map-gl) [react-map-gl](https://visgl.github.io/react-map-gl/)
 
 ## Development Setup
 
