@@ -2,7 +2,7 @@ import { integer, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { v7 as uuidv7 } from 'uuid';
 import { organization } from '~/lib/db/schema/auth.schema';
 
-export const tableHorse = pgTable('example-one-race-horse', {
+export const tableHorse = pgTable('tanstart_eddy_examples_horse', {
   id: uuid('id')
     .$defaultFn(() => uuidv7())
     .primaryKey(),

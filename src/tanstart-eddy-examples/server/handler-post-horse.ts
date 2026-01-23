@@ -1,8 +1,8 @@
 import { v7 as uuidv7 } from 'uuid';
 import { getOrganizationId } from '~/base-nav-and-auth/server/get-organization-id';
 import { db } from '~/lib/db';
-import { tableHorse } from '~/tanstart-eddy-examples/db/table-horse';
-import { HorseNoIdSchema, type HorseNoIdType } from '../schema/horse';
+import { tableHorse } from '../db/table-horse';
+import { type HorseNoIdType, horseNoIdSchema } from '../schema/horse';
 
 export async function handlerPostHorse({ request }: { request: Request }) {
   console.info('Fetching horses... @', request.url);
@@ -11,7 +11,7 @@ export async function handlerPostHorse({ request }: { request: Request }) {
 
   const requestData = await request.json();
   console.log('requestData:', requestData);
-  const item: HorseNoIdType = HorseNoIdSchema.parse(requestData);
+  const item: HorseNoIdType = horseNoIdSchema.parse(requestData);
 
   const id = uuidv7();
 

@@ -1,6 +1,6 @@
 import { type UseMutationOptions, useMutation, useQueryClient } from '@tanstack/react-query';
 import { mutationFnPost } from '~/base-nav-and-auth/client/mutation-fn-post';
-import { type HorseNoIdType, HorseSchema, type HorseType } from '../schema/horse';
+import { type HorseNoIdType, type HorseType, horseSchema } from '../schema/horse';
 
 export function useMutationHorseAdd(options?: UseMutationOptions<HorseType, Error, HorseNoIdType>) {
   const {
@@ -12,10 +12,10 @@ export function useMutationHorseAdd(options?: UseMutationOptions<HorseType, Erro
 
   const queryClient = useQueryClient();
   return useMutation<HorseType, Error, HorseNoIdType>({
-    mutationFn: (data) => mutationFnPost<HorseType, HorseNoIdType>('/api/v1/eddy/horses/', data),
+    mutationFn: (data) => mutationFnPost<HorseType, HorseNoIdType>('/api/v1/tanstart-eddy-examples/horses/', data),
 
     onSuccess: (data, variables, onMutateResult, context) => {
-      if (HorseSchema.safeParse(data).success) {
+      if (horseSchema.safeParse(data).success) {
         //
         queryClient.invalidateQueries({ queryKey: ['horse'] });
         //

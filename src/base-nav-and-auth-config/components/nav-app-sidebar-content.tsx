@@ -104,7 +104,7 @@ const arrNavAppSidebarItemMenu = [
       {
         Icon: IconHorse,
         title: 'Horses',
-        url: '/dashboard/eddy/horses/horse-list',
+        url: '/dashboard/tanstart-eddy-examples/horses/horse-list',
       },
       {
         title: 'Example Layout 4',

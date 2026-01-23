@@ -26,9 +26,9 @@ import { Route as authenticatedDashboardCumberlandExampleLayout3RouteImport } fr
 import { Route as authenticatedDashboardCumberlandExampleLayout2RouteImport } from './routes/(authenticated)/dashboard/cumberland/example-layout-2'
 import { Route as authenticatedDashboardCumberlandExampleLayout1RouteImport } from './routes/(authenticated)/dashboard/cumberland/example-layout-1'
 import { Route as authenticatedDashboardAdminUsersRouteImport } from './routes/(authenticated)/dashboard/admin/users'
+import { Route as ApiV1TanstartEddyExamplesHorsesIndexRouteImport } from './routes/api/v1/tanstart-eddy-examples/horses/index'
 import { Route as ApiV1SystemGlobalClientSettingsIndexRouteImport } from './routes/api/v1/system/global-client-settings/index'
-import { Route as ApiV1EddyHorsesIndexRouteImport } from './routes/api/v1/eddy/horses/index'
-import { Route as ApiV1EddyHorsesIdRouteImport } from './routes/api/v1/eddy/horses/$id'
+import { Route as ApiV1TanstartEddyExamplesHorsesIdRouteImport } from './routes/api/v1/tanstart-eddy-examples/horses/$id'
 import { Route as authenticatedDashboardEddyHorsesHorseListRouteImport } from './routes/(authenticated)/dashboard/eddy/horses/horse-list'
 
 const authenticatedRouteRoute = authenticatedRouteRouteImport.update({
@@ -125,22 +125,24 @@ const authenticatedDashboardAdminUsersRoute =
     path: '/admin/users',
     getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
+const ApiV1TanstartEddyExamplesHorsesIndexRoute =
+  ApiV1TanstartEddyExamplesHorsesIndexRouteImport.update({
+    id: '/api/v1/tanstart-eddy-examples/horses/',
+    path: '/api/v1/tanstart-eddy-examples/horses/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ApiV1SystemGlobalClientSettingsIndexRoute =
   ApiV1SystemGlobalClientSettingsIndexRouteImport.update({
     id: '/api/v1/system/global-client-settings/',
     path: '/api/v1/system/global-client-settings/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiV1EddyHorsesIndexRoute = ApiV1EddyHorsesIndexRouteImport.update({
-  id: '/api/v1/eddy/horses/',
-  path: '/api/v1/eddy/horses/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ApiV1EddyHorsesIdRoute = ApiV1EddyHorsesIdRouteImport.update({
-  id: '/api/v1/eddy/horses/$id',
-  path: '/api/v1/eddy/horses/$id',
-  getParentRoute: () => rootRouteImport,
-} as any)
+const ApiV1TanstartEddyExamplesHorsesIdRoute =
+  ApiV1TanstartEddyExamplesHorsesIdRouteImport.update({
+    id: '/api/v1/tanstart-eddy-examples/horses/$id',
+    path: '/api/v1/tanstart-eddy-examples/horses/$id',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const authenticatedDashboardEddyHorsesHorseListRoute =
   authenticatedDashboardEddyHorsesHorseListRouteImport.update({
     id: '/eddy/horses/horse-list',
@@ -165,9 +167,9 @@ export interface FileRoutesByFullPath {
   '/dashboard/account/': typeof authenticatedDashboardAccountIndexRoute
   '/dashboard/admin/': typeof authenticatedDashboardAdminIndexRoute
   '/dashboard/eddy/horses/horse-list': typeof authenticatedDashboardEddyHorsesHorseListRoute
-  '/api/v1/eddy/horses/$id': typeof ApiV1EddyHorsesIdRoute
-  '/api/v1/eddy/horses/': typeof ApiV1EddyHorsesIndexRoute
+  '/api/v1/tanstart-eddy-examples/horses/$id': typeof ApiV1TanstartEddyExamplesHorsesIdRoute
   '/api/v1/system/global-client-settings/': typeof ApiV1SystemGlobalClientSettingsIndexRoute
+  '/api/v1/tanstart-eddy-examples/horses/': typeof ApiV1TanstartEddyExamplesHorsesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -185,9 +187,9 @@ export interface FileRoutesByTo {
   '/dashboard/account': typeof authenticatedDashboardAccountIndexRoute
   '/dashboard/admin': typeof authenticatedDashboardAdminIndexRoute
   '/dashboard/eddy/horses/horse-list': typeof authenticatedDashboardEddyHorsesHorseListRoute
-  '/api/v1/eddy/horses/$id': typeof ApiV1EddyHorsesIdRoute
-  '/api/v1/eddy/horses': typeof ApiV1EddyHorsesIndexRoute
+  '/api/v1/tanstart-eddy-examples/horses/$id': typeof ApiV1TanstartEddyExamplesHorsesIdRoute
   '/api/v1/system/global-client-settings': typeof ApiV1SystemGlobalClientSettingsIndexRoute
+  '/api/v1/tanstart-eddy-examples/horses': typeof ApiV1TanstartEddyExamplesHorsesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -209,9 +211,9 @@ export interface FileRoutesById {
   '/(authenticated)/dashboard/account/': typeof authenticatedDashboardAccountIndexRoute
   '/(authenticated)/dashboard/admin/': typeof authenticatedDashboardAdminIndexRoute
   '/(authenticated)/dashboard/eddy/horses/horse-list': typeof authenticatedDashboardEddyHorsesHorseListRoute
-  '/api/v1/eddy/horses/$id': typeof ApiV1EddyHorsesIdRoute
-  '/api/v1/eddy/horses/': typeof ApiV1EddyHorsesIndexRoute
+  '/api/v1/tanstart-eddy-examples/horses/$id': typeof ApiV1TanstartEddyExamplesHorsesIdRoute
   '/api/v1/system/global-client-settings/': typeof ApiV1SystemGlobalClientSettingsIndexRoute
+  '/api/v1/tanstart-eddy-examples/horses/': typeof ApiV1TanstartEddyExamplesHorsesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -232,9 +234,9 @@ export interface FileRouteTypes {
     | '/dashboard/account/'
     | '/dashboard/admin/'
     | '/dashboard/eddy/horses/horse-list'
-    | '/api/v1/eddy/horses/$id'
-    | '/api/v1/eddy/horses/'
+    | '/api/v1/tanstart-eddy-examples/horses/$id'
     | '/api/v1/system/global-client-settings/'
+    | '/api/v1/tanstart-eddy-examples/horses/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -252,9 +254,9 @@ export interface FileRouteTypes {
     | '/dashboard/account'
     | '/dashboard/admin'
     | '/dashboard/eddy/horses/horse-list'
-    | '/api/v1/eddy/horses/$id'
-    | '/api/v1/eddy/horses'
+    | '/api/v1/tanstart-eddy-examples/horses/$id'
     | '/api/v1/system/global-client-settings'
+    | '/api/v1/tanstart-eddy-examples/horses'
   id:
     | '__root__'
     | '/'
@@ -275,9 +277,9 @@ export interface FileRouteTypes {
     | '/(authenticated)/dashboard/account/'
     | '/(authenticated)/dashboard/admin/'
     | '/(authenticated)/dashboard/eddy/horses/horse-list'
-    | '/api/v1/eddy/horses/$id'
-    | '/api/v1/eddy/horses/'
+    | '/api/v1/tanstart-eddy-examples/horses/$id'
     | '/api/v1/system/global-client-settings/'
+    | '/api/v1/tanstart-eddy-examples/horses/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -285,9 +287,9 @@ export interface RootRouteChildren {
   authPagesRouteRoute: typeof authPagesRouteRouteWithChildren
   authenticatedRouteRoute: typeof authenticatedRouteRouteWithChildren
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
-  ApiV1EddyHorsesIdRoute: typeof ApiV1EddyHorsesIdRoute
-  ApiV1EddyHorsesIndexRoute: typeof ApiV1EddyHorsesIndexRoute
+  ApiV1TanstartEddyExamplesHorsesIdRoute: typeof ApiV1TanstartEddyExamplesHorsesIdRoute
   ApiV1SystemGlobalClientSettingsIndexRoute: typeof ApiV1SystemGlobalClientSettingsIndexRoute
+  ApiV1TanstartEddyExamplesHorsesIndexRoute: typeof ApiV1TanstartEddyExamplesHorsesIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -411,6 +413,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticatedDashboardAdminUsersRouteImport
       parentRoute: typeof authenticatedDashboardRouteRoute
     }
+    '/api/v1/tanstart-eddy-examples/horses/': {
+      id: '/api/v1/tanstart-eddy-examples/horses/'
+      path: '/api/v1/tanstart-eddy-examples/horses'
+      fullPath: '/api/v1/tanstart-eddy-examples/horses/'
+      preLoaderRoute: typeof ApiV1TanstartEddyExamplesHorsesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/v1/system/global-client-settings/': {
       id: '/api/v1/system/global-client-settings/'
       path: '/api/v1/system/global-client-settings'
@@ -418,18 +427,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiV1SystemGlobalClientSettingsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/v1/eddy/horses/': {
-      id: '/api/v1/eddy/horses/'
-      path: '/api/v1/eddy/horses'
-      fullPath: '/api/v1/eddy/horses/'
-      preLoaderRoute: typeof ApiV1EddyHorsesIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/v1/eddy/horses/$id': {
-      id: '/api/v1/eddy/horses/$id'
-      path: '/api/v1/eddy/horses/$id'
-      fullPath: '/api/v1/eddy/horses/$id'
-      preLoaderRoute: typeof ApiV1EddyHorsesIdRouteImport
+    '/api/v1/tanstart-eddy-examples/horses/$id': {
+      id: '/api/v1/tanstart-eddy-examples/horses/$id'
+      path: '/api/v1/tanstart-eddy-examples/horses/$id'
+      fullPath: '/api/v1/tanstart-eddy-examples/horses/$id'
+      preLoaderRoute: typeof ApiV1TanstartEddyExamplesHorsesIdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(authenticated)/dashboard/eddy/horses/horse-list': {
@@ -517,10 +519,12 @@ const rootRouteChildren: RootRouteChildren = {
   authPagesRouteRoute: authPagesRouteRouteWithChildren,
   authenticatedRouteRoute: authenticatedRouteRouteWithChildren,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
-  ApiV1EddyHorsesIdRoute: ApiV1EddyHorsesIdRoute,
-  ApiV1EddyHorsesIndexRoute: ApiV1EddyHorsesIndexRoute,
+  ApiV1TanstartEddyExamplesHorsesIdRoute:
+    ApiV1TanstartEddyExamplesHorsesIdRoute,
   ApiV1SystemGlobalClientSettingsIndexRoute:
     ApiV1SystemGlobalClientSettingsIndexRoute,
+  ApiV1TanstartEddyExamplesHorsesIndexRoute:
+    ApiV1TanstartEddyExamplesHorsesIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

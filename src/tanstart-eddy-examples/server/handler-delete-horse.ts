@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm';
 import { getOrganizationId } from '~/base-nav-and-auth/server/get-organization-id';
 import { db } from '~/lib/db';
-import { tableHorse } from '~/tanstart-eddy-examples/db/table-horse';
+import { tableHorse } from '../db/table-horse';
 
 export async function handlerDeleteHorse({ request }: { request: Request }) {
   console.info('Deleting horse... @', request.url);

@@ -1,8 +1,8 @@
 import { and, eq } from 'drizzle-orm';
 import { getOrganizationId } from '~/base-nav-and-auth/server/get-organization-id';
 import { db } from '~/lib/db';
-import { tableHorse } from '~/tanstart-eddy-examples/db/table-horse';
-import { HorseSchema, type HorseType } from '../schema/horse';
+import { tableHorse } from '../db/table-horse';
+import { type HorseType, horseSchema } from '../schema/horse';
 
 export async function handlerPutHorse({ request }: { request: Request }) {
   console.info('Updating horse... @', request.url);
@@ -11,7 +11,7 @@ export async function handlerPutHorse({ request }: { request: Request }) {
 
   const requestData = await request.json();
   console.log('requestData:', requestData);
-  const item: HorseType = HorseSchema.parse(requestData);
+  const item: HorseType = horseSchema.parse(requestData);
 
   await db
     .update(tableHorse)

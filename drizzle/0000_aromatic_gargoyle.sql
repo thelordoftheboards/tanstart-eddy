@@ -1,3 +1,13 @@
+CREATE TABLE "tanstart_eddy_examples_horse" (
+	"id" uuid PRIMARY KEY NOT NULL,
+	"organization_id" uuid NOT NULL,
+	"name" text NOT NULL,
+	"breed" text NOT NULL,
+	"birth-year" integer NOT NULL,
+	"color-and-markings" text NOT NULL,
+	"stall-number" text NOT NULL
+);
+--> statement-breakpoint
 CREATE TABLE "account" (
 	"id" uuid PRIMARY KEY NOT NULL,
 	"account_id" text NOT NULL,
@@ -81,6 +91,7 @@ CREATE TABLE "verification" (
 	"updated_at" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
+ALTER TABLE "tanstart_eddy_examples_horse" ADD CONSTRAINT "tanstart_eddy_examples_horse_organization_id_organization_id_fk" FOREIGN KEY ("organization_id") REFERENCES "public"."organization"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "account" ADD CONSTRAINT "account_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "invitation" ADD CONSTRAINT "invitation_organization_id_organization_id_fk" FOREIGN KEY ("organization_id") REFERENCES "public"."organization"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "invitation" ADD CONSTRAINT "invitation_inviter_id_user_id_fk" FOREIGN KEY ("inviter_id") REFERENCES "public"."user"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint

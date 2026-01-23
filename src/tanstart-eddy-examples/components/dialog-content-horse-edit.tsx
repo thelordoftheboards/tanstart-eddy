@@ -10,7 +10,7 @@ import { ScrollArea } from '~/components/ui/scroll-area';
 import { useMutationHorseAdd } from '../client/mutation-horse-add';
 import { useMutationHorseDelete } from '../client/mutation-horse-delete';
 import { useMutationHorseUpdate } from '../client/mutation-horse-update';
-import { HorseNoIdSchema, type HorseType } from '../schema/horse';
+import { type HorseType, horseNoIdSchema } from '../schema/horse';
 
 export function DialogContentHorseEdit({
   setOpen,
@@ -65,7 +65,7 @@ export function DialogContentHorseEdit({
       stallNumber: '',
     },
     validators: {
-      onChange: HorseNoIdSchema,
+      onChange: horseNoIdSchema,
     },
     onSubmit: ({ value }) => {
       if (horse) {

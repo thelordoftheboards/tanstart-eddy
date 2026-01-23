@@ -1,9 +1,74 @@
 {
-  "id": "753db532-b2a7-4a23-8433-c2614f6e993a",
+  "id": "bcec479a-eff9-43a8-a4e4-77da4d0cb44e",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.tanstart_eddy_examples_horse": {
+      "name": "tanstart_eddy_examples_horse",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "organization_id": {
+          "name": "organization_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "breed": {
+          "name": "breed",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "birth-year": {
+          "name": "birth-year",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "color-and-markings": {
+          "name": "color-and-markings",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "stall-number": {
+          "name": "stall-number",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "tanstart_eddy_examples_horse_organization_id_organization_id_fk": {
+          "name": "tanstart_eddy_examples_horse_organization_id_organization_id_fk",
+          "tableFrom": "tanstart_eddy_examples_horse",
+          "tableTo": "organization",
+          "columnsFrom": ["organization_id"],
+          "columnsTo": ["id"],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.account": {
       "name": "account",
       "schema": "",

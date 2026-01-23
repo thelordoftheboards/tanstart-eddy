@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const HorseSchema = z.object({
+export const horseSchema = z.object({
   id: z.uuid({ message: 'ID must be a valid UUID', version: 'v7' }),
   name: z.string().min(2, { message: 'Name must be at least 2 characters long' }).describe('e.g., Thunder, Moonlight'),
   breed: z.string().describe('e.g., Arabian, Quarter Horse, Thoroughbred'),
@@ -20,8 +20,8 @@ export const HorseSchema = z.object({
     .describe('The horse\'s assigned stall number (e.g., "Stall 1A", 42)'),
 });
 
-export type HorseType = z.infer<typeof HorseSchema>;
+export type HorseType = z.infer<typeof horseSchema>;
 
-export const HorseNoIdSchema = HorseSchema.omit({ id: true });
+export const horseNoIdSchema = horseSchema.omit({ id: true });
 
-export type HorseNoIdType = z.infer<typeof HorseNoIdSchema>;
+export type HorseNoIdType = z.infer<typeof horseNoIdSchema>;

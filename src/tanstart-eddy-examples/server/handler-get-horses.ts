@@ -1,7 +1,7 @@
 import { asc, eq } from 'drizzle-orm';
 import { getOrganizationId } from '~/base-nav-and-auth/server/get-organization-id';
 import { db } from '~/lib/db';
-import { tableHorse } from '~/tanstart-eddy-examples/db/table-horse';
+import { tableHorse } from '../db/table-horse';
 import { type HorseType } from '../schema/horse';
 
 export async function handlerGetHorses({ request }: { request: Request }) {

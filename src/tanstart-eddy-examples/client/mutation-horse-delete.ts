@@ -20,7 +20,10 @@ export function useMutationHorseDelete(
   const queryClient = useQueryClient();
   return useMutation<{ success: boolean; id: string }, Error, { id: string }>({
     mutationFn: (data) =>
-      mutationFnDelete<{ success: boolean; id: string }, { id: string }>(`/api/v1/eddy/horses/${data.id}`, data),
+      mutationFnDelete<{ success: boolean; id: string }, { id: string }>(
+        `/api/v1/tanstart-eddy-examples/horses/${data.id}`,
+        data
+      ),
 
     onSuccess: (data, variables, onMutateResult, context) => {
       if (DeleteSchema.safeParse(data).success) {

@@ -8,6 +8,10 @@ const FormFieldCheckbox = lazy(() => import('~/base/components/form-field-checkb
 const FormFieldDate = lazy(() => import('~/base/components/form-field-date'));
 const FormFieldDateTime = lazy(() => import('~/base/components/form-field-date-time'));
 const FormFieldHidden = lazy(() => import('~/base/components/form-field-hidden'));
+const FormFieldNumber = lazy(() => import('~/base/components/form-field-number'));
+const FormFieldPhoneNumber = lazy(() => import('~/base/components/form-field-phone-number'));
+const FormFieldTabListBoolean = lazy(() => import('~/base/components/form-field-tab-list-boolean'));
+const FormFieldTabListNumber = lazy(() => import('~/base/components/form-field-tab-list-number'));
 const FormFieldText = lazy(() => import('~/base/components/form-field-text'));
 
 function SubscribeButton({ label, isPending }: { label: string; isPending: boolean }) {
@@ -43,6 +47,10 @@ export const { useAppForm, withForm, withFieldGroup } = createFormHook({
     FormFieldDate,
     FormFieldDateTime,
     FormFieldHidden,
+    FormFieldNumber,
+    FormFieldTabListBoolean,
+    FormFieldPhoneNumber,
+    FormFieldTabListNumber,
     FormFieldText,
   },
   formComponents: {
