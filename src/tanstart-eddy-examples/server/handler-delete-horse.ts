@@ -4,12 +4,9 @@ import { db } from '~/lib/db';
 import { tableHorse } from '../db/table-horse';
 
 export async function handlerDeleteHorse({ request }: { request: Request }) {
-  console.info('Deleting horse... @', request.url);
-
   const organizationId = await getOrganizationId();
 
   const requestData = await request.json();
-  console.log('requestData:', requestData);
 
   if (!requestData.id) {
     throw new Error('ID is required for deletion');

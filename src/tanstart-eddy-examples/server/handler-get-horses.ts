@@ -4,9 +4,7 @@ import { db } from '~/lib/db';
 import { tableHorse } from '../db/table-horse';
 import { type HorseType } from '../schema/horse';
 
-export async function handlerGetHorses({ request }: { request: Request }) {
-  console.info('Fetching horses... @', request.url);
-
+export async function handlerGetHorses() {
   const organizationId = await getOrganizationId();
 
   const arrHorse: HorseType[] = await db

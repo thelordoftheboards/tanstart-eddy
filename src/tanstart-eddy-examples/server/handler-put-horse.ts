@@ -5,12 +5,9 @@ import { tableHorse } from '../db/table-horse';
 import { type HorseType, horseSchema } from '../schema/horse';
 
 export async function handlerPutHorse({ request }: { request: Request }) {
-  console.info('Updating horse... @', request.url);
-
   const organizationId = await getOrganizationId();
 
   const requestData = await request.json();
-  console.log('requestData:', requestData);
   const item: HorseType = horseSchema.parse(requestData);
 
   await db
