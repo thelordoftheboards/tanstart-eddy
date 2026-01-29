@@ -13,11 +13,7 @@ export async function handlerPutHorse({ request }: { request: Request }) {
   await db
     .update(tableHorse)
     .set({
-      name: item.name,
-      breed: item.breed,
-      birthYear: item.birthYear,
-      colorAndMarkings: item.colorAndMarkings,
-      stallNumber: item.stallNumber,
+      ...item,
     })
     .where(and(eq(tableHorse.id, item.id), eq(tableHorse.organizationId, organizationId)));
 

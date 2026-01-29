@@ -1,3 +1,4 @@
+import { IconInfoSquare } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from '@tanstack/react-router';
 import {
@@ -20,6 +21,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '~/components/ui/sidebar';
 import { authClient } from '~/lib/auth/auth-client';
 import { authQueryOptions } from '~/lib/auth/queries';
+import { ToggleAppearance } from './toggle-appearance';
 
 export function NavUser({
   userCanManageUsers,
@@ -99,6 +101,10 @@ export function NavUser({
 
             <DropdownMenuSeparator />
 
+            <ToggleAppearance />
+
+            <DropdownMenuSeparator />
+
             {userCanManageUsers && (
               <>
                 <DropdownMenuGroup>
@@ -145,6 +151,16 @@ export function NavUser({
                   Notifications
                 </DropdownMenuItem>
               */}
+            </DropdownMenuGroup>
+
+            <DropdownMenuSeparator />
+
+            <DropdownMenuGroup>
+              {/** biome-ignore lint/a11y/useAnchorContent: Allow */}
+              <DropdownMenuItem render={<a href={'/dashboard/account/about/'} />}>
+                <IconInfoSquare />
+                About
+              </DropdownMenuItem>
             </DropdownMenuGroup>
 
             <DropdownMenuSeparator />

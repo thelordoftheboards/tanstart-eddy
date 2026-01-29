@@ -41,12 +41,16 @@ export function PageExampleLayout5() {
             }
           >
             <MapMaptiler
+              height={dimensionsMapContainer.height}
               initialViewState={{
                 longitude: -84.491_326_5,
                 latitude: 39.088_012_3,
                 zoom: 13,
+                bearing: 0,
+                pitch: 0,
+                padding: { top: 0, bottom: 0, right: 0, left: 0 },
               }}
-              style={{ width: dimensionsMapContainer.width, height: dimensionsMapContainer.height }}
+              width={dimensionsMapContainer.width}
             />
           </div>
         </ResizablePanel>

@@ -9,7 +9,7 @@ export const phoneNumberSchema = z
   .refine((val) => isValidPhoneNumber(val, 'US'), {
     message: 'Invalid phone number',
   })
-  .transform((val) => parsePhoneNumber(val, 'US').number); // Normalizes to E.164 (e.g., +12125550123)
+  .transform((val) => parsePhoneNumber(val, 'US').number.toString()); // Normalizes to E.164 (e.g., +12125550123)
 
 export const optionalPhoneSchema = z.preprocess(
   // 1. Convert empty strings or undefined to null
@@ -24,7 +24,7 @@ export const optionalPhoneSchema = z.preprocess(
         .refine((val) => isValidPhoneNumber(val, 'US'), {
           message: 'Invalid USA phone number',
         })
-        .transform((val) => parsePhoneNumber(val, 'US').number), // Normalizes to E.164 (e.g., +12125550123)
+        .transform((val) => parsePhoneNumber(val, 'US').number.toString()), // Normalizes to E.164 (e.g., +12125550123)
     ])
     .describe('e.g., (111) 111-1111, or empty')
 );

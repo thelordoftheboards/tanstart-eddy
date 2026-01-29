@@ -12,7 +12,7 @@ export default function FormFieldTabListBoolean({
 }: {
   label: string;
   options: {
-    value: number;
+    value: boolean;
     text: string;
     icon?: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>>;
   }[];
@@ -27,7 +27,7 @@ export default function FormFieldTabListBoolean({
       <Tabs onValueChange={(value) => field.handleChange(value)} value={field.state.value}>
         <TabsList className="grid w-full grid-cols-2">
           {options.map((option) => (
-            <TabsTrigger className="gap-2" key={option.value} value={option.value}>
+            <TabsTrigger className="gap-2" key={option.value ? 1 : 0} value={option.value}>
               {option.icon && <option.icon className="h-4 w-4" />}
               {option.text}
             </TabsTrigger>
