@@ -30,6 +30,7 @@ import { Label } from '~/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 import type { AuthClient } from '~/lib/auth/auth-client';
 import { authClient } from '~/lib/auth/auth-client';
+import { getInitials } from '../client/get-initials';
 import { useSession } from '../hooks/auth-hooks';
 import {
   useCancelInvitation,
@@ -116,7 +117,7 @@ export function OrganizationCard(props: {
         <div className="flex items-center gap-2">
           <Avatar className="rounded-none">
             <AvatarImage className="h-full w-full rounded-none object-cover" src={optimisticOrg?.logo || ''} />
-            <AvatarFallback className="rounded-none">{optimisticOrg?.name?.charAt(0) || 'P'}</AvatarFallback>
+            <AvatarFallback className="rounded-none">{getInitials(optimisticOrg?.name)}</AvatarFallback>
           </Avatar>
           <div>
             <p>{optimisticOrg?.name || 'Personal'}</p>
@@ -134,7 +135,7 @@ export function OrganizationCard(props: {
                   <div className="flex items-center gap-2">
                     <Avatar className="h-9 w-9 sm:flex">
                       <AvatarImage className="object-cover" src={member.user.image || ''} />
-                      <AvatarFallback>{member.user.name?.charAt(0)}</AvatarFallback>
+                      <AvatarFallback>{getInitials(member.user.name)}</AvatarFallback>
                     </Avatar>
                     <div>
                       <p className="text-sm">{member.user.name}</p>
@@ -164,7 +165,7 @@ export function OrganizationCard(props: {
                   <div className="flex items-center gap-2">
                     <Avatar>
                       <AvatarImage src={session?.user.image || ''} />
-                      <AvatarFallback>{session?.user.name?.charAt(0)}</AvatarFallback>
+                      <AvatarFallback>{getInitials(session?.user.name)}</AvatarFallback>
                     </Avatar>
                     <div>
                       <p className="text-sm">{session?.user.name}</p>

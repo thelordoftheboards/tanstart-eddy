@@ -4,9 +4,9 @@ import {
   NavHeadlessFloatingTrigger,
 } from '~/base-nav-and-auth/components/layout-elements';
 import { Separator } from '~/components/ui/separator';
+import CardUser from '../components/card-user';
+import { OrganizationCard } from '../components/organization-card';
 import { useSessions } from '../hooks/user-hooks';
-import CardUser from './card-user';
-import { OrganizationCard } from './organization-card';
 
 export function PageAccount() {
   const { data, isLoading, error } = useSessions();

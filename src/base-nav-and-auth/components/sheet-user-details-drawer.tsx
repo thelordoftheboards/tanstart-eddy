@@ -30,6 +30,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~
 import { Separator } from '~/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import { Textarea } from '~/components/ui/textarea';
+import { getInitials } from '../client/get-initials';
 import {
   useBanUser,
   useResetUserPassword,
@@ -475,12 +476,7 @@ export function SheetUserDetailsDrawer({ user, open, onOpenChange, currentUserRo
                     <CardTitle className="flex items-center gap-3">
                       <Avatar className="h-12 w-12">
                         <AvatarImage alt={user.name} src={user.image} />
-                        <AvatarFallback>
-                          {user.name
-                            .split(' ')
-                            .map((n) => n[0])
-                            .join('')}
-                        </AvatarFallback>
+                        <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                       </Avatar>
                       <div>
                         <h3 className="font-semibold text-lg">{user.name}</h3>

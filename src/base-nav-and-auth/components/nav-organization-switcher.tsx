@@ -1,5 +1,5 @@
 import { ChevronsUpDown } from 'lucide-react';
-import React from 'react';
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,18 +10,17 @@ import {
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from '~/components/ui/sidebar';
+import { authClient } from '~/lib/auth/auth-client';
+import { getInitials } from '../client/get-initials';
+import { useOrganizations, useSetActiveOrganization } from '../hooks/organization-hooks';
 
-export function NavOrganizationSwitcher({
-  organizations,
-}: {
-  organizations: {
-    name: string;
-    logo: React.ElementType;
-    plan: string;
-  }[];
-}) {
+export function NavOrganizationSwitcher() {
+  const { data: session } = authClient.useSession();
+  const { data: organizations } = useOrganizations();
+  const setActiveOrganization = useSetActiveOrganization();
+
   const { isMobile } = useSidebar();
-  const [activeOrganization, setActiveOrganization] = React.useState(organizations[0]);
+  const activeOrganization = organizations?.filter((org) => org.id === session?.session.activeOrganizationId)[0];
 
   return (
     <SidebarMenu>
@@ -37,11 +36,9 @@ export function NavOrganizationSwitcher({
           >
             {!activeOrganization && (
               <>
-                {/*
-                  <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                    <activeOrganization.logo className="size-4" />
-                  </div>
-                */}
+                <Avatar className="h-8 w-8 rounded-lg">
+                  <AvatarFallback className="rounded-lg">??</AvatarFallback>
+                </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">No organization</span>
                 </div>
@@ -50,12 +47,14 @@ export function NavOrganizationSwitcher({
             )}
             {activeOrganization && (
               <>
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <activeOrganization.logo className="size-4" />
-                </div>
+                <Avatar className="h-8 w-8 rounded-lg">
+                  {activeOrganization.logo && (
+                    <AvatarImage alt={activeOrganization.name} src={activeOrganization.logo} />
+                  )}
+                  <AvatarFallback className="rounded-lg">{getInitials(activeOrganization.name)}</AvatarFallback>
+                </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{activeOrganization.name}</span>
-                  <span className="truncate text-xs">{activeOrganization.plan}</span>
                 </div>
                 <ChevronsUpDown className="ml-auto" />
               </>
@@ -69,15 +68,20 @@ export function NavOrganizationSwitcher({
           >
             <DropdownMenuGroup>
               <DropdownMenuLabel className="text-muted-foreground text-xs">Organizations</DropdownMenuLabel>
-              {organizations.map((organization, index) => (
+              {organizations?.map((organization, index) => (
                 <DropdownMenuItem
                   className="gap-2 p-2"
                   key={organization.name}
-                  onClick={() => setActiveOrganization(organization)}
+                  onClick={() => {
+                    setActiveOrganization.mutate({
+                      organizationId: organization.id,
+                    });
+                  }}
                 >
-                  <div className="flex size-6 items-center justify-center rounded-md border">
-                    <organization.logo className="size-3.5 shrink-0" />
-                  </div>
+                  <Avatar className="h-8 w-8 rounded-lg">
+                    {organization.logo && <AvatarImage alt={organization.name} src={organization.logo} />}
+                    <AvatarFallback className="rounded-lg">{getInitials(organization.name)}</AvatarFallback>
+                  </Avatar>
                   {organization.name}
                   <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
                 </DropdownMenuItem>

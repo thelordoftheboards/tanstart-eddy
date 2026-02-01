@@ -54,6 +54,8 @@ import { Label } from '~/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~/components/ui/table';
 import { authClient } from '~/lib/auth/auth-client';
+import { getInitials } from '../client/get-initials';
+import { SheetUserDetailsDrawer } from '../components/sheet-user-details-drawer';
 import {
   useBanUser,
   useCreateUser,
@@ -64,7 +66,6 @@ import {
   useUnbanUser,
   useUsers,
 } from '../hooks/user-hooks';
-import { SheetUserDetailsDrawer } from './sheet-user-details-drawer';
 
 interface User {
   id: string;
@@ -474,12 +475,7 @@ export function PageAdminUsers() {
                         <div className="flex items-center gap-3">
                           <Avatar className="h-8 w-8">
                             <AvatarImage alt={user.name} src={user.image} />
-                            <AvatarFallback>
-                              {user.name
-                                .split(' ')
-                                .map((n) => n[0])
-                                .join('')}
-                            </AvatarFallback>
+                            <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
                           </Avatar>
                           <div>
                             <div className="font-medium">{user.name}</div>

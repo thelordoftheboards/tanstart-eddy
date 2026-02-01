@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '~/components/ui/card';
 import { type AuthClient, authClient } from '~/lib/auth/auth-client';
+import { getInitials } from '../client/get-initials';
 import { useAuthHelpers, useLogout } from '../hooks/auth-hooks';
 import { DialogChangePassword } from './dialog-change-password';
 
@@ -205,7 +206,7 @@ export default function CardUser(props: { activeSessions: AuthClient['$Infer']['
           <div className="flex items-center gap-4">
             <Avatar className="hidden h-9 w-9 sm:flex">
               <AvatarImage alt="Avatar" className="object-cover" src={session?.user.image || '#'} />
-              <AvatarFallback>{session?.user.name.charAt(0)}</AvatarFallback>
+              <AvatarFallback>{getInitials(session?.user.name)}</AvatarFallback>
             </Avatar>
             <div className="grid gap-1">
               <p className="font-medium text-sm leading-none">{session?.user.name}</p>
