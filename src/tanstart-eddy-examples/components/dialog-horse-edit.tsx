@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Dialog, DialogTrigger } from '~/base/components/ui/dialog';
+import { Dialog, DialogTrigger } from '~/base-user-interface/components/ui/dialog';
 import { Button } from '~/components/ui/button';
 import { type HorseType } from '../schema/horse';
 import { DialogContentHorseEdit } from './dialog-content-horse-edit';

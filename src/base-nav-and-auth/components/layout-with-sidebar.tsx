@@ -22,6 +22,7 @@ export function LayoutWithSidebar({ children }: { children: ReactNode }) {
   return (
     <SidebarProvider
       style={{
+        // @ts-expect-error will be used in inset
         '--sidebar-width': '16rem',
         '--sidebar-width-mobile': '16rem',
       }}

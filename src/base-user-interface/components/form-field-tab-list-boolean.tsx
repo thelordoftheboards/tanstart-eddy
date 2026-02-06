@@ -1,5 +1,5 @@
 import { type IconProps } from '@tabler/icons-react';
-import FormFieldInfo from '~/base/components/form-field-info';
+import FormFieldInfo from '~/base-user-interface/components/form-field-info';
 import { Label } from '~/components/ui/label';
 import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
 import { cn } from '~/lib/utils';

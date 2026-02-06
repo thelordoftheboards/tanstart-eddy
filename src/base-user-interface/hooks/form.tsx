@@ -4,23 +4,24 @@ import { lazy } from 'react';
 import { Button } from '~/components/ui/button';
 import { fieldContext, formContext, useFormContext } from './form-context';
 
-const FormFieldCheckbox = lazy(() => import('~/base/components/form-field-checkbox'));
-const FormFieldDate = lazy(() => import('~/base/components/form-field-date'));
-const FormFieldDateTime = lazy(() => import('~/base/components/form-field-date-time'));
-const FormFieldHidden = lazy(() => import('~/base/components/form-field-hidden'));
-const FormFieldIsoDate = lazy(() => import('~/base/components/form-field-iso-date'));
-const FormFieldIsoDateTime = lazy(() => import('~/base/components/form-field-iso-date-time'));
-const FormFieldNumber = lazy(() => import('~/base/components/form-field-number'));
-const FormFieldPhoneNumber = lazy(() => import('~/base/components/form-field-phone-number'));
-const FormFieldTabListBoolean = lazy(() => import('~/base/components/form-field-tab-list-boolean'));
-const FormFieldTabListNumber = lazy(() => import('~/base/components/form-field-tab-list-number'));
-const FormFieldText = lazy(() => import('~/base/components/form-field-text'));
+const FormFieldCheckbox = lazy(() => import('~/base-user-interface/components/form-field-checkbox'));
+const FormFieldDate = lazy(() => import('~/base-user-interface/components/form-field-date'));
+const FormFieldDateTime = lazy(() => import('~/base-user-interface/components/form-field-date-time'));
+const FormFieldHidden = lazy(() => import('~/base-user-interface/components/form-field-hidden'));
+const FormFieldIsoDate = lazy(() => import('~/base-user-interface/components/form-field-iso-date'));
+const FormFieldIsoDateTime = lazy(() => import('~/base-user-interface/components/form-field-iso-date-time'));
+const FormFieldNumber = lazy(() => import('~/base-user-interface/components/form-field-number'));
+const FormFieldPhoneNumber = lazy(() => import('~/base-user-interface/components/form-field-phone-number'));
+const FormFieldTabListBoolean = lazy(() => import('~/base-user-interface/components/form-field-tab-list-boolean'));
+const FormFieldTabListNumber = lazy(() => import('~/base-user-interface/components/form-field-tab-list-number'));
+const FormFieldText = lazy(() => import('~/base-user-interface/components/form-field-text'));
 
 function SubscribeButton({ label, isPending }: { label: string; isPending: boolean }) {
   const form = useFormContext();
 
   return (
     <form.Subscribe
+      // @ts-expect-error Tanstack Form type issue
       children={([canSubmit, isSubmitting]) => (
         <Button
           disabled={!canSubmit || isSubmitting || isPending}
@@ -32,6 +33,7 @@ function SubscribeButton({ label, isPending }: { label: string; isPending: boole
           {isPending || isSubmitting ? <Loader2 className="animate-spin" size={16} /> : label}
         </Button>
       )}
+      // @ts-expect-error Tanstack Form type issue
       selector={(state) => [state.canSubmit, state.isSubmitting]}
     />
   );

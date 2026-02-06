@@ -1,4 +1,4 @@
-import { isValidPhoneNumber, parsePhoneNumber } from 'libphonenumber-js';
+import { isValidPhoneNumber, parsePhoneNumberWithError } from 'libphonenumber-js';
 import { z } from 'zod';
 
 // TODO // Add support for parsePhoneNumberWithError instead of parsePhoneNumber
@@ -9,7 +9,7 @@ export const phoneNumberSchema = z
   .refine((val) => isValidPhoneNumber(val, 'US'), {
     message: 'Invalid phone number',
   })
-  .transform((val) => parsePhoneNumber(val, 'US').number.toString()); // Normalizes to E.164 (e.g., +12125550123)
+  .transform((val) => parsePhoneNumberWithError(val, 'US').number.toString()); // Normalizes to E.164 (e.g., +12125550123)
 
 export const optionalPhoneSchema = z.preprocess(
   // 1. Convert empty strings or undefined to null
@@ -24,7 +24,9 @@ export const optionalPhoneSchema = z.preprocess(
         .refine((val) => isValidPhoneNumber(val, 'US'), {
           message: 'Invalid USA phone number',
         })
-        .transform((val) => parsePhoneNumber(val, 'US').number.toString()), // Normalizes to E.164 (e.g., +12125550123)
+        .transform((val) => parsePhoneNumberWithError(val, 'US').number.toString()), // Normalizes to E.164 (e.g., +12125550123)
     ])
     .describe('e.g., (111) 111-1111, or empty')
 );
+
+export type PhoneNumberType = z.infer<typeof phoneNumberSchema>;

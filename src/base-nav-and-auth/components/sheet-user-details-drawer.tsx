@@ -11,8 +11,6 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '~/base/components/ui/dialog';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '~/base/components/ui/sheet';
 import {
   canBanUsers,
   canImpersonateUsers,
@@ -20,6 +18,20 @@ import {
   getAssignableRoles,
   type UserRole,
 } from '~/base-nav-and-auth-config/lib/auth/permissions';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '~/base-user-interface/components/ui/dialog';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from '~/base-user-interface/components/ui/sheet';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
@@ -190,6 +202,7 @@ function ChangeRoleDialog({
         <div className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="role">New Role</Label>
+            {/* @ts-expect-error The values passed in below should never be null */}
             <Select onValueChange={setSelectedRole} value={selectedRole}>
               <SelectTrigger>
                 <SelectValue />

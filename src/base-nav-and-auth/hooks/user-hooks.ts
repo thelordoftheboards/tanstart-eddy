@@ -58,10 +58,10 @@ export const useSessions = () => {
   });
 };
 
-export const usePasskeys = () => {
-  const passkeys = authClient.useListPasskeys();
-  return passkeys;
-};
+// export const usePasskeys = () => {
+//   const passkeys = authClient.useListPasskeys();
+//   return passkeys;
+// };
 
 export const useCreateUser = () => {
   const queryClient = useQueryClient();

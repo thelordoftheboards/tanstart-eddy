@@ -1,10 +1,10 @@
-import FormFieldInfo from '~/base/components/form-field-info';
+import FormFieldInfo from '~/base-user-interface/components/form-field-info';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { cn } from '~/lib/utils';
 import { useFieldContext } from '../hooks/form-context';
 
-export default function FormFieldNumber({
+export default function FormFieldText({
   label,
   className,
   placeholder,
@@ -15,7 +15,7 @@ export default function FormFieldNumber({
   placeholder?: string;
   type?: string;
 }) {
-  const field = useFieldContext<number>();
+  const field = useFieldContext<string>();
 
   return (
     <div className={cn(className, 'my-2')}>
@@ -26,7 +26,7 @@ export default function FormFieldNumber({
         id={field.name}
         name={field.name}
         onBlur={field.handleBlur}
-        onChange={(e) => field.handleChange(Number.parseInt(e.target.value, 10))}
+        onChange={(e) => field.handleChange(e.target.value)}
         placeholder={placeholder}
         type={type}
         value={field.state.value}

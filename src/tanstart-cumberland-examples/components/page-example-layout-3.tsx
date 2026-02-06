@@ -1,6 +1,6 @@
 import React from 'react';
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '~/base/components/ui/resizable';
 import { NavHeadlessFloatingTrigger } from '~/base-nav-and-auth/components/layout-elements';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '~/base-user-interface/components/ui/resizable';
 import { cn } from '~/lib/utils';
 import { arrLoremIpsum } from '../utils/lorem-ipsum';
 import { ToggleOrientation } from './toggle-orientation';

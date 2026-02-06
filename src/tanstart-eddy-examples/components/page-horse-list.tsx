@@ -1,9 +1,9 @@
 import { IconDotsVertical } from '@tabler/icons-react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Table } from '~/base/components/table';
-import { sortArrayBySortField, TableSortableHeader } from '~/base/components/table-sortable-header';
 import { InsetContainerWithFloatingTriggerAndTitle } from '~/base-nav-and-auth/components/layout-elements';
+import { Table } from '~/base-user-interface/components/table';
+import { sortArrayBySortField, TableSortableHeader } from '~/base-user-interface/components/table-sortable-header';
 import { Button } from '~/components/ui/button';
 import { TableBody, TableCell, TableHeader, TableRow } from '~/components/ui/table';
 import { queryOptionsHorses } from '../client/query-options-horses';

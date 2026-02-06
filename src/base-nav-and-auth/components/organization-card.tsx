@@ -3,8 +3,8 @@ import { ChevronDownIcon, Loader2, MailPlus, PlusIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import z from 'zod';
-import CopyToClipboardButton from '~/base/components/copy-to-clipboard-button';
-import { FormField } from '~/base/components/form-field';
+import CopyToClipboardButton from '~/base-user-interface/components/copy-to-clipboard-button';
+import { FormField } from '~/base-user-interface/components/form-field';
 import {
   Dialog,
   DialogClose,
@@ -14,8 +14,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '~/base/components/ui/dialog';
-import { useAppForm } from '~/base/hooks/form';
+} from '~/base-user-interface/components/ui/dialog';
+import { useAppForm } from '~/base-user-interface/hooks/form';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '~/components/ui/card';
@@ -54,6 +54,8 @@ export function OrganizationCard(props: {
   const removeMember = useRemoveMember();
   const cancelInvitation = useCancelInvitation();
 
+  // TODO // Review if the type issue indicates the need for additional checks
+  // @ts-expect-error
   const optimisticOrg = props.activeOrganization as typeof setActiveOrganization.data.data;
 
   const [isRevoking, setIsRevoking] = useState<string[]>([]);
@@ -431,6 +433,7 @@ function CreateOrganizationDialog() {
 
         <DialogFooter>
           <form.Subscribe
+            // @ts-expect-error Tanstack Form type issue
             children={([canSubmit, isSubmitting]) => (
               <Button
                 disabled={!canSubmit || isSubmitting || createOrganization.isPending}
@@ -446,6 +449,7 @@ function CreateOrganizationDialog() {
                 )}
               </Button>
             )}
+            // @ts-expect-error Tanstack Form type issue
             selector={(state) => [state.canSubmit, state.isSubmitting]}
           />
         </DialogFooter>
@@ -455,10 +459,8 @@ function CreateOrganizationDialog() {
 }
 
 const inviteMemberSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
-  role: z.enum(['admin', 'member'], {
-    required_error: 'Please select a role',
-  }),
+  email: z.email('Please enter a valid email address'),
+  role: z.enum(['admin', 'member'], 'Please select a role'),
 });
 
 function InviteMemberDialog() {
@@ -549,6 +551,7 @@ function InviteMemberDialog() {
         </form>
         <DialogFooter>
           <form.Subscribe
+            // @ts-expect-error Tanstack Form type issue
             children={([canSubmit, isSubmitting]) => (
               <DialogClose
                 render={
@@ -564,6 +567,7 @@ function InviteMemberDialog() {
                 {inviteMember.isPending || isSubmitting ? <Loader2 className="animate-spin" size={16} /> : 'Invite'}
               </DialogClose>
             )}
+            // @ts-expect-error Tanstack Form type issue
             selector={(state) => [state.canSubmit, state.isSubmitting]}
           />
         </DialogFooter>

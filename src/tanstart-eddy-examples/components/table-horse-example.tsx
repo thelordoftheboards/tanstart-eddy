@@ -1,8 +1,8 @@
 import { IconDotsVertical } from '@tabler/icons-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { Table } from '~/base/components/table';
-import { sortArrayBySortField, TableSortableHeader } from '~/base/components/table-sortable-header';
+import { Table } from '~/base-user-interface/components/table';
+import { sortArrayBySortField, TableSortableHeader } from '~/base-user-interface/components/table-sortable-header';
 import { Button } from '~/components/ui/button';
 import { TableBody, TableCell, TableHeader, TableRow } from '~/components/ui/table';
 

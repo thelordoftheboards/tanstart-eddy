@@ -1,8 +1,8 @@
 import { useRouter } from '@tanstack/react-router';
 import { toast } from 'sonner';
 import z from 'zod';
-import { FormFieldPassword } from '~/base/components/form-field-password';
-import { useAppForm } from '~/base/hooks/form';
+import { FormFieldPassword } from '~/base-user-interface/components/form-field-password';
+import { useAppForm } from '~/base-user-interface/hooks/form';
 import { Button } from '~/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 import { authClient } from '~/lib/auth/auth-client';
@@ -87,11 +87,13 @@ export default function ResetPasswordForm() {
               </div>
             </div>
             <form.Subscribe
+              // @ts-expect-error Tanstack Form type issue
               children={([canSubmit, isSubmitting]) => (
                 <Button className="mt-4 w-full" disabled={!canSubmit || isSubmitting} type="submit">
                   {isSubmitting ? 'Resetting' : 'Reset password'}
                 </Button>
               )}
+              // @ts-expect-error Tanstack Form type issue
               selector={(state) => [state.canSubmit, state.isSubmitting]}
             />
           </form>

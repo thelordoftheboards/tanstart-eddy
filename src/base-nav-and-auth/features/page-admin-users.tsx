@@ -18,14 +18,6 @@ import {
   UserX as IconUserX,
 } from 'lucide-react';
 import { useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '~/base/components/ui/dialog';
 import { InsetContainerWithFloatingTriggerAndTitle } from '~/base-nav-and-auth/components/layout-elements';
 import {
   canBanUsers,
@@ -36,6 +28,14 @@ import {
   canSetUserRoles,
   type UserRole,
 } from '~/base-nav-and-auth-config/lib/auth/permissions';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '~/base-user-interface/components/ui/dialog';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import { Badge } from '~/components/ui/badge';
 import { Button } from '~/components/ui/button';
@@ -136,7 +136,12 @@ function getRoleBadge(role: string) {
 
 function CreateUserDialog() {
   const [open, setOpen] = useState(false);
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<{
+    name: string;
+    email: string;
+    password: string;
+    role: UserRole;
+  }>({
     name: '',
     email: '',
     password: '',
@@ -145,7 +150,7 @@ function CreateUserDialog() {
 
   const { mutate: createUser, isPending } = useCreateUser();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.SubmitEvent) => {
     e.preventDefault();
     createUser(formData, {
       onSuccess: () => {
@@ -198,6 +203,7 @@ function CreateUserDialog() {
           </div>
           <div className="space-y-2">
             <Label htmlFor="role">Role</Label>
+            {/* @ts-expect-error value will never be null */}
             <Select onValueChange={(value) => setFormData({ ...formData, role: value })} value={formData.role}>
               <SelectTrigger>
                 <SelectValue />
@@ -261,7 +267,7 @@ export function PageAdminUsers() {
       email: user.email,
       role: user.role || 'user',
       emailVerified: user.emailVerified,
-      banned: user.banned,
+      banned: user.banned ?? true,
       createdAt: user.createdAt ? new Date(user.createdAt) : new Date(),
       image: user.image || undefined,
     })) || [];
@@ -405,7 +411,7 @@ export function PageAdminUsers() {
                 <div className="relative">
                   <IconSearch className="absolute top-2.5 left-2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    className="w-[300px] pl-8"
+                    className="w-75 pl-8"
                     onChange={(e) => setSearchTerm(e.target.value)}
                     placeholder="Search users..."
                     value={searchTerm}
@@ -413,8 +419,9 @@ export function PageAdminUsers() {
                 </div>
 
                 {/* Status Filter */}
+                {/* @ts-expect-error Value will never be null */}
                 <Select onValueChange={setStatusFilter} value={statusFilter}>
-                  <SelectTrigger className="w-[130px]">
+                  <SelectTrigger className="w-32.5">
                     <IconFilter className="mr-2 h-4 w-4" />
                     <SelectValue placeholder="Status" />
                   </SelectTrigger>
@@ -427,8 +434,9 @@ export function PageAdminUsers() {
                 </Select>
 
                 {/* Role Filter */}
+                {/* @ts-expect-error Value will never be null */}
                 <Select onValueChange={setRoleFilter} value={roleFilter}>
-                  <SelectTrigger className="w-[120px]">
+                  <SelectTrigger className="w-30">
                     <SelectValue placeholder="Role" />
                   </SelectTrigger>
                   <SelectContent>
@@ -449,7 +457,7 @@ export function PageAdminUsers() {
                   <TableHead>Status</TableHead>
                   <TableHead>Role</TableHead>
                   <TableHead>Created</TableHead>
-                  <TableHead className="w-[70px]">Actions</TableHead>
+                  <TableHead className="w-17.5">Actions</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>

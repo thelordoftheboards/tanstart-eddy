@@ -1,11 +1,10 @@
-import { AsYouType } from 'libphonenumber-js';
-import FormFieldInfo from '~/base/components/form-field-info';
+import FormFieldInfo from '~/base-user-interface/components/form-field-info';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { cn } from '~/lib/utils';
 import { useFieldContext } from '../hooks/form-context';
 
-export default function FormFieldPhoneNumber({
+export default function FormFieldNumber({
   label,
   className,
   placeholder,
@@ -16,17 +15,7 @@ export default function FormFieldPhoneNumber({
   placeholder?: string;
   type?: string;
 }) {
-  const field = useFieldContext<string>();
-
-  const handleChange = (event) => {
-    const input = event.target.value;
-
-    const formatted = new AsYouType('US').input(input);
-
-    field.handleChange(formatted);
-  };
-
-  // field.handleChange(e.target.value)
+  const field = useFieldContext<number>();
 
   return (
     <div className={cn(className, 'my-2')}>
@@ -37,7 +26,7 @@ export default function FormFieldPhoneNumber({
         id={field.name}
         name={field.name}
         onBlur={field.handleBlur}
-        onChange={handleChange}
+        onChange={(e) => field.handleChange(Number.parseInt(e.target.value, 10))}
         placeholder={placeholder}
         type={type}
         value={field.state.value}

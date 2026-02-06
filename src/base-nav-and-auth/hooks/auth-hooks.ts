@@ -41,21 +41,21 @@ export const useLogin = () => {
     },
   });
 
-  const loginWithPasskey = useMutation({
-    mutationFn: async () => {
-      const result = await authClient.signIn.passkey();
-      if (result?.error) {
-        throw new Error(result.error.message || 'Passkey authentication failed');
-      }
-      return result;
-    },
-    onSuccess: () => {
-      router.navigate({ to: '/dashboard' });
-    },
-    onError(error: any) {
-      console.error('Passkey login error:', error);
-    },
-  });
+  // const loginWithPasskey = useMutation({
+  //   mutationFn: async () => {
+  //     const result = await authClient.signIn.passkey();
+  //     if (result?.error) {
+  //       throw new Error(result.error.message || 'Passkey authentication failed');
+  //     }
+  //     return result;
+  //   },
+  //   onSuccess: () => {
+  //     router.navigate({ to: '/dashboard' });
+  //   },
+  //   onError(error: any) {
+  //     console.error('Passkey login error:', error);
+  //   },
+  // });
 
   const loginWithSocial = useMutation({
     mutationFn: async ({ provider, callbackURL }: { provider: SocialProvider; callbackURL: string }) => {
@@ -77,7 +77,7 @@ export const useLogin = () => {
 
   return {
     loginWithCredentials,
-    loginWithPasskey,
+    //loginWithPasskey,
     loginWithSocial,
   };
 };
@@ -119,8 +119,11 @@ export const useRegister = ({
 
 export const useAuthHelpers = () => {
   const forgotPassword = useMutation({
-    mutationFn: async ({ email }: { email: string }) =>
-      await authClient.forgetPassword({ email, redirectTo: '/reset-password' }),
+    // biome-ignore lint/correctness/noUnusedFunctionParameters: TODO - Implement forgot password
+    mutationFn: async ({ email }: { email: string }) => {
+      // TODO // Implement forgot password
+      //await authClient.forgetPassword({ email, redirectTo: '/reset-password' });
+    },
   });
 
   const resetPassword = useMutation({

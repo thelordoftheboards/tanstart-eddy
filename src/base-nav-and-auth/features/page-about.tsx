@@ -16,8 +16,13 @@ function Versions() {
         <div className="flex flex-col gap-8 md:flex-row">
           <div className="flex grow flex-col gap-2">
             <p className="border-b-2 border-b-foreground/10 font-medium">Client Version</p>
-            {/** biome-ignore lint/correctness/noUndeclaredVariables: Defined in vite.config.ts */}
-            <div className="flex flex-col gap-2">{APP_VERSION}</div>
+            <div className="flex flex-col gap-2">
+              {
+                // @ts-expect-error Declared in vite.config.ts
+                // biome-ignore lint/correctness/noUndeclaredVariables: Declared in vite.config.ts
+                __APP_VERSION__
+              }
+            </div>
           </div>
           <div className="flex grow flex-col gap-2">
             <p className="border-b-2 border-b-foreground/10 font-medium">Server Version</p>

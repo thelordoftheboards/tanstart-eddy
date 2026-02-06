@@ -1,7 +1,7 @@
 import { Popover as BaseUiPopover } from '@base-ui/react/popover';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
-import FormFieldInfo from '~/base/components/form-field-info';
+import FormFieldInfo from '~/base-user-interface/components/form-field-info';
 import { Button } from '~/components/ui/button';
 import { Calendar } from '~/components/ui/calendar';
 import { Label } from '~/components/ui/label';

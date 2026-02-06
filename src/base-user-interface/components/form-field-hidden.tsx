@@ -8,7 +8,7 @@ export default function FormFieldHidden({ label }: { label: string }) {
 
   return (
     <>
-      <input type="hidden" value={JSON.stringify(field.state.value)} {...field.props} />
+      <input type="hidden" value={JSON.stringify(field.state.value)} />
 
       {errors.map((error: string) => (
         <>

@@ -1,4 +1,4 @@
-import FormFieldInfo from '~/base/components/form-field-info';
+import FormFieldInfo from '~/base-user-interface/components/form-field-info';
 import { Checkbox } from '~/components/ui/checkbox';
 import { Label } from '~/components/ui/label';
 import { useFieldContext } from '../hooks/form-context';

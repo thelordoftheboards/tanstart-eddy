@@ -9,7 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '~/base/components/ui/alert-dialog';
+} from '~/base-user-interface/components/ui/alert-dialog';
 import { Button } from '~/components/ui/button';
 
 export function AlertDialogDelete({ handleDelete }: { handleDelete: () => void }) {

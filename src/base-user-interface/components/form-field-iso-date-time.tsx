@@ -2,7 +2,7 @@ import { Popover as BaseUiPopover } from '@base-ui/react/popover';
 import { IconX } from '@tabler/icons-react';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Clock as ClockIcon } from 'lucide-react';
-import FormFieldInfo from '~/base/components/form-field-info';
+import FormFieldInfo from '~/base-user-interface/components/form-field-info';
 import { Button } from '~/components/ui/button';
 import { Calendar } from '~/components/ui/calendar';
 import { Label } from '~/components/ui/label';
@@ -36,6 +36,8 @@ export default function FormFieldIsoDateTime({
       }
     }
   };
+
+  const amPmOptions: ('AM' | 'PM')[] = ['AM', 'PM'];
 
   const handleAmPmChange = (amPmNew: 'AM' | 'PM') => {
     const dtNew = new Date(value ?? Date.now());
@@ -188,7 +190,7 @@ export default function FormFieldIsoDateTime({
 
               {/* Row for AM/PM */}
               <div className="flex p-2">
-                {['AM', 'PM'].map((amPm) => (
+                {amPmOptions.map((amPm) => (
                   <Button
                     className="aspect-square shrink-0"
                     key={amPm}

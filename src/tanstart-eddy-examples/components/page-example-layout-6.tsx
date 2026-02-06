@@ -1,6 +1,6 @@
 import React from 'react';
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '~/base/components/ui/resizable';
 import { NavHeadlessFloatingTrigger } from '~/base-nav-and-auth/components/layout-elements';
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '~/base-user-interface/components/ui/resizable';
 import { useElementDimensions } from '~/hooks/use-element-dimensions';
 import { cn } from '~/lib/utils';
 import { MapMaptiler } from '~/map-maptiler/components/map-maptiler';

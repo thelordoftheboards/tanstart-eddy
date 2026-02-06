@@ -1,8 +1,8 @@
 import { toast } from 'sonner';
-import { AlertDialogDelete } from '~/base/components/alert-dialog-delete';
-import { DialogContent, DialogFooter, DialogHeader, DialogTitle } from '~/base/components/ui/dialog';
-import { useAppForm } from '~/base/hooks/form';
-import { useScrollInsideDialog } from '~/base/hooks/use-scroll-inside-dialog';
+import { AlertDialogDelete } from '~/base-user-interface/components/alert-dialog-delete';
+import { DialogContent, DialogFooter, DialogHeader, DialogTitle } from '~/base-user-interface/components/ui/dialog';
+import { useAppForm } from '~/base-user-interface/hooks/form';
+import { useScrollInsideDialog } from '~/base-user-interface/hooks/use-scroll-inside-dialog';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
@@ -140,6 +140,7 @@ export function DialogContentHorseEdit({
         {isEditing && <AlertDialogDelete handleDelete={handleDelete} />}
 
         <form.Subscribe
+          // @ts-expect-error Tanstack Form type issue
           children={([canSubmit, isSubmitting]) => (
             <Button
               disabled={!canSubmit || isSubmitting}
@@ -151,6 +152,7 @@ export function DialogContentHorseEdit({
               {horse ? 'Update' : 'Add'}
             </Button>
           )}
+          // @ts-expect-error Tanstack Form type issue
           selector={(state) => [state.canSubmit, state.isSubmitting]}
         />
 

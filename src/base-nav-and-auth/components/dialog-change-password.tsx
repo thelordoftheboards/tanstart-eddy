@@ -2,7 +2,7 @@ import { Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import z from 'zod';
-import { FormFieldPassword } from '~/base/components/form-field-password';
+import { FormFieldPassword } from '~/base-user-interface/components/form-field-password';
 import {
   Dialog,
   DialogContent,
@@ -11,8 +11,8 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '~/base/components/ui/dialog';
-import { useAppForm } from '~/base/hooks/form';
+} from '~/base-user-interface/components/ui/dialog';
+import { useAppForm } from '~/base-user-interface/hooks/form';
 import { Button } from '~/components/ui/button';
 import { Checkbox } from '~/components/ui/checkbox';
 import { authClient } from '~/lib/auth/auth-client';
@@ -40,8 +40,8 @@ export function DialogChangePassword() {
       signOutDevices: false,
     },
     validators: {
+      // @ts-expect-error There should be a way to specify the schema. If function is used the field errors do not always show properly.
       onChange: changePasswordSchema,
-
       // onChange: ({ value }) => {
       //   const result = changePasswordSchema.safeParse(value);
       //   if (!result.success) {
@@ -119,6 +119,7 @@ export function DialogChangePassword() {
         </div>
         <DialogFooter>
           <form.Subscribe
+            // @ts-expect-error Tanstack Form type issue
             children={([canSubmit, isSubmitting]) => (
               <Button
                 disabled={!canSubmit || isSubmitting}
@@ -130,6 +131,7 @@ export function DialogChangePassword() {
                 {isSubmitting ? <Loader2 className="animate-spin" size={15} /> : 'Change password'}
               </Button>
             )}
+            // @ts-expect-error Tanstack Form type issue
             selector={(state) => [state.canSubmit, state.isSubmitting]}
           />
         </DialogFooter>
