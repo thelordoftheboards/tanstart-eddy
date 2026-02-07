@@ -335,7 +335,7 @@ function CreateOrganizationDialog() {
       const generatedSlug = form.state.values.name.trim().toLowerCase().replace(/\s+/g, '-');
       form.setFieldValue('slug', generatedSlug);
     }
-  }, [form.state.values.name, form.setFieldValue, isSlugEdited]);
+  }, [form, form.state.values.name, form.setFieldValue, isSlugEdited]);
 
   const convertImageToBase64 = (file: File): Promise<string> =>
     new Promise((resolve, reject) => {

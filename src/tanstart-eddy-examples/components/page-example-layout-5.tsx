@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { type ViewState } from 'react-map-gl/maplibre';
 import { NavHeadlessFloatingTrigger } from '~/base-nav-and-auth/components/layout-elements';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '~/base-user-interface/components/ui/resizable';
 import { useElementDimensions } from '~/hooks/use-element-dimensions';
@@ -13,6 +14,15 @@ export function PageExampleLayout5() {
   const [direction, setDirection] = React.useState<'horizontal' | 'vertical'>('horizontal');
   const [position, setPosition] = React.useState<'top' | 'bottom'>('top');
   const [refMapContainer, dimensionsMapContainer] = useElementDimensions();
+
+  const [viewState, setViewState] = useState<ViewState>({
+    longitude: -84.491_326_5,
+    latitude: 39.088_012_3,
+    zoom: 13,
+    bearing: 0,
+    pitch: 0,
+    padding: { top: 0, bottom: 0, right: 0, left: 0 },
+  });
 
   return (
     <div className="flex flex-1 flex-col overflow-hidden">
@@ -42,14 +52,8 @@ export function PageExampleLayout5() {
           >
             <MapMaptiler
               height={dimensionsMapContainer.height}
-              initialViewState={{
-                longitude: -84.491_326_5,
-                latitude: 39.088_012_3,
-                zoom: 13,
-                bearing: 0,
-                pitch: 0,
-                padding: { top: 0, bottom: 0, right: 0, left: 0 },
-              }}
+              setViewState={setViewState}
+              viewState={viewState}
               width={dimensionsMapContainer.width}
             />
           </div>

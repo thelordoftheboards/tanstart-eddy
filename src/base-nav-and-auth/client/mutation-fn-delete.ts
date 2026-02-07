@@ -1,15 +1,22 @@
 import axios from 'redaxios';
 import { getBaseUrl } from '~/base/utils/get-base-url';
-import { OuterError } from '~/base/utils/outer-error';
+import {
+  checkResultAndThrowIfErrorIsSpecial,
+  processAxiosOrSpecialException,
+  validateStatus,
+} from '../../base/client/server-response-error-handling';
 
-export async function mutationFnDelete<R, V>(queryStringApi: string, data: V) {
+export async function mutationFnDelete<R, V>(queryStringApi: string, data: V): Promise<R> {
   const queryString = `${getBaseUrl()}${queryStringApi}${queryStringApi.includes('?') ? '&' : '?'}t=${Date.now()}`;
 
   try {
     const result = await axios.delete<R>(queryString, {
       data,
       withCredentials: true,
+      validateStatus,
     });
+
+    checkResultAndThrowIfErrorIsSpecial<R>(result);
 
     return result.data;
   } catch (err) {
@@ -19,6 +26,9 @@ export async function mutationFnDelete<R, V>(queryStringApi: string, data: V) {
     } catch {
       // Ignore
     }
-    throw new OuterError(`Failed to DELETE to [${queryString}] with [${dataAsStr}]`, err);
+
+    processAxiosOrSpecialException('DELETE', err, queryString, dataAsStr);
   }
+
+  throw new Error('placate ts');
 }

@@ -2,7 +2,7 @@ import { getRequest } from '@tanstack/react-start/server';
 import { UserReportableError } from '~/base/utils/user-reportable-error';
 import { auth } from '~/lib/auth/auth';
 
-export async function getOrganizationId(): Promise<string> {
+export async function getUserIdFromSession(): Promise<string> {
   const request = getRequest();
   if (!request?.headers) {
     throw new UserReportableError('USER-REPORTABLE-ERROR-user-must-logged-in', 'The user must have be logged in.');
@@ -12,13 +12,9 @@ export async function getOrganizationId(): Promise<string> {
     headers: request.headers,
   });
 
-  const organizationId = session?.session.activeOrganizationId;
-  if (!organizationId) {
-    throw new UserReportableError(
-      'USER-REPORTABLE-ERROR-user-must-have-organization',
-      'An organization must be selected. Either select one of the organizations you are part of or create a new one.'
-    );
+  if (!session) {
+    throw new UserReportableError('USER-REPORTABLE-ERROR-user-must-logged-in', 'The user must have be logged in.');
   }
 
-  return organizationId;
+  return session.user.id;
 }

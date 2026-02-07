@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { ChevronRight, type LucideIcon } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
 import React from 'react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import {
@@ -13,25 +13,19 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from '~/components/ui/sidebar';
+import { authClient } from '~/lib/auth/auth-client';
+import { MenuItemType } from '../schema/menu-item';
 
-export type MenuItemWithUrl = {
-  title: string;
-  url: string;
-  icon?: LucideIcon;
-  isActive?: boolean;
-};
-
-export type MenuItemWithSubItems = {
-  title: string;
-  icon?: LucideIcon;
-  isActive?: boolean;
-  items: MenuItemWithUrl[];
-};
-
-export type MenuItem = MenuItemWithSubItems | MenuItemWithUrl;
-
-export function NavAppSidebarItemMenu({ items }: { items: MenuItem[] }) {
+export function NavAppSidebarItemMenu({
+  items,
+  sidebarGroupLabel,
+}: {
+  items: MenuItemType[];
+  sidebarGroupLabel?: string;
+}) {
   const { isMobile, setOpenMobile } = useSidebar();
+  const { data: session } = authClient.useSession();
+  const hasOrganization = session?.session.activeOrganizationId ?? false;
 
   const closeSidebarOnMobile = () => {
     if (isMobile) {
@@ -41,11 +35,11 @@ export function NavAppSidebarItemMenu({ items }: { items: MenuItem[] }) {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Platform</SidebarGroupLabel>
+      {sidebarGroupLabel && <SidebarGroupLabel>{sidebarGroupLabel}</SidebarGroupLabel>}
       <SidebarMenu>
-        {items.map((item: MenuItemWithSubItems | MenuItemWithUrl) => (
+        {items.map((item: MenuItemType) => (
           <React.Fragment key={item.title}>
-            {'items' in item && (
+            {'items' in item && (hasOrganization || !item.requiresOrganization) && (
               <Collapsible className="group/collapsible" defaultOpen={item.isActive} render={<SidebarMenuItem />}>
                 <CollapsibleTrigger render={<SidebarMenuButton tooltip={item.title} />}>
                   {item.icon && <item.icon />}
@@ -55,18 +49,22 @@ export function NavAppSidebarItemMenu({ items }: { items: MenuItem[] }) {
                 <CollapsibleContent>
                   <SidebarMenuSub>
                     {item.items?.map((subItem) => (
-                      <SidebarMenuSubItem key={subItem.title}>
-                        <SidebarMenuSubButton render={<Link onClick={closeSidebarOnMobile} to={subItem.url} />}>
-                          {subItem.icon && <subItem.icon />}
-                          <span>{subItem.title}</span>
-                        </SidebarMenuSubButton>
-                      </SidebarMenuSubItem>
+                      <React.Fragment key={subItem.title}>
+                        {(hasOrganization || !subItem.requiresOrganization) && (
+                          <SidebarMenuSubItem>
+                            <SidebarMenuSubButton render={<Link onClick={closeSidebarOnMobile} to={subItem.url} />}>
+                              {subItem.icon && <subItem.icon />}
+                              <span>{subItem.title}</span>
+                            </SidebarMenuSubButton>
+                          </SidebarMenuSubItem>
+                        )}
+                      </React.Fragment>
                     ))}
                   </SidebarMenuSub>
                 </CollapsibleContent>
               </Collapsible>
             )}
-            {'url' in item && (
+            {'url' in item && (hasOrganization || !item.requiresOrganization) && (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton render={<Link onClick={closeSidebarOnMobile} to={item.url} />}>
                   {item.icon && <item.icon />}

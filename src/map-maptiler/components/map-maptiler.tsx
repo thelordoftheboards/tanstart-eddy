@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
 import EventEmitter from 'eventemitter3';
 import { type MapLibreEvent } from 'maplibre-gl';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef } from 'react';
 import MapGl, {
   AttributionControl,
   type MapMouseEvent,
@@ -14,7 +14,7 @@ import 'maplibre-gl/dist/maplibre-gl.css';
 
 function MapWrapper({
   children,
-  initialViewState,
+  viewState,
   interactiveLayerIds,
   height,
   setViewState,
@@ -24,10 +24,10 @@ function MapWrapper({
   onClickEventEmitter,
 }: {
   children?: React.ReactNode;
-  initialViewState: ViewState;
+  viewState: ViewState;
   interactiveLayerIds?: string[];
   height: number;
-  setViewState?: React.Dispatch<React.SetStateAction<ViewState>>;
+  setViewState: React.Dispatch<React.SetStateAction<ViewState>>;
   width: number;
   mapStyle: string;
   onLoadEventEmitter?: EventEmitter;
@@ -35,11 +35,12 @@ function MapWrapper({
 }) {
   const mapRef = useRef<typeof MapGl>(null);
 
-  const handlerOnMove = (evt: ViewStateChangeEvent) => {
-    if (setViewState) {
+  const handlerOnMove = useCallback(
+    (evt: ViewStateChangeEvent) => {
       setViewState(evt.viewState);
-    }
-  };
+    },
+    [setViewState]
+  );
 
   const handleOnClick = useCallback(
     (event: MapMouseEvent) => {
@@ -63,8 +64,9 @@ function MapWrapper({
 
   return (
     <MapGl
+      {...viewState}
       attributionControl={false}
-      initialViewState={initialViewState}
+      height={height}
       interactiveLayerIds={interactiveLayerIds}
       mapStyle={mapStyle}
       onClick={handleOnClick}
@@ -72,7 +74,7 @@ function MapWrapper({
       onMove={handlerOnMove}
       // @ts-expect-error It seems the type specified in the ref does not match
       ref={mapRef}
-      style={{ width, height }}
+      width={width}
     >
       <AttributionControl compact={true} />
 
@@ -83,7 +85,7 @@ function MapWrapper({
 
 export function MapMaptiler({
   children,
-  initialViewState,
+  viewState,
   interactiveLayerIds,
   height,
   setViewState,
@@ -92,25 +94,16 @@ export function MapMaptiler({
   onClickEventEmitter,
 }: {
   children?: React.ReactNode;
-  initialViewState: ViewState;
+  viewState: ViewState;
   interactiveLayerIds?: string[];
   height: number;
-  setViewState?: React.Dispatch<React.SetStateAction<ViewState>>;
+  setViewState: React.Dispatch<React.SetStateAction<ViewState>>;
   width: number;
   onLoadEventEmitter?: EventEmitter;
   onClickEventEmitter?: EventEmitter;
 }) {
   const isDarkMode = typeof document === 'undefined' ? false : document.documentElement.classList.contains('dark');
   const maptilerMapStyle = isDarkMode ? 'dataviz-dark' : 'dataviz-light';
-
-  const [initialViewStatePrevious, setInitialViewStatePrevious] = useState<ViewState>(initialViewState);
-  const [key, setKey] = useState(1);
-  if (initialViewStatePrevious !== initialViewState) {
-    setTimeout(() => {
-      setInitialViewStatePrevious(initialViewState);
-      setKey(key + 1);
-    });
-  }
 
   const globalClientSettings = useSuspenseQuery(queryOptionsGlobalClientSettings()).data;
   if (!globalClientSettings?.mapMaptilerApiKeyClient) {
@@ -120,13 +113,12 @@ export function MapMaptiler({
   return (
     <MapWrapper
       height={height}
-      initialViewState={initialViewState}
       interactiveLayerIds={interactiveLayerIds}
-      key={key}
       mapStyle={`https://api.maptiler.com/maps/${maptilerMapStyle}/style.json?key=${globalClientSettings.mapMaptilerApiKeyClient}`}
       onClickEventEmitter={onClickEventEmitter}
       onLoadEventEmitter={onLoadEventEmitter}
       setViewState={setViewState}
+      viewState={viewState}
       width={width}
     >
       {children}
