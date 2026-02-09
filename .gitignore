@@ -12,7 +12,6 @@ node_modules
 
 .data
 .vercel
-# Comment to use the .output directory to run make before building the container in source
 .output
 .wrangler
 .netlify

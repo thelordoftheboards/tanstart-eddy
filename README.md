@@ -2,9 +2,9 @@
 
 
 
-## Boilerplate for 🏝️ TanStack Start.
+## Starter kit for 🏝️ TanStack Start.
 
-This boilerplate is part of a family of boilerplates:
+This starter kit is part of a family of boilerplates and starter kits:
 
 <table>
   <tr>
@@ -17,15 +17,19 @@ This boilerplate is part of a family of boilerplates:
   </tr>
   <tr>
     <td><a href="https://github.com/thelordoftheboards/tanstart-cumberland">Tanstart Cumberland</a></td>
-    <td>Expands Tanstart Barren with Better Auth with organizations, account and admin screens, side bar for navigation and layout examples.</td>
+    <td>Starter kit that expands Tanstart Barren with Better Auth with organizations, account and admin screens, email, side bar for navigation and layout examples.</td>
   </tr>
   <tr>
-    <td>Tanstart Dale Hollow (TBD)</td>
-    <td>Expands Tanstart Cumberland with email and mastra integration.</td>
+    <td>Tanstart Dale Hollow</td>
+    <td>Starter kit that expands Tanstart Cumberland with maptiler maps and mastra. Not published yet.</td>
   </tr>
   <tr>
     <td><a href="https://github.com/thelordoftheboards/tanstart-eddy">Tanstart Eddy</a></td>
-    <td>Expands Tanstart Dale Hollow with examples of CRUD functionality.</td>
+    <td>Starter kit that expands Tanstart Dale Hollow with examples of CRUD functionality.</td>
+  </tr>
+  <tr>
+    <td><a href="https://github.com/thelordoftheboards/tanstart-eddy-playwright">Tanstart Eddy Playwright</a></td>
+    <td>E2E tests for Tanstart Eddy.</td>
   </tr>
 </table>
 
@@ -35,7 +39,7 @@ This boilerplate is part of a family of boilerplates:
 Features:
 
 - Server:
-  - [Bun](https://bun.com/) runtime
+  - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.packageManager&label=bun) [Bun](https://bun.com/) runtime
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.react&label=react) [React](https://react.dev)
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.devDependencies.babel-plugin-react-compiler&label=babel-plugin-react-compiler) [React Compiler](https://react.dev/learn/react-compiler)
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.vite&label=vite) [Vite](https://vite.dev/blog/announcing-vite8-beta)
@@ -56,11 +60,17 @@ Features:
   - [PostgreSQL](https://www.postgresql.org/)
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.drizzle-orm&label=drizzle-orm) [Drizzle ORM](https://orm.drizzle.team/)
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.better-auth&label=better-auth) [Better Auth](https://www.better-auth.com/)
+  - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.zod&label=zod) [Zod](https://zod.dev/) - TypeScript-first schema validation with static type inference.
 
-- UI:
+- Client/UI:
+  - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.redaxios&label=redaxios) [redaxios](https://github.com/developit/redaxios) - Axios has a great API that developers love. Redaxios provides that API in 800 bytes, using native fetch().
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.devDependencies.tailwindcss&label=tailwindcss) [Tailwind CSS](https://tailwindcss.com/)
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.shadcn&label=shadcn) [Shadcn](https://ui.shadcn.com/)
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.%40base-ui%2Freact&label=@base-ui/react) [Base UI](https://base-ui.com/)
+
+- Email:
+  - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.%40react-email%2Fcomponents&label=@react-email/components) [React Email](https://github.com/resend/react-email#readme) - The next generation of writing emails. High-quality, unstyled components for creating emails.
+  - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.resend&label=resend) [Resend](https://resend.com/) - Email for developers.
 
 - Mapping:
   - ![Version](https://img.shields.io/badge/dynamic/json?url=https://raw.githubusercontent.com/thelordoftheboards/tanstart-eddy/refs/heads/main/package.json&query=%24.dependencies.maplibre-gl&label=maplibre-gl) [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/docs/API/)
@@ -198,28 +208,6 @@ NODE_ENV=production
 SERVER_HOST=example.com
 ```
 
-Also, if you wish to store the build in the repositoru, in order for the build assets to get properly added to the repository, `.gitignore` will have to be modified:
-
-```bash
-# In our case to we use the .output directory to build the container so it is required in source
-#.output
-```
-
-Also modify `docker-build.sh`:
-
-```bash
-# Uncomment for the build to be happening outisde of docker
-# Run make if the versions do not match
-if [ "${PACKAGE_VERSION}" != "${PACKAGE_VERSION_OUTPUT}" ]; then
-    echo "Version mismatch, running make ..."
-    (cd ${SCRIPT_DIR}/.. && bun run make)
-    echo "Make complete."
-else
-    # Commands to execute if they are the same (optional 'else' block)
-    echo "Versions match, proceeding to build container."
-fi
-```
-
 For the database server the recommended image is `pgvector/pgvector:pg18` and the the mount `/var/lib/postgresql`
 
 
@@ -257,13 +245,6 @@ Use one of the following scripts:
 - **`lt`** - serve through localtunnel in a separate process.
 - **`dev-lt`** - run development concurrently with serving through localtunnel, might have issues.
 - **`start-lt`** - run development concurrently with serving through localtunnel, should perform well.
-
-
-
-## Utilities
-
-- [`auth/middleware.ts`](./src/lib/auth/middleware.ts) - Sample middleware for forcing authentication on server functions.
-- [`theme-toggle.tsx`](./src/components/theme-toggle.tsx), [`theme-provider.tsx`](./src/components/theme-provider.tsx) - A theme toggle and provider for toggling between light and dark mode.
 
 
 

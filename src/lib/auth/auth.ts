@@ -1,9 +1,12 @@
 import { createServerOnlyFn } from '@tanstack/react-start';
 import { drizzleAdapter } from 'better-auth/adapters/drizzle';
 import { type BetterAuthOptions, betterAuth } from 'better-auth/minimal';
-import { admin, openAPI, organization } from 'better-auth/plugins';
+import { admin, openAPI } from 'better-auth/plugins';
 import { tanstackStartCookies } from 'better-auth/tanstack-start';
 import { v7 as uuidv7 } from 'uuid';
+import { databaseHooks } from '~/base-nav-and-auth/server/better-auth-database-hooks';
+import { organizationPlugin } from '~/base-nav-and-auth/server/better-auth-plugin-organization';
+import { sendResetPassword, sendVerificationEmail } from '~/base-nav-and-auth/server/better-auth-send';
 import { ac, roles } from '~/base-nav-and-auth-config/lib/auth/permissions';
 import { db } from '~/lib/db';
 // biome-ignore lint/performance/noNamespaceImport: Allow
@@ -66,11 +69,6 @@ const authConfig = {
     },
   },
 
-  // https://www.better-auth.com/docs/authentication/email-password
-  emailAndPassword: {
-    enabled: true,
-  },
-
   experimental: {
     // https://www.better-auth.com/docs/adapters/drizzle#joins-experimental
     joins: true,
@@ -91,25 +89,7 @@ const authConfig = {
       },
     }),
 
-    organization({
-      // TODO // Implement sending invitation email
-      // async sendInvitationEmail({ role, email, organization: theOrganization, invitation }) {
-      //   const url = `${env.SERVER_URL}/accept-invitation/${invitation.id}`;
-      //   await sendEmail({
-      //     subject: `Invitation to join ${organization.name}`,
-      //     template: SendOrganizationInvitation({
-      //       email,
-      //       organization_name: theOrganization.name,
-      //       url,
-      //       role,
-      //     }),
-      //     to: email,
-      //   });
-      // },
-      // async onInvitationAccepted(data) {
-      //   // Handle post-acceptance logic here
-      // },
-    }),
+    organizationPlugin,
 
     // TODO // Configure emailOTP plugin - Send verification email
     // emailOTP({
@@ -128,73 +108,18 @@ const authConfig = {
     tanstackStartCookies(), // make sure this is the last plugin in the array
   ],
 
-  /*
-  databaseHooks: {
-    session: {
-      create: {
-        before: async (session) => {
-          const member = (
-            await db
-              .select()
-              .from(schema.member)
-              .where(eq(schema.member.userId, session.userId ?? ''))
-              .limit(1)
-          )[0];
+  databaseHooks,
 
-          return {
-            data: {
-              ...session,
-              ...(member?.organizationId && {
-                activeOrganizationId: member?.organizationId,
-              }),
-            },
-          };
-        },
-      },
-    },
-    user: {
-      create: {
-        after: async (user) => {
-          await sendEmail({
-            subject: 'Welcome to XXXXX',
-            template: WelcomeEmail({
-              username: user.name || user.email,
-            }),
-            to: user.email,
-          });
-        },
-      },
-    },
-  },
-
+  // https://www.better-auth.com/docs/authentication/email-password
   emailAndPassword: {
     enabled: true,
     requireEmailVerification: false,
-    async sendResetPassword({ url, user }) {
-      await sendEmail({
-        subject: 'Reset your password',
-        template: ResetPasswordEmail({
-          resetLink: url,
-          username: user.email,
-        }),
-        to: user.email,
-      });
-    },
+    sendResetPassword,
   },
 
   emailVerification: {
-    sendVerificationEmail: async ({ url, user }) => {
-      await sendEmail({
-        subject: 'Verify your email',
-        template: VerifyEmail({
-          url,
-          username: user.email,
-        }),
-        to: user.email,
-      });
-    },
+    sendVerificationEmail,
   },
-  */
 } satisfies BetterAuthOptions;
 
 const getAuthConfig = createServerOnlyFn(() => betterAuth(authConfig));
