@@ -33,9 +33,6 @@ This starter kit is part of a family of boilerplates and starter kits:
   </tr>
 </table>
 
-> [!NOTE]
-> These boilerplates are derived from [React TanStarter by dotnize](https://github.com/dotnize/react-tanstarter) and [Modern Full-Stack Boilerplate by CarlosZiegler](https://github.com/CarlosZiegler/fullstack-start-template) as well as various examples from [TanStack Start](https://tanstack.com/start/latest) and other sources.
-
 Features:
 
 - Server:
@@ -256,7 +253,9 @@ Code in this template is public domain via [Unlicense](./LICENSE). Feel free to 
 
 ## Also check out
 
+- [TanStack Start](https://tanstack.com/start/latest) - Official website.
 - [@tanstack/create-start](https://github.com/TanStack/create-tsrouter-app/blob/main/cli/ts-create-start/README.md) - The official CLI tool from the TanStack team to create Start projects.
 - [awesome-tanstack-start](https://github.com/Balastrong/awesome-tanstack-start) - A curated list of awesome resources for TanStack Start.
-- [React TanStarter](https://github.com/dotnize/react-tanstarter) - minimalist starter project, the starting point for this project.
-- [Modern Full-Stack Boilerplate](https://github.com/CarlosZiegler/fullstack-start-template) - full stack starter project, a place where some of the configuration and ideas are borrowed from.
+- [React TanStarter by dotnize](https://github.com/dotnize/react-tanstarter) - minimalist starter project, the starting point for this collection of boilerplates and starter kits.
+- [Modern Full-Stack Boilerplate by CarlosZiegler](https://github.com/CarlosZiegler/fullstack-start-template) - full stack starter project, starting point for the auth and email functionality in this collection of boilerplates and starter kits.
+- [How to use the Playwright codegen test recorder in Vscode (no code testing with Copilot)](https://www.youtube.com/watch?v=-EccE9TXoVY) - video/YouTube.
