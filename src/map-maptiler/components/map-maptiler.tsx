@@ -74,6 +74,9 @@ function MapWrapper({
       onMove={handlerOnMove}
       // @ts-expect-error It seems the type specified in the ref does not match
       ref={mapRef}
+      // despite width and height being specified as attributes, if they are not also specified
+      // as style, sometimes the map does not show properly.
+      style={{ width, height }}
       width={width}
     >
       <AttributionControl compact={true} />

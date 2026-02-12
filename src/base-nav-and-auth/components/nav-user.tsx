@@ -32,7 +32,7 @@ export function NavUser({
   user: {
     name: string;
     email: string;
-    avatar: string;
+    avatar: string | null;
   };
 }) {
   const router = useRouter();
@@ -69,7 +69,7 @@ export function NavUser({
             }
           >
             <Avatar className="h-8 w-8 rounded-lg">
-              <AvatarImage alt={user.name} src={user.avatar} />
+              {user.avatar && <AvatarImage alt={user.name} src={user.avatar} />}
               <AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">

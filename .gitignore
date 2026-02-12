@@ -11,10 +11,10 @@ node_modules
 *.env
 
 .data
-.vercel
-.output
-.wrangler
 .netlify
+.output
+.vercel
+.wrangler
 devconfig
 dist
 /build/

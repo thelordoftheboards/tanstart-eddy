@@ -1,10 +1,6 @@
 import retry from 'async-retry';
 import type { CreateEmailOptions, CreateEmailResponse } from 'resend';
-import { Resend } from 'resend';
-import { env } from '~/lib/env.server';
-
-// Global object with API key
-const resend = new Resend(env.RESEND_API_KEY);
+import { resend } from './resend';
 
 /**
  * Sends an email using Resend with exponential backoff retries.

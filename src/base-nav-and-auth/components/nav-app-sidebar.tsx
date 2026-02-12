@@ -15,7 +15,7 @@ export function NavAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>
     ? {
         name: session.user.name || session.user.email,
         email: session.user.email,
-        avatar: session.user.image || '/placeholder-user.jpg',
+        avatar: session.user.image ?? null,
       }
     : undefined;
   const userCanManageUsers = canManageUsers(currentUserRole);
