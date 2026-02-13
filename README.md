@@ -8,7 +8,7 @@ This starter kit is part of a family of boilerplates and starter kits:
 
 <table>
   <tr>
-    <th>Boilerplate</th>
+    <th>Boilerplate / Starter kit</th>
     <th>Description</th>
   </tr>
   <tr>

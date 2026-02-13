@@ -14,6 +14,6 @@ export const meta: (React.DetailedHTMLProps<React.MetaHTMLAttributes<HTMLMetaEle
     },
     {
       name: 'description',
-      content: 'Boilerplate for 🏝️ TanStack Start.',
+      content: 'Starter kit for 🏝️ TanStack Start.',
     },
   ];
