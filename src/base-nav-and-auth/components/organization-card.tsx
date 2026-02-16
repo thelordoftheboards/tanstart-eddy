@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import z from 'zod';
 import CopyToClipboardButton from '~/base-user-interface/components/copy-to-clipboard-button';
-import { FormField } from '~/base-user-interface/components/form-field';
 import {
   Dialog,
   DialogClose,
@@ -377,7 +376,7 @@ function CreateOrganizationDialog() {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <form.AppField
-              children={(field) => <FormField field={field} label={'Organization Name'} placeholder={'Name'} />}
+              children={(field) => <field.FormFieldText label={'Organization Name'} placeholder={'Name'} />}
               name="name"
             />
           </div>
@@ -523,7 +522,7 @@ function InviteMemberDialog() {
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-2">
               <form.AppField
-                children={(field) => <FormField field={field} label={'Email'} placeholder={'Email'} type="email" />}
+                children={(field) => <field.FormFieldText label={'Email'} placeholder={'Email'} type="email" />}
                 name="email"
               />
             </div>

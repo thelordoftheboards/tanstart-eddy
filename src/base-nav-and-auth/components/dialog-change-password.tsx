@@ -88,21 +88,17 @@ export function DialogChangePassword() {
         </DialogHeader>
         <div className="grid gap-2">
           <form.AppField
-            children={(field) => (
-              <FormFieldPassword field={field} label={'Current password'} placeholder={'Password'} />
-            )}
+            children={() => <FormFieldPassword label={'Current password'} placeholder={'Password'} />}
             name="currentPassword"
           />
+
           <form.AppField
-            children={(field) => (
-              <FormFieldPassword field={field} label={'New Password'} placeholder={'New Password'} />
-            )}
+            children={() => <FormFieldPassword label={'New Password'} placeholder={'New Password'} />}
             name="newPassword"
           />
+
           <form.AppField
-            children={(field) => (
-              <FormFieldPassword field={field} label={'Confirm Password'} placeholder={'Confirm Password'} />
-            )}
+            children={() => <FormFieldPassword label={'Confirm Password'} placeholder={'Confirm Password'} />}
             name="confirmPassword"
           />
           <div className="flex items-center gap-2">

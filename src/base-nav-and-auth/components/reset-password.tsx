@@ -71,17 +71,14 @@ export default function ResetPasswordForm() {
             <div className="grid w-full items-center gap-2">
               <div className="flex flex-col space-y-1.5">
                 <form.AppField
-                  children={(field) => (
-                    <FormFieldPassword field={field} label={'New Password'} placeholder={'Password'} />
-                  )}
+                  children={() => <FormFieldPassword label={'New Password'} placeholder={'Password'} />}
                   name="password"
                 />
               </div>
+
               <div className="flex flex-col space-y-1.5">
                 <form.AppField
-                  children={(field) => (
-                    <FormFieldPassword field={field} label={'Confirm new password'} placeholder={'Password'} />
-                  )}
+                  children={() => <FormFieldPassword label={'Confirm new password'} placeholder={'Password'} />}
                   name="confirmPassword"
                 />
               </div>

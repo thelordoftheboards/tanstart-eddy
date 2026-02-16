@@ -1,26 +1,27 @@
-import FormFieldInfo from '~/base-user-interface/components/form-field-info';
 import { Checkbox } from '~/components/ui/checkbox';
-import { Label } from '~/components/ui/label';
+import { Field, FieldError, FieldLabel } from '~/components/ui/field';
 import { useFieldContext } from '../hooks/form-context';
 
 export default function FormFieldCheckbox({ label }: { label: string }) {
   const field = useFieldContext<string>();
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+  const ivValidating = field.state.meta.isValidating;
 
   return (
-    <>
-      <div className="flex items-center gap-3">
-        <Checkbox
-          // biome-ignore lint/complexity/noUselessTernary: Allow
-          checked={field.state.value ? true : false}
-          id={field.name}
-          onCheckedChange={(value: boolean) => {
-            field.setValue(`${value}`);
-          }}
-        />
-        <Label htmlFor={field.name}>{label}</Label>
-      </div>
+    <Field className="flex items-center gap-3">
+      <Checkbox
+        // biome-ignore lint/complexity/noUselessTernary: Allow
+        checked={field.state.value ? true : false}
+        id={field.name}
+        onCheckedChange={(value: boolean) => {
+          field.setValue(`${value}`);
+        }}
+      />
 
-      <FormFieldInfo field={field} />
-    </>
+      <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+
+      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {ivValidating && 'Validating ...'}
+    </Field>
   );
 }

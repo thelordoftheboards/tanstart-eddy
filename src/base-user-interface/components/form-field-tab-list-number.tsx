@@ -1,16 +1,16 @@
 import { type IconProps } from '@tabler/icons-react';
-import FormFieldInfo from '~/base-user-interface/components/form-field-info';
-import { Label } from '~/components/ui/label';
+import { Field, FieldContent, FieldDescription, FieldError, FieldLabel } from '~/components/ui/field';
 import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
-import { cn } from '~/lib/utils';
 import { useFieldContext } from '../hooks/form-context';
 
 export default function FormFieldTabListNumber({
   label,
+  description,
   options,
   className,
 }: {
   label: string;
+  description?: string;
   options: {
     value: number;
     text: string;
@@ -19,10 +19,15 @@ export default function FormFieldTabListNumber({
   className?: string;
 }) {
   const field = useFieldContext<number>();
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+  const ivValidating = field.state.meta.isValidating;
 
   return (
-    <div className={cn(className, 'my-2')}>
-      <Label htmlFor={field.name}>{label}</Label>
+    <Field className={className} data-invalid={isInvalid}>
+      <FieldContent>
+        <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+        {description && <FieldDescription>{description}</FieldDescription>}
+      </FieldContent>
 
       <Tabs onValueChange={(value) => field.handleChange(Number.parseInt(value, 10))} value={field.state.value}>
         <TabsList className="grid w-full grid-cols-2">
@@ -35,7 +40,8 @@ export default function FormFieldTabListNumber({
         </TabsList>
       </Tabs>
 
-      <FormFieldInfo field={field} />
-    </div>
+      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {ivValidating && 'Validating ...'}
+    </Field>
   );
 }

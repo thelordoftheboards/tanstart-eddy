@@ -4,13 +4,12 @@ import { DialogContent, DialogFooter, DialogHeader, DialogTitle } from '~/base-u
 import { useAppForm } from '~/base-user-interface/hooks/form';
 import { useScrollInsideDialog } from '~/base-user-interface/hooks/use-scroll-inside-dialog';
 import { Button } from '~/components/ui/button';
-import { Input } from '~/components/ui/input';
-import { Label } from '~/components/ui/label';
+import { FieldGroup } from '~/components/ui/field';
 import { ScrollArea } from '~/components/ui/scroll-area';
 import { useMutationHorseAdd } from '../client/mutation-horse-add';
 import { useMutationHorseDelete } from '../client/mutation-horse-delete';
 import { useMutationHorseUpdate } from '../client/mutation-horse-update';
-import { type HorseType, horseNoIdSchema } from '../schema/horse';
+import { type HorseNoIdType, type HorseType, horseNoIdSchema } from '../schema/horse';
 
 export function DialogContentHorseEdit({
   setOpen,
@@ -57,13 +56,13 @@ export function DialogContentHorseEdit({
   };
 
   const form = useAppForm({
-    defaultValues: horse ?? {
+    defaultValues: (horse ?? {
       name: '',
       breed: '',
       birthYear: new Date().getFullYear(),
       colorAndMarkings: '',
       stallNumber: '',
-    },
+    }) satisfies HorseNoIdType as HorseNoIdType,
     validators: {
       onChange: horseNoIdSchema,
     },
@@ -81,6 +80,8 @@ export function DialogContentHorseEdit({
   return (
     <DialogContent>
       <DialogHeader>
+        <DialogTitle>{isEditing ? 'Edit Horse' : 'Add New Horse'}</DialogTitle>
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -89,48 +90,35 @@ export function DialogContentHorseEdit({
           }}
         >
           <ScrollArea className="flex max-h-[min(1000px,80vh)] flex-col overflow-hidden">
-            <DialogTitle>{isEditing ? 'Edit Horse' : 'Add New Horse'}</DialogTitle>
-
             <div className="space-y-4 pr-4">
-              <form.AppField
-                children={(field) => <field.FormFieldText label="Horse Name" placeholder="Enter horse name" />}
-                name="name"
-              />
-              <form.AppField
-                children={(field) => <field.FormFieldText label="Horse Breed" placeholder="Enter horse breed" />}
-                name="breed"
-              />
-              {
-                // TODO /NEXT/ Create a number type app fields as formFieldNumber
-              }
-              <form.AppField
-                children={(field) => (
-                  <div className="my-2">
-                    <Label htmlFor={field.name}>Birth Year</Label>
-                    <Input
-                      className="mt-1"
-                      id={field.name}
-                      name={field.name}
-                      onBlur={field.handleBlur}
-                      onChange={(e: React.ChangeEvent<HTMLInputElement>) => field.handleChange(Number(e.target.value))}
-                      placeholder="Enter birth year"
-                      type="number"
-                      value={field.state.value}
-                    />
-                  </div>
-                )}
-                name="birthYear"
-              />
-              <form.AppField
-                children={(field) => (
-                  <field.FormFieldText label="Color and Markings" placeholder="Enter color and markings" />
-                )}
-                name="colorAndMarkings"
-              />
-              <form.AppField
-                children={(field) => <field.FormFieldText label="Stall Number" placeholder="Enter stall number" />}
-                name="stallNumber"
-              />
+              <FieldGroup>
+                <form.AppField
+                  children={(field) => <field.FormFieldText label="Horse Name" placeholder="Enter horse name" />}
+                  name="name"
+                />
+
+                <form.AppField
+                  children={(field) => <field.FormFieldText label="Horse Breed" placeholder="Enter horse breed" />}
+                  name="breed"
+                />
+
+                <form.AppField
+                  children={(field) => <field.FormFieldNumber label="Birth Year" placeholder="2021" />}
+                  name="birthYear"
+                />
+
+                <form.AppField
+                  children={(field) => (
+                    <field.FormFieldText label="Color and Markings" placeholder="Enter color and markings" />
+                  )}
+                  name="colorAndMarkings"
+                />
+
+                <form.AppField
+                  children={(field) => <field.FormFieldText label="Stall Number" placeholder="Enter stall number" />}
+                  name="stallNumber"
+                />
+              </FieldGroup>
             </div>
           </ScrollArea>
         </form>

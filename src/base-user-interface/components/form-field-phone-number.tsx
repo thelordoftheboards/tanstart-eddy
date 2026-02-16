@@ -1,23 +1,25 @@
 import { AsYouType } from 'libphonenumber-js';
-import FormFieldInfo from '~/base-user-interface/components/form-field-info';
+import { Field, FieldContent, FieldDescription, FieldError, FieldLabel } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
-import { Label } from '~/components/ui/label';
-import { cn } from '~/lib/utils';
 import { useFieldContext } from '../hooks/form-context';
 import { type PhoneNumberType } from '../schema/phone-number';
 
 export default function FormFieldPhoneNumber({
   label,
-  className,
+  description,
   placeholder,
+  className,
   type,
 }: {
   label: string;
-  className?: string;
+  description?: string;
   placeholder?: string;
+  className?: string;
   type?: string;
 }) {
   const field = useFieldContext<PhoneNumberType>();
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+  const ivValidating = field.state.meta.isValidating;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
     const input = event.target.value;
@@ -28,11 +30,14 @@ export default function FormFieldPhoneNumber({
   };
 
   return (
-    <div className={cn(className, 'my-2')}>
-      <Label htmlFor={field.name}>{label}</Label>
+    <Field className={className} data-invalid={isInvalid}>
+      <FieldContent>
+        <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+        {description && <FieldDescription>{description}</FieldDescription>}
+      </FieldContent>
 
       <Input
-        className="mt-1"
+        aria-invalid={isInvalid}
         id={field.name}
         name={field.name}
         onBlur={field.handleBlur}
@@ -42,7 +47,8 @@ export default function FormFieldPhoneNumber({
         value={field.state.value}
       />
 
-      <FormFieldInfo field={field} />
-    </div>
+      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {ivValidating && 'Validating ...'}
+    </Field>
   );
 }

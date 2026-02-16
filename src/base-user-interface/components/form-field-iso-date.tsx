@@ -1,25 +1,26 @@
 import { Popover as BaseUiPopover } from '@base-ui/react/popover';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
-import FormFieldInfo from '~/base-user-interface/components/form-field-info';
 import { Button } from '~/components/ui/button';
 import { Calendar } from '~/components/ui/calendar';
-import { Label } from '~/components/ui/label';
+import { Field, FieldContent, FieldDescription, FieldError, FieldLabel } from '~/components/ui/field';
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover';
-import { cn } from '~/lib/utils';
 import { useFieldContext } from '../hooks/form-context';
 
 export default function FormFieldIsoDate({
   label,
+  description,
   nullable,
   className,
 }: {
   label: string;
+  description?: string;
   nullable?: boolean;
   className?: string;
 }) {
   const field = useFieldContext<string | null>();
-
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+  const ivValidating = field.state.meta.isValidating;
   const { value } = field.state;
 
   const valueDate = value
@@ -31,8 +32,12 @@ export default function FormFieldIsoDate({
     : new Date();
 
   return (
-    <div className={cn(className, 'my-2')}>
-      <Label htmlFor={field.name}>{label}</Label>
+    <Field className={className} data-invalid={isInvalid}>
+      <FieldContent>
+        <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+        {description && <FieldDescription>{description}</FieldDescription>}
+      </FieldContent>
+
       <Popover>
         <PopoverTrigger
           render={
@@ -66,7 +71,9 @@ export default function FormFieldIsoDate({
           </div>
         </PopoverContent>
       </Popover>
-      <FormFieldInfo field={field} />
-    </div>
+
+      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {ivValidating && 'Validating ...'}
+    </Field>
   );
 }

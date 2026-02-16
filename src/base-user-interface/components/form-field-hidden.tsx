@@ -1,23 +1,17 @@
-import { useStore } from '@tanstack/react-form';
+import { FieldError } from '~/components/ui/field';
 import { useFieldContext } from '../hooks/form-context';
 
-export default function FormFieldHidden({ label }: { label: string }) {
+export default function FormFieldHidden() {
   const field = useFieldContext<string>();
-
-  const errors = useStore(field.store, (state) => state.meta.errors);
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+  const ivValidating = field.state.meta.isValidating;
 
   return (
     <>
-      <input type="hidden" value={JSON.stringify(field.state.value)} />
+      <input type="hidden" value={field.state.value} />
 
-      {errors.map((error: string) => (
-        <>
-          <div>{label}</div>
-          <div key={error} style={{ color: 'red' }}>
-            {error}
-          </div>
-        </>
-      ))}
+      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {ivValidating && 'Validating ...'}
     </>
   );
 }

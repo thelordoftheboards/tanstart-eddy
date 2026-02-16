@@ -2,27 +2,28 @@ import { Popover as BaseUiPopover } from '@base-ui/react/popover';
 import { IconX } from '@tabler/icons-react';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon, Clock as ClockIcon } from 'lucide-react';
-import FormFieldInfo from '~/base-user-interface/components/form-field-info';
 import { Button } from '~/components/ui/button';
 import { Calendar } from '~/components/ui/calendar';
-import { Label } from '~/components/ui/label';
+import { Field, FieldContent, FieldDescription, FieldError, FieldLabel } from '~/components/ui/field';
 import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover';
-import { cn } from '~/lib/utils';
 import { useFieldContext } from '../hooks/form-context';
 
 export default function FormFieldDateTime({
   label,
+  description,
   className,
   nullable,
   onChange,
 }: {
   label: string;
+  description?: string;
   nullable?: boolean;
   className?: string;
   onChange?: (dtNew: Date | null) => void;
 }) {
   const field = useFieldContext<Date | null>();
-
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+  const ivValidating = field.state.meta.isValidating;
   const { value } = field.state;
 
   const handleDateSelect = (selectedDate: Date | null) => {
@@ -92,8 +93,12 @@ export default function FormFieldDateTime({
   };
 
   return (
-    <div className={cn(className, 'my-2')}>
-      <Label htmlFor={field.name}>{label}</Label>
+    <Field className={className} data-invalid={isInvalid}>
+      <FieldContent>
+        <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+        {description && <FieldDescription>{description}</FieldDescription>}
+      </FieldContent>
+
       <div className="mt-1 flex w-full">
         {/* Date popover */}
         <Popover>
@@ -221,7 +226,9 @@ export default function FormFieldDateTime({
           </Button>
         )}
       </div>
-      <FormFieldInfo field={field} />
-    </div>
+
+      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {ivValidating && 'Validating ...'}
+    </Field>
   );
 }

@@ -1,8 +1,6 @@
 import { createFormHook } from '@tanstack/react-form';
-import { Loader2 } from 'lucide-react';
 import { lazy } from 'react';
-import { Button } from '~/components/ui/button';
-import { fieldContext, formContext, useFormContext } from './form-context';
+import { fieldContext, formContext } from './form-context';
 
 const FormFieldCheckbox = lazy(() => import('~/base-user-interface/components/form-field-checkbox'));
 const FormFieldDate = lazy(() => import('~/base-user-interface/components/form-field-date'));
@@ -15,35 +13,6 @@ const FormFieldPhoneNumber = lazy(() => import('~/base-user-interface/components
 const FormFieldTabListBoolean = lazy(() => import('~/base-user-interface/components/form-field-tab-list-boolean'));
 const FormFieldTabListNumber = lazy(() => import('~/base-user-interface/components/form-field-tab-list-number'));
 const FormFieldText = lazy(() => import('~/base-user-interface/components/form-field-text'));
-
-function SubscribeButton({ label, isPending }: { label: string; isPending: boolean }) {
-  const form = useFormContext();
-
-  return (
-    <form.Subscribe
-      // @ts-expect-error Tanstack Form type issue
-      children={([canSubmit, isSubmitting]) => (
-        <Button
-          disabled={!canSubmit || isSubmitting || isPending}
-          onClick={(e) => {
-            e.preventDefault();
-            form.handleSubmit();
-          }}
-        >
-          {isPending || isSubmitting ? <Loader2 className="animate-spin" size={16} /> : label}
-        </Button>
-      )}
-      // @ts-expect-error Tanstack Form type issue
-      selector={(state) => [state.canSubmit, state.isSubmitting]}
-    />
-  );
-
-  // return (
-  //   <form.Subscribe selector={(state) => state.isSubmitting}>
-  //     {(isSubmitting) => <button disabled={isSubmitting}>{label}</button>}
-  //   </form.Subscribe>
-  // );
-}
 
 export const { useAppForm, withForm, withFieldGroup } = createFormHook({
   fieldComponents: {
@@ -59,9 +28,7 @@ export const { useAppForm, withForm, withFieldGroup } = createFormHook({
     FormFieldTabListNumber,
     FormFieldText,
   },
-  formComponents: {
-    SubscribeButton,
-  },
+  formComponents: {},
   fieldContext,
   formContext,
 });

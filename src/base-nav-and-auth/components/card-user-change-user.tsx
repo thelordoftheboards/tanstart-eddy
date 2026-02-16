@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { toast } from 'sonner';
 import z from 'zod';
 import { convertImageToBase64 } from '~/base/utils/convert-image-to-base-64';
-import { FormField } from '~/base-user-interface/components/form-field';
 import {
   Dialog,
   DialogContent,
@@ -101,7 +100,7 @@ export function CardUserChangeUser() {
         </DialogHeader>
         <div className="grid gap-2">
           <form.AppField
-            children={(field) => <FormField field={field} label={'Full Name'} placeholder="John Doe" type="text" />}
+            children={(field) => <field.FormFieldText label={'Full Name'} placeholder="John Doe" type="text" />}
             name="name"
           />
           <div className="grid gap-2">

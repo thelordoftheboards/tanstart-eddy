@@ -1,27 +1,36 @@
-import type { AnyFieldApi } from '@tanstack/react-form';
 import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import { useState } from 'react';
-import FormFieldInfo from '~/base-user-interface/components/form-field-info';
 import { Button } from '~/components/ui/button';
+import { Field, FieldContent, FieldDescription, FieldError, FieldLabel } from '~/components/ui/field';
 import { Input } from '~/components/ui/input';
-import { Label } from '~/components/ui/label';
+import { useFieldContext } from '../hooks/form-context';
 
-interface FormFieldPasswordProps {
-  field: AnyFieldApi;
+export function FormFieldPassword({
+  label,
+  description,
+  placeholder,
+  className,
+}: {
   label: string;
+  description?: string;
   placeholder?: string;
-}
-
-export function FormFieldPassword({ field, label, placeholder }: FormFieldPasswordProps) {
+  className?: string;
+}) {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const field = useFieldContext<string>();
+  const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
+  const ivValidating = field.state.meta.isValidating;
 
   return (
-    <>
-      <Label htmlFor={field.name}>{label}</Label>
+    <Field className={className} data-invalid={isInvalid}>
+      <FieldContent>
+        <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
+        {description && <FieldDescription>{description}</FieldDescription>}
+      </FieldContent>
+
       <div className="relative flex w-full items-center justify-end">
         <Input
           autoComplete="new-password"
-          className="mt-1"
           id={field.name}
           name={field.name}
           onBlur={field.handleBlur}
@@ -44,7 +53,9 @@ export function FormFieldPassword({ field, label, placeholder }: FormFieldPasswo
           {isPasswordVisible ? <EyeIcon /> : <EyeOffIcon />}
         </Button>
       </div>
-      <FormFieldInfo field={field} />
-    </>
+
+      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {ivValidating && 'Validating ...'}
+    </Field>
   );
 }
