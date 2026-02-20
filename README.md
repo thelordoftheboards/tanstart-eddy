@@ -12,6 +12,10 @@ This starter kit is part of a family of boilerplates and starter kits:
     <th>Description</th>
   </tr>
   <tr>
+    <td><a href="https://github.com/thelordoftheboards/tanstart-ajjolly">Tanstart A. J. Jolly</a></td>
+    <td>Static site boilerplate for Tanstack Start.</td>
+  </tr>
+  <tr>
     <td><a href="https://github.com/thelordoftheboards/tanstart-barren">Tanstart Barren</a></td>
     <td>Barebones boilerplate with Tanstack Start and basic Better Auth with password auth. Log in/sign on pages, dashboard and home page.</td>
   </tr>

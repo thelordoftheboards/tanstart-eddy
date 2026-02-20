@@ -64,7 +64,7 @@ export function DialogContentHorseEdit({
       stallNumber: '',
     }) satisfies HorseNoIdType as HorseNoIdType,
     validators: {
-      onChange: horseNoIdSchema,
+      onSubmit: horseNoIdSchema,
     },
     onSubmit: ({ value }) => {
       if (horse) {
@@ -91,7 +91,7 @@ export function DialogContentHorseEdit({
         >
           <ScrollArea className="flex max-h-[min(1000px,80vh)] flex-col overflow-hidden">
             <div className="space-y-4 pr-4">
-              <FieldGroup>
+              <FieldGroup className="gap-5">
                 <form.AppField
                   children={(field) => <field.FormFieldText label="Horse Name" placeholder="Enter horse name" />}
                   name="name"
