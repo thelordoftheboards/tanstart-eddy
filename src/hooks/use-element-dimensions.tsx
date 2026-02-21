@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 interface Dimensions {
-  width: number;
   height: number;
+  width: number;
 }
 
 export function useElementDimensions<T extends HTMLElement = HTMLDivElement>(): [
@@ -10,7 +10,7 @@ export function useElementDimensions<T extends HTMLElement = HTMLDivElement>(): 
   Dimensions,
 ] {
   const ref = useRef<T>(null);
-  const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 });
+  const [dimensions, setDimensions] = useState<Dimensions>({ height: 0, width: 0 });
 
   useEffect(() => {
     if (!ref.current) {
@@ -20,8 +20,8 @@ export function useElementDimensions<T extends HTMLElement = HTMLDivElement>(): 
     const resizeObserver = new ResizeObserver((entries) => {
       for (const entry of entries) {
         setDimensions({
-          width: entry.contentRect.width,
           height: entry.contentRect.height,
+          width: entry.contentRect.width,
         });
       }
     });

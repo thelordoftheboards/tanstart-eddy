@@ -68,14 +68,14 @@ import {
 } from '../hooks/user-hooks';
 
 interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  emailVerified: boolean;
   banned: boolean;
   createdAt: Date;
+  email: string;
+  emailVerified: boolean;
+  id: string;
   image?: string;
+  name: string;
+  role: string;
 }
 
 function getStatusBadge(user: User) {

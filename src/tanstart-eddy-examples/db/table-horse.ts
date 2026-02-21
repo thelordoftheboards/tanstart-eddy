@@ -1,6 +1,7 @@
-import { integer, pgTable, text, uuid } from 'drizzle-orm/pg-core';
+import { integer, jsonb, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { v7 as uuidv7 } from 'uuid';
 import { organization } from '~/lib/db/schema/auth.schema';
+import { type HorseMarkingsType } from '../schema/horse';
 
 export const tableHorse = pgTable('tanstart_eddy_examples_horse', {
   id: uuid('id')
@@ -12,6 +13,7 @@ export const tableHorse = pgTable('tanstart_eddy_examples_horse', {
   name: text('name').notNull(),
   breed: text('breed').notNull(),
   birthYear: integer('birth-year').notNull(),
-  colorAndMarkings: text('color-and-markings').notNull(),
+  color: text('color').notNull(),
   stallNumber: text('stall-number').notNull(),
+  markings: jsonb('markings').$type<HorseMarkingsType>().notNull(),
 });

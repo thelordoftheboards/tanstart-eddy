@@ -2,7 +2,7 @@
 
 
 
-## Starter kit for 🏝️ TanStack Start.
+## 🛥️ Starter kit for 🏝️ TanStack Start.
 
 This starter kit is part of a family of boilerplates and starter kits:
 

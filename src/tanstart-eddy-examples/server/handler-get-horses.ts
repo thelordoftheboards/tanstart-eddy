@@ -13,8 +13,9 @@ export async function handlerGetHorses() {
       name: tableHorse.name,
       breed: tableHorse.breed,
       birthYear: tableHorse.birthYear,
-      colorAndMarkings: tableHorse.colorAndMarkings,
+      color: tableHorse.color,
       stallNumber: tableHorse.stallNumber,
+      markings: tableHorse.markings,
     })
     .from(tableHorse)
     .where(eq(tableHorse.organizationId, organizationId))

@@ -65,12 +65,7 @@ export function PageHorseList() {
             >
               Birth Year
             </TableSortableHeader>
-            <TableSortableHeader
-              field="colorAndMarkings"
-              onSort={handleSort}
-              sortDirection={sortDirection}
-              sortField={sortField}
-            >
+            <TableSortableHeader field="color" onSort={handleSort} sortDirection={sortDirection} sortField={sortField}>
               Color & Markings
             </TableSortableHeader>
             <TableSortableHeader
@@ -90,7 +85,7 @@ export function PageHorseList() {
               <TableCell>{horse.name}</TableCell>
               <TableCell>{horse.breed}</TableCell>
               <TableCell>{horse.birthYear}</TableCell>
-              <TableCell>{horse.colorAndMarkings}</TableCell>
+              <TableCell>{horse.color}</TableCell>
               <TableCell>{horse.stallNumber}</TableCell>
               <TableCell className="sticky right-0 w-12 border-l bg-background">
                 <Button onClick={() => setEditingHorse(horse)} size="sm" variant="ghost">

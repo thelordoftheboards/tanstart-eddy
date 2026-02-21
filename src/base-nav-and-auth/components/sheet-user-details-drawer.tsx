@@ -52,21 +52,21 @@ import {
 } from '../hooks/user-hooks';
 
 interface User {
-  id: string;
-  name: string;
-  email: string;
-  role: string;
-  emailVerified: boolean;
   banned: boolean;
   createdAt: Date;
+  email: string;
+  emailVerified: boolean;
+  id: string;
   image?: string;
+  name: string;
+  role: string;
 }
 
 interface SheetUserDetailsDrawerProps {
-  user: User | null;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
   currentUserRole: UserRole;
+  onOpenChange: (open: boolean) => void;
+  open: boolean;
+  user: User | null;
 }
 
 function getRoleBadge(role: string) {

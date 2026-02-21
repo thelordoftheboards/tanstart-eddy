@@ -2,9 +2,9 @@ import { useSession } from '@tanstack/react-start/server';
 import { env } from '~/lib/env.server';
 
 export interface SessionDataType {
-  userId?: string;
   email?: string;
   role?: string;
+  userId?: string;
 }
 
 export function useAppSession() {

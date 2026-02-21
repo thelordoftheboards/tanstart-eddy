@@ -15,6 +15,13 @@
       "when": 1770941479371,
       "tag": "0001_flawless_junta",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1771650667184,
+      "tag": "0002_messy_ronan",
+      "breakpoints": true
     }
   ]
 }

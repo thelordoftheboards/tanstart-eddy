@@ -1,10 +1,20 @@
+import { IconX } from '@tabler/icons-react';
 import { toast } from 'sonner';
 import { AlertDialogDelete } from '~/base-user-interface/components/alert-dialog-delete';
 import { DialogContent, DialogFooter, DialogHeader, DialogTitle } from '~/base-user-interface/components/ui/dialog';
 import { useAppForm } from '~/base-user-interface/hooks/form';
 import { useScrollInsideDialog } from '~/base-user-interface/hooks/use-scroll-inside-dialog';
 import { Button } from '~/components/ui/button';
-import { FieldGroup } from '~/components/ui/field';
+import {
+  Field,
+  FieldContent,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLegend,
+  FieldSet,
+} from '~/components/ui/field';
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from '~/components/ui/input-group';
 import { ScrollArea } from '~/components/ui/scroll-area';
 import { useMutationHorseAdd } from '../client/mutation-horse-add';
 import { useMutationHorseDelete } from '../client/mutation-horse-delete';
@@ -60,8 +70,9 @@ export function DialogContentHorseEdit({
       name: '',
       breed: '',
       birthYear: new Date().getFullYear(),
-      colorAndMarkings: '',
+      color: '',
       stallNumber: '',
+      markings: [],
     }) satisfies HorseNoIdType as HorseNoIdType,
     validators: {
       onSubmit: horseNoIdSchema,
@@ -108,16 +119,83 @@ export function DialogContentHorseEdit({
                 />
 
                 <form.AppField
-                  children={(field) => (
-                    <field.FormFieldText label="Color and Markings" placeholder="Enter color and markings" />
-                  )}
-                  name="colorAndMarkings"
+                  children={(field) => <field.FormFieldText label="Color" placeholder="Enter color" />}
+                  name="color"
                 />
 
                 <form.AppField
                   children={(field) => <field.FormFieldText label="Stall Number" placeholder="Enter stall number" />}
                   name="stallNumber"
                 />
+
+                <form.Field mode="array" name="markings">
+                  {(field) => {
+                    return (
+                      <FieldSet>
+                        <div className="flex items-center justify-between gap-2">
+                          <FieldContent>
+                            <FieldLegend className="mb-0" variant="label">
+                              Markings
+                            </FieldLegend>
+                            <FieldDescription>
+                              Add markings - pathches on face and legs - e.g. star, snip, blaze, coronet, sock, etc.
+                            </FieldDescription>
+                            {field.state.meta.errors && <FieldError errors={field.state.meta.errors} />}
+                          </FieldContent>
+                          <Button
+                            onClick={() => field.pushValue({ markingDescription: '' })}
+                            size="sm"
+                            type="button"
+                            variant="outline"
+                          >
+                            Add Marking
+                          </Button>
+                        </div>
+                        <FieldGroup>
+                          {field.state.value.map((_, index) => (
+                            // biome-ignore lint/suspicious/noArrayIndexKey: There is no other natural key
+                            <form.Field key={index} name={`markings[${index}].markingDescription`}>
+                              {(innerField) => {
+                                const isInvalid = innerField.state.meta.isTouched && !innerField.state.meta.isValid;
+                                return (
+                                  <Field data-invalid={isInvalid} orientation="horizontal">
+                                    <FieldContent>
+                                      <InputGroup>
+                                        <InputGroupInput
+                                          aria-invalid={isInvalid}
+                                          aria-label={`Marking ${index + 1} markingDescription`}
+                                          id={innerField.name}
+                                          onBlur={innerField.handleBlur}
+                                          onChange={(e) => innerField.handleChange(e.target.value)}
+                                          type="text"
+                                          value={innerField.state.value}
+                                        />
+                                        {field.state.value.length > 1 && (
+                                          <InputGroupAddon align="inline-end">
+                                            <InputGroupButton
+                                              aria-label={`Remove User ${index + 1}`}
+                                              onClick={() => field.removeValue(index)}
+                                              size="icon-xs"
+                                              type="button"
+                                              variant="ghost"
+                                            >
+                                              <IconX />
+                                            </InputGroupButton>
+                                          </InputGroupAddon>
+                                        )}
+                                      </InputGroup>
+                                      {isInvalid && <FieldError errors={innerField.state.meta.errors} />}
+                                    </FieldContent>
+                                  </Field>
+                                );
+                              }}
+                            </form.Field>
+                          ))}
+                        </FieldGroup>
+                      </FieldSet>
+                    );
+                  }}
+                </form.Field>
               </FieldGroup>
             </div>
           </ScrollArea>

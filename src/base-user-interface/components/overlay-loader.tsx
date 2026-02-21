@@ -2,19 +2,19 @@ import { Loader2 } from 'lucide-react';
 import { cn } from '~/lib/utils';
 
 interface OverlayLoaderProps {
+  backdrop?: 'light' | 'dark' | 'blur';
+  className?: string;
   isLoading: boolean;
   message?: string;
-  className?: string;
   size?: 'sm' | 'md' | 'lg';
-  backdrop?: 'light' | 'dark' | 'blur';
 }
 
 export function OverlayLoader({
+  backdrop = 'light',
+  className,
   isLoading,
   message = 'Loading...',
-  className,
   size = 'md',
-  backdrop = 'light',
 }: OverlayLoaderProps) {
   if (!isLoading) {
     return null;
@@ -44,16 +44,16 @@ export function OverlayLoader({
 
 // Component-specific overlay loader
 interface ComponentOverlayLoaderProps {
+  className?: string;
   isLoading: boolean;
   message?: string;
-  className?: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
 export function ComponentOverlayLoader({
+  className,
   isLoading,
   message = 'Loading...',
-  className,
   size = 'md',
 }: ComponentOverlayLoaderProps) {
   if (!isLoading) {
@@ -78,13 +78,13 @@ export function ComponentOverlayLoader({
 
 // Inline loader for smaller spaces
 interface InlineLoaderProps {
+  className?: string;
   isLoading: boolean;
   message?: string;
   size?: 'sm' | 'md';
-  className?: string;
 }
 
-export function InlineLoader({ isLoading, message = 'Loading...', size = 'sm', className }: InlineLoaderProps) {
+export function InlineLoader({ className, isLoading, message = 'Loading...', size = 'sm' }: InlineLoaderProps) {
   if (!isLoading) {
     return null;
   }
