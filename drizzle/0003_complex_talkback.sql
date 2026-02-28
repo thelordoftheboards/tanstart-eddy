@@ -1,0 +1,2 @@
+ALTER TABLE "tanstart_eddy_examples_horse" ADD COLUMN "created_at" timestamp with time zone DEFAULT now() NOT NULL;--> statement-breakpoint
+ALTER TABLE "tanstart_eddy_examples_horse" ADD COLUMN "updated_at" timestamp with time zone DEFAULT now() NOT NULL;
