@@ -1,10 +1,8 @@
 import { type BetterAuthOptions } from 'better-auth/minimal';
 import { eq } from 'drizzle-orm';
+import { serviceHumanReadableName } from '~/base-config/server/organization-info';
 import { sendEmail } from '~/base-email/server/send-emai';
-import {
-  emailFromForSystemEmails,
-  serviceHumanReadableName,
-} from '~/base-nav-and-auth-config/server/organization-info';
+import { emailFromForSystemEmails } from '~/base-nav-and-auth-config/server/organization-info';
 import { db } from '~/lib/db';
 // biome-ignore lint/performance/noNamespaceImport: Allow
 import * as schema from '~/lib/db/schema/auth.schema';

@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { GalleryVerticalEnd, LoaderCircle } from 'lucide-react';
 import { toast } from 'sonner';
-import { serviceHumanReadableName } from '~/base-nav-and-auth-config/server/organization-info';
+import { serviceHumanReadableName } from '~/base-config/server/organization-info';
 //import { SignInSocialButton } from '~/components/sign-in-social-button';
 import { Button } from '~/components/ui/button';
 import { Input } from '~/components/ui/input';
