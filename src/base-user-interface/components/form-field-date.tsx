@@ -20,7 +20,7 @@ export default function FormFieldDate({
 }) {
   const field = useFieldContext<Date | undefined>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const ivValidating = field.state.meta.isValidating;
+  const isValidating = field.state.meta.isValidating;
   const { value } = field.state;
 
   return (
@@ -65,7 +65,7 @@ export default function FormFieldDate({
       </Popover>
 
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {ivValidating && 'Validating ...'}
+      {isValidating && 'Validating ...'}
     </Field>
   );
 }

@@ -3,12 +3,14 @@ import { Input } from '~/components/ui/input';
 import { useFieldContext } from '../hooks/form-context';
 
 export default function FormFieldNumber({
+  autoComplete,
   label,
   description,
   placeholder,
   className,
   type,
 }: {
+  autoComplete?: string;
   label: string;
   description?: string;
   placeholder?: string;
@@ -17,7 +19,8 @@ export default function FormFieldNumber({
 }) {
   const field = useFieldContext<number>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const ivValidating = field.state.meta.isValidating;
+  const isValidating = field.state.meta.isValidating;
+  const isValidNumber = typeof field.state.value === 'number' && !Number.isNaN(field.state.value);
 
   return (
     <Field className={className} data-invalid={isInvalid}>
@@ -28,17 +31,18 @@ export default function FormFieldNumber({
 
       <Input
         aria-invalid={isInvalid}
+        autoComplete={autoComplete}
         id={field.name}
         name={field.name}
         onBlur={field.handleBlur}
         onChange={(e) => field.handleChange(Number.parseInt(e.target.value, 10))}
         placeholder={placeholder}
         type={type}
-        value={field.state.value}
+        value={isValidNumber ? field.state.value : ''}
       />
 
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {ivValidating && 'Validating ...'}
+      {isValidating && 'Validating ...'}
     </Field>
   );
 }

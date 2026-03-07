@@ -3,12 +3,14 @@ import { Input } from '~/components/ui/input';
 import { useFieldContext } from '../hooks/form-context';
 
 export default function FormFieldText({
+  autoComplete,
   label,
   description,
   placeholder,
   className,
   type,
 }: {
+  autoComplete?: string;
   label: string;
   description?: string;
   placeholder?: string;
@@ -17,7 +19,7 @@ export default function FormFieldText({
 }) {
   const field = useFieldContext<string>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const ivValidating = field.state.meta.isValidating;
+  const isValidating = field.state.meta.isValidating;
 
   return (
     <Field className={className} data-invalid={isInvalid}>
@@ -28,6 +30,7 @@ export default function FormFieldText({
 
       <Input
         aria-invalid={isInvalid}
+        autoComplete={autoComplete}
         id={field.name}
         name={field.name}
         onBlur={field.handleBlur}
@@ -38,7 +41,7 @@ export default function FormFieldText({
       />
 
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {ivValidating && 'Validating ...'}
+      {isValidating && 'Validating ...'}
     </Field>
   );
 }

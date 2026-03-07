@@ -23,7 +23,7 @@ export default function FormFieldDateTime({
 }) {
   const field = useFieldContext<Date | null>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const ivValidating = field.state.meta.isValidating;
+  const isValidating = field.state.meta.isValidating;
   const { value } = field.state;
 
   const handleDateSelect = (selectedDate: Date | null) => {
@@ -228,7 +228,7 @@ export default function FormFieldDateTime({
       </div>
 
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {ivValidating && 'Validating ...'}
+      {isValidating && 'Validating ...'}
     </Field>
   );
 }

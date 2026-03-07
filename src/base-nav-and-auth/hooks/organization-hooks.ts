@@ -259,3 +259,32 @@ export const useGetInvitation = (invitationId: string) => {
     },
   });
 };
+
+export const useUpdateOrganization = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ organizationId, name, logo }: { organizationId: string; name?: string; logo?: string }) => {
+      const result = await authClient.organization.update({
+        data: {
+          name,
+          logo,
+        },
+        organizationId,
+      });
+
+      if (result.error) {
+        throw new Error(result.error.message || 'Failed to update organization');
+      }
+
+      return result;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: organizationQueryKeys.all });
+      queryClient.invalidateQueries({ queryKey: organizationQueryKeys.full() });
+    },
+    onError: (error: Error) => {
+      console.error('Update organization error:', error);
+    },
+  });
+};

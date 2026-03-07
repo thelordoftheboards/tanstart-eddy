@@ -1,6 +1,7 @@
 import { useRouter } from '@tanstack/react-router';
 import { Edit, Loader2, X } from 'lucide-react';
 import { useState } from 'react';
+import Resizer from 'react-image-file-resizer';
 import { toast } from 'sonner';
 import z from 'zod';
 import { convertImageToBase64 } from '~/base/utils/convert-image-to-base-64';
@@ -19,6 +20,10 @@ import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { authClient } from '~/lib/auth/auth-client';
 import { useSession } from '../hooks/auth-hooks';
+
+// Per https://github.com/onurzorluer/react-image-file-resizer/issues/68#issuecomment-1400516800
+// @ts-expect-error https://github.com/onurzorluer/react-image-file-resizer/issues/68
+const resizer: typeof Resizer = Resizer.default || Resizer;
 
 const CardUserChangeUserSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters').optional(),
@@ -71,15 +76,23 @@ export function CardUserChangeUser() {
     },
   });
 
+  const handleImageChangedAndResized = (imageFile: string | Blob | File | ProgressEvent<FileReader>) => {
+    if (!(imageFile instanceof File)) {
+      throw new Error('assert');
+    }
+
+    form.setFieldValue('image', imageFile);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setImagePreview(reader.result as string);
+    };
+    reader.readAsDataURL(imageFile);
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      form.setFieldValue('image', file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      resizer.imageFileResizer(file, 192, 192, 'webp', 90, 0, handleImageChangedAndResized, 'file');
     }
   };
 

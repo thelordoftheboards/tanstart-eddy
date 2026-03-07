@@ -19,7 +19,7 @@ export function FormFieldPassword({
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const field = useFieldContext<string>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const ivValidating = field.state.meta.isValidating;
+  const isValidating = field.state.meta.isValidating;
 
   return (
     <Field className={className} data-invalid={isInvalid}>
@@ -55,7 +55,7 @@ export function FormFieldPassword({
       </div>
 
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {ivValidating && 'Validating ...'}
+      {isValidating && 'Validating ...'}
     </Field>
   );
 }

@@ -5,12 +5,14 @@ import { useFieldContext } from '../hooks/form-context';
 import { type PhoneNumberType } from '../schema/phone-number';
 
 export default function FormFieldPhoneNumber({
+  autoComplete,
   label,
   description,
   placeholder,
   className,
   type,
 }: {
+  autoComplete?: string;
   label: string;
   description?: string;
   placeholder?: string;
@@ -19,7 +21,7 @@ export default function FormFieldPhoneNumber({
 }) {
   const field = useFieldContext<PhoneNumberType>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const ivValidating = field.state.meta.isValidating;
+  const isValidating = field.state.meta.isValidating;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
     const input = event.target.value;
@@ -38,6 +40,7 @@ export default function FormFieldPhoneNumber({
 
       <Input
         aria-invalid={isInvalid}
+        autoComplete={autoComplete}
         id={field.name}
         name={field.name}
         onBlur={field.handleBlur}
@@ -48,7 +51,7 @@ export default function FormFieldPhoneNumber({
       />
 
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {ivValidating && 'Validating ...'}
+      {isValidating && 'Validating ...'}
     </Field>
   );
 }

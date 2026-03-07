@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
-import { ChevronDownIcon, Loader2, MailPlus, PlusIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { ChevronDownIcon, Loader2, MailPlus } from 'lucide-react';
+import { useState } from 'react';
 import { toast } from 'sonner';
 import z from 'zod';
 import CopyToClipboardButton from '~/base-user-interface/components/copy-to-clipboard-button';
@@ -24,7 +24,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '~/components/ui/dropdown-menu';
-import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select';
 import type { AuthClient } from '~/lib/auth/auth-client';
@@ -33,12 +32,12 @@ import { getInitials } from '../client/get-initials';
 import { useSession } from '../hooks/auth-hooks';
 import {
   useCancelInvitation,
-  useCreateOrganization,
   useInviteMember,
   useOrganizations,
   useRemoveMember,
   useSetActiveOrganization,
 } from '../hooks/organization-hooks';
+import { CreateOrganizationDialog } from './organization-dialog';
 
 type ActiveOrganization = Awaited<ReturnType<typeof authClient.organization.getFullOrganization>>;
 
@@ -73,9 +72,9 @@ export function OrganizationCard(props: {
     <Card>
       <CardHeader>
         <CardTitle>Organization</CardTitle>
-        <div className="flex justify-between">
+        <div className="flex gap-2">
           <DropdownMenu>
-            <DropdownMenuTrigger render={<div className="flex cursor-pointer items-center gap-1" />}>
+            <DropdownMenuTrigger render={<Button className="flex grow cursor-pointer justify-start" variant="ghost" />}>
               <p className="text-sm">
                 <span className="font-bold" /> {optimisticOrg?.name || 'Personal'}
               </p>
@@ -111,9 +110,17 @@ export function OrganizationCard(props: {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          <div>
-            <CreateOrganizationDialog />
-          </div>
+          {optimisticOrg?.id && (
+            <CreateOrganizationDialog
+              organization={{
+                id: optimisticOrg.id,
+                name: optimisticOrg.name,
+                slug: optimisticOrg.slug,
+                logo: optimisticOrg.logo,
+              }}
+            />
+          )}
+          <CreateOrganizationDialog />
         </div>
         <div className="flex items-center gap-2">
           <Avatar className="rounded-none">
@@ -263,197 +270,6 @@ export function OrganizationCard(props: {
         </div>
       </CardContent>
     </Card>
-  );
-}
-
-const createOrganizationSchema = z.object({
-  name: z.string().min(2, 'Organization name must be at least 2 characters'),
-  slug: z
-    .string()
-    .min(2, 'Slug must be at least 2 characters')
-    .regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
-  logo: z.instanceof(File).optional(),
-});
-
-function CreateOrganizationDialog() {
-  const [open, setOpen] = useState(false);
-  const [isSlugEdited, setIsSlugEdited] = useState(false);
-  const [logoPreview, setLogoPreview] = useState<string | null>(null);
-  const createOrganization = useCreateOrganization();
-
-  const form = useAppForm({
-    defaultValues: {
-      name: '',
-      slug: '',
-      logo: undefined as File | undefined,
-    },
-    validators: {
-      onChange: ({ value }) => {
-        const result = createOrganizationSchema.safeParse(value);
-        if (!result.success) {
-          return result.error.issues;
-        }
-        return;
-      },
-    },
-    onSubmit: async ({ value }) => {
-      try {
-        let logoBase64: string | undefined;
-        if (value.logo) {
-          logoBase64 = await convertImageToBase64(value.logo);
-        }
-
-        createOrganization.mutate(
-          {
-            name: value.name,
-            slug: value.slug,
-            logo: logoBase64,
-          },
-          {
-            onSuccess: () => {
-              toast.success('Organization created successfully');
-              setOpen(false);
-              form.reset();
-              setLogoPreview(null);
-              setIsSlugEdited(false);
-            },
-            onError: (error) => {
-              toast.error(error.message);
-            },
-          }
-        );
-      } catch (_error) {
-        toast.error('An error occurred while creating organization');
-      }
-    },
-  });
-
-  // Auto-generate slug from name if not manually edited
-  useEffect(() => {
-    if (!isSlugEdited && form.state.values.name) {
-      const generatedSlug = form.state.values.name.trim().toLowerCase().replace(/\s+/g, '-');
-      form.setFieldValue('slug', generatedSlug);
-    }
-  }, [form, form.state.values.name, form.setFieldValue, isSlugEdited]);
-
-  const convertImageToBase64 = (file: File): Promise<string> =>
-    new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-
-  const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      form.setFieldValue('logo', file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setLogoPreview(reader.result as string);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const clearLogo = () => {
-    form.setFieldValue('logo', undefined);
-    setLogoPreview(null);
-  };
-
-  return (
-    <Dialog onOpenChange={setOpen} open={open}>
-      <DialogTrigger render={<Button className="w-full gap-2" size="sm" variant="default" />}>
-        <PlusIcon />
-        <p>New Organization</p>
-      </DialogTrigger>
-      <DialogContent className="w-11/12 sm:max-w-106">
-        <DialogHeader>
-          <DialogTitle>New Organization</DialogTitle>
-          <DialogDescription>Create a new organization to collaborate with your team.</DialogDescription>
-        </DialogHeader>
-
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <form.AppField
-              children={(field) => <field.FormFieldText label={'Organization Name'} placeholder={'Name'} />}
-              name="name"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <form.AppField
-              children={(field) => (
-                <div>
-                  <Label htmlFor={field.name}>Organization Slug</Label>
-                  <Input
-                    className="mt-1"
-                    id={field.name}
-                    name={field.name}
-                    onBlur={field.handleBlur}
-                    onChange={(e) => {
-                      field.handleChange(e.target.value);
-                      setIsSlugEdited(true);
-                    }}
-                    placeholder="organization-slug"
-                    type="text"
-                    value={field.state.value}
-                  />
-                  {field.state.meta.errors && (
-                    <p className="mt-1 text-destructive text-sm">{field.state.meta.errors[0]}</p>
-                  )}
-                </div>
-              )}
-              name="slug"
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <Label>Logo</Label>
-            <Input accept="image/*" onChange={handleLogoChange} type="file" />
-            {logoPreview && (
-              <div className="mt-2 flex items-center gap-2">
-                <img
-                  alt="Logo preview"
-                  className="h-16 w-16 rounded object-cover"
-                  height={16}
-                  src={logoPreview}
-                  width={16}
-                />
-                <button
-                  className="text-destructive text-sm hover:text-destructive/80"
-                  onClick={clearLogo}
-                  type="button"
-                >
-                  Remove
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-
-        <DialogFooter>
-          <form.Subscribe
-            // @ts-expect-error Tanstack Form type issue
-            children={([canSubmit, isSubmitting]) => (
-              <Button
-                disabled={!canSubmit || isSubmitting || createOrganization.isPending}
-                onClick={(e) => {
-                  e.preventDefault();
-                  form.handleSubmit();
-                }}
-              >
-                {createOrganization.isPending || isSubmitting ? (
-                  <Loader2 className="animate-spin" size={16} />
-                ) : (
-                  'Create'
-                )}
-              </Button>
-            )}
-            // @ts-expect-error Tanstack Form type issue
-            selector={(state) => [state.canSubmit, state.isSubmitting]}
-          />
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
   );
 }
 

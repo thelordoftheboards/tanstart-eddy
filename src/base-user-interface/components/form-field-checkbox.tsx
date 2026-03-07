@@ -5,7 +5,7 @@ import { useFieldContext } from '../hooks/form-context';
 export default function FormFieldCheckbox({ label }: { label: string }) {
   const field = useFieldContext<string>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const ivValidating = field.state.meta.isValidating;
+  const isValidating = field.state.meta.isValidating;
 
   return (
     <Field className="flex items-center gap-3">
@@ -21,7 +21,7 @@ export default function FormFieldCheckbox({ label }: { label: string }) {
       <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
 
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {ivValidating && 'Validating ...'}
+      {isValidating && 'Validating ...'}
     </Field>
   );
 }

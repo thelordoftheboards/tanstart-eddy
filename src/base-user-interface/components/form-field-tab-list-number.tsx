@@ -20,7 +20,7 @@ export default function FormFieldTabListNumber({
 }) {
   const field = useFieldContext<number>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const ivValidating = field.state.meta.isValidating;
+  const isValidating = field.state.meta.isValidating;
 
   return (
     <Field className={className} data-invalid={isInvalid}>
@@ -41,7 +41,7 @@ export default function FormFieldTabListNumber({
       </Tabs>
 
       {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {ivValidating && 'Validating ...'}
+      {isValidating && 'Validating ...'}
     </Field>
   );
 }
