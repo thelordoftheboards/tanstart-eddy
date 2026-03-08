@@ -92,7 +92,7 @@ export function CardUserChangeUser() {
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      resizer.imageFileResizer(file, 192, 192, 'webp', 90, 0, handleImageChangedAndResized, 'file');
+      resizer.imageFileResizer(file, 64, 64, 'webp', 90, 0, handleImageChangedAndResized, 'file');
     }
   };
 

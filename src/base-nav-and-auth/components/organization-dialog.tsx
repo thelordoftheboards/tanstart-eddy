@@ -129,7 +129,7 @@ export function CreateOrganizationDialog(props: { organization?: Organization })
   const handleLogoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      resizer.imageFileResizer(file, 192, 192, 'webp', 90, 0, handleLogoChangeForResized, 'file');
+      resizer.imageFileResizer(file, 64, 64, 'webp', 90, 0, handleLogoChangeForResized, 'file');
     }
   };
 
