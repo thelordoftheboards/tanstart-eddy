@@ -1,0 +1,36 @@
+name: "${PROJECT_NAME}-standalone-garage"
+
+services:
+  garage:
+    image: dxflrs/garage:v1.3.1
+    #command: server
+    ports:
+      - "3901:3901"   # RPC
+      - "3902:3902"   # S3 Web API
+      - "3903:3903"   # Admin API
+      - "3904:3904"   # K2V API (optional)
+    env_file:
+      - ../devconfig/standalone-garage.env
+    volumes:
+      - garage_data:/var/lib/garage/data
+      - garage_meta:/var/lib/garage/meta
+      - ./garage.toml:/etc/garage.toml:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3902/health"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+    networks:
+      - dev-network
+
+volumes:
+  garage_data:
+    name: "${PROJECT_NAME}-standalone-garage-data-volume"
+  garage_meta:
+    name: "${PROJECT_NAME}-standalone-garage-meta-volume"
+
+networks:
+  dev-network:
+    name: "${PROJECT_NAME}-standalone-network"
+    external: true

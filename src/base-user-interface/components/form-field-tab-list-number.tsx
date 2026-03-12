@@ -12,13 +12,13 @@ export default function FormFieldTabListNumber({
   label: string;
   description?: string;
   options: {
-    value: number;
+    value: string;
     text: string;
     icon?: React.ForwardRefExoticComponent<IconProps & React.RefAttributes<SVGSVGElement>>;
   }[];
   className?: string;
 }) {
-  const field = useFieldContext<number>();
+  const field = useFieldContext<string>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
   const isValidating = field.state.meta.isValidating;
 
@@ -29,10 +29,15 @@ export default function FormFieldTabListNumber({
         {description && <FieldDescription>{description}</FieldDescription>}
       </FieldContent>
 
-      <Tabs onValueChange={(value) => field.handleChange(Number.parseInt(value, 10))} value={field.state.value}>
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs onValueChange={(value) => field.handleChange(value)} value={field.state.value}>
+        <TabsList
+          className="grid w-full grid-cols-2-xxxx gap-2"
+          style={{
+            gridTemplateColumns: `repeat(${options.length}, 1fr)`,
+          }}
+        >
           {options.map((option) => (
-            <TabsTrigger className="gap-2" key={option.value} value={option.value}>
+            <TabsTrigger className="gap-2-xxxxx" key={option.value} value={option.value}>
               {option.icon && <option.icon className="h-4 w-4" />}
               {option.text}
             </TabsTrigger>

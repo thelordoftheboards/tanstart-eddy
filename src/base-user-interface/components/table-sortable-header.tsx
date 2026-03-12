@@ -1,4 +1,4 @@
-import { TableHead } from '~/components/ui/table';
+import { TableCell } from '~/components/ui/table';
 
 type SortDirection = 'asc' | 'desc';
 
@@ -22,12 +22,12 @@ export function TableSortableHeader<T>({
   }
 
   return (
-    <TableHead className="cursor-pointer hover:bg-muted/50" onClick={() => onSort(field)}>
+    <TableCell className="cursor-pointer hover:bg-muted/50" onClick={() => onSort(field)}>
       <div className="flex items-center gap-1">
         {children}
         <span className="min-w-16 text-muted-foreground text-xs">{direction}</span>
       </div>
-    </TableHead>
+    </TableCell>
   );
 }
 

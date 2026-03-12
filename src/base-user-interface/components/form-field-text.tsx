@@ -4,20 +4,22 @@ import { useFieldContext } from '../hooks/form-context';
 
 export default function FormFieldText({
   autoComplete,
-  label,
-  description,
-  placeholder,
   className,
+  description,
+  label,
+  nullable,
+  placeholder,
   type,
 }: {
   autoComplete?: string;
-  label: string;
-  description?: string;
-  placeholder?: string;
   className?: string;
+  description?: string;
+  label: string;
+  nullable?: boolean;
+  placeholder?: string;
   type?: string;
 }) {
-  const field = useFieldContext<string>();
+  const field = useFieldContext<string | null>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
   const isValidating = field.state.meta.isValidating;
 
@@ -34,10 +36,10 @@ export default function FormFieldText({
         id={field.name}
         name={field.name}
         onBlur={field.handleBlur}
-        onChange={(e) => field.handleChange(e.target.value)}
+        onChange={(e) => field.handleChange(nullable && e.target.value === '' ? null : e.target.value)}
         placeholder={placeholder}
         type={type}
-        value={field.state.value}
+        value={field.state.value ?? ''}
       />
 
       {isInvalid && <FieldError errors={field.state.meta.errors} />}

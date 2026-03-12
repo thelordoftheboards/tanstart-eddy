@@ -8,15 +8,15 @@ import { Popover, PopoverContent, PopoverTrigger } from '~/components/ui/popover
 import { useFieldContext } from '../hooks/form-context';
 
 export default function FormFieldIsoDate({
-  label,
-  description,
-  nullable,
   className,
+  description,
+  label,
+  nullable,
 }: {
-  label: string;
-  description?: string;
-  nullable?: boolean;
   className?: string;
+  description?: string;
+  label: string;
+  nullable?: boolean;
 }) {
   const field = useFieldContext<string | null>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;

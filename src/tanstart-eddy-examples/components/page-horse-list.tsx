@@ -76,7 +76,6 @@ export function PageHorseList() {
             >
               Stall Number
             </TableSortableHeader>
-            <TableHeader className="sticky right-0 w-12 border-l bg-background" />
           </TableRow>
         </TableHeader>
         <TableBody>
