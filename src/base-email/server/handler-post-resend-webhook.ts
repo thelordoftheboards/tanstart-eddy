@@ -14,7 +14,7 @@ import { resend } from './resend';
  * A webhook handler for POST requests from resend for when a new email is received
  * as per https://resend.com/blog/inbound-emails
  */
-export async function handlerPostServiceRequestByCustomer({ request }: { request: Request }) {
+export async function serviceRequestByCustomerHandlerPost({ request }: { request: Request }) {
   const requestDataText = await request.text();
 
   try {
@@ -34,7 +34,7 @@ export async function handlerPostServiceRequestByCustomer({ request }: { request
       webhookSecret: env.RESEND_WEBHOOK_EMAIL_RECEIVED_SIGNING_SECRET,
     });
   } catch (err) {
-    console.error('handlerPostServiceRequestByCustomer failed at resend.webhooks.verify');
+    console.error('serviceRequestByCustomerHandlerPost failed at resend.webhooks.verify');
     console.error(err);
   }
 
