@@ -1,11 +1,20 @@
 import retry from 'async-retry';
-import type { CreateEmailOptions, CreateEmailResponse } from 'resend';
+import { type CreateEmailOptions, type CreateEmailResponse } from 'resend';
+import { env } from '~/lib/env.server';
 import { resend } from './resend';
 
 /**
  * Sends an email using Resend with exponential backoff retries.
+ * If EMAIL_DISABLED is true does not send but rather logs to console.
  */
 export async function sendEmail(payload: CreateEmailOptions): Promise<CreateEmailResponse['data']> {
+  if (env.EMAIL_DISABLED) {
+    console.info('sendEmail, EMAIL_DISABLED=true, payload:', payload);
+    return {
+      id: '11111111-1111-1111-1111-111111111111',
+    };
+  }
+
   // TODO // Look into clarifying the type for async-retry sendEmail
   // @ts-expect-error Type [void | CreateEmailResponseSuccess] is not assignable to type [CreateEmailResponseSuccess | null]
   return await retry(
