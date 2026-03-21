@@ -90,4 +90,4 @@ function StepperBody({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
   return <div className={cn('flex-1 text-center', className)} {...props} />;
 }
 
-export { Stepper, StepperItem, StepperHeader, StepperSeparator, StepperIcon, StepperBody };
+export { Stepper, StepperBody, StepperHeader, StepperIcon, StepperItem, StepperSeparator };

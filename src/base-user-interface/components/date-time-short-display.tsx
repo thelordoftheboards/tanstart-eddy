@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/style/noSubstr: Allow */
+
 function TwoDigitNumberWithSubduedLeadingZero({ num }: { num: number }) {
   if (num > 9) {
     return <>{`${num}`}</>;

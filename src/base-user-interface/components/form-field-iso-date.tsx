@@ -1,3 +1,5 @@
+/** biome-ignore-all lint/style/noSubstr: Allow */
+
 import { Popover as BaseUiPopover } from '@base-ui/react/popover';
 import { format } from 'date-fns';
 import { Calendar as CalendarIcon } from 'lucide-react';
