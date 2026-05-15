@@ -70,7 +70,7 @@ export function CardUserChangeUser() {
         router.invalidate();
         setImagePreview(null);
         setOpen(false);
-      } catch (_error) {
+      } catch {
         toast.error('An error occurred while updating user');
       }
     },

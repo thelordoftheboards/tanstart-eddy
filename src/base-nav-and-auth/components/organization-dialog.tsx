@@ -112,7 +112,7 @@ export function CreateOrganizationDialog(props: { organization?: Organization })
             }
           );
         }
-      } catch (_error) {
+      } catch {
         toast.error('An error occurred while saving organization');
       }
     },

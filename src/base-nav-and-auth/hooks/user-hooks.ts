@@ -39,8 +39,8 @@ export const useUsers = () => {
   });
 };
 
-export const useSessions = () => {
-  return useQuery({
+export const useSessions = () =>
+  useQuery({
     queryKey: userQueryKeys.sessions(),
     queryFn: async () => {
       const getSession = authClient.getSession();
@@ -56,7 +56,6 @@ export const useSessions = () => {
       return failureCount < 2;
     },
   });
-};
 
 // export const usePasskeys = () => {
 //   const passkeys = authClient.useListPasskeys();
@@ -222,8 +221,8 @@ export const useRevokeUserSessions = () => {
   });
 };
 
-export const useImpersonateUser = () => {
-  return useMutation({
+export const useImpersonateUser = () =>
+  useMutation({
     mutationFn: async ({ userId }: { userId: string }) => {
       const result = await authClient.admin.impersonateUser({
         userId,
@@ -239,7 +238,6 @@ export const useImpersonateUser = () => {
       console.error('Impersonate user error:', error);
     },
   });
-};
 
 export const useBanUser = () => {
   const queryClient = useQueryClient();
@@ -313,8 +311,8 @@ export const useRevokeSession = () => {
   });
 };
 
-export const useSendVerificationEmail = () => {
-  return useMutation({
+export const useSendVerificationEmail = () =>
+  useMutation({
     mutationFn: async ({ email }: { email: string }) => {
       const result = await authClient.sendVerificationEmail(
         {
@@ -335,7 +333,6 @@ export const useSendVerificationEmail = () => {
       console.error('Send verification email error:', error);
     },
   });
-};
 
 export const useUpdateUser = () => {
   const queryClient = useQueryClient();
@@ -363,8 +360,8 @@ export const useUpdateUser = () => {
   });
 };
 
-export const useChangePassword = () => {
-  return useMutation({
+export const useChangePassword = () =>
+  useMutation({
     mutationFn: async ({
       currentPassword,
       newPassword,
@@ -390,7 +387,6 @@ export const useChangePassword = () => {
       console.error('Change password error:', error);
     },
   });
-};
 
 // TODO // Enable passkey
 /*
