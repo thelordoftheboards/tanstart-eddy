@@ -2,7 +2,7 @@ import { createServerOnlyFn } from '@tanstack/react-start';
 import { drizzle } from 'drizzle-orm/postgres-js';
 import postgres from 'postgres';
 // biome-ignore lint/performance/noNamespaceImport: Allow
-import * as schema from '~/lib/db/schema';
+import * as schema from '~/base-config/lib/db/schema';
 import { env } from '~/lib/env.server';
 
 const driver = postgres(env.DATABASE_URL);
