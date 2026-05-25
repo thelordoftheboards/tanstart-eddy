@@ -1,3 +1,5 @@
 #!/bin/bash
 
+# Place in ~/devconfig/docker-settings.sh
+
 export IMAGE_NAME=tanstart-docker-image

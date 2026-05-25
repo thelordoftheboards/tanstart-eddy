@@ -1,4 +1,6 @@
 #!/bin/bash
 
+# Place in ~/devconfig/localtunnel-settings.sh
+
 export LOCALTUNNEL_SUBDOMAIN=tanstart-https
 export SERVER_HOST=tanstart-https.loca.lt
