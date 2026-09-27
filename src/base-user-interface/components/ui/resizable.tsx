@@ -1,7 +1,7 @@
+import { cn } from 'cn';
 import { GripVerticalIcon } from 'lucide-react';
 import React from 'react';
 import { Group, Panel, Separator } from 'react-resizable-panels';
-import { cn } from '~/lib/utils';
 
 function ResizablePanelGroup({ className, ...props }: React.ComponentProps<typeof Group>) {
   return (
@@ -37,7 +37,7 @@ function ResizableHandle({
       data-slot="resizable-handle"
       {...props}
     >
-      {withHandle && (
+      {!!withHandle && (
         <div className={cn('z-10 flex h-4 w-4 items-center justify-center rounded-xs border')}>
           <GripVerticalIcon className={cn('size-4', orientation === 'vertical' ? 'rotate-90' : '')} />
         </div>

@@ -1,26 +1,19 @@
-node_modules
-
-# Ignore lockfiles we don't use
-# package-lock.json
-# yarn.lock
-# pnpm-lock.yaml
-# bun.lock
-
 .DS_Store
 .cache
 *.env
+opencode.json
 
-.data
+node_modules
+
 .mastra
 .netlify
+.lsdm
 .output
+.tanstack
 .vercel
-.wrangler
 devconfig
 dist
 /build/
 /api/
 /server/build
 /public/build
-
-.tanstack

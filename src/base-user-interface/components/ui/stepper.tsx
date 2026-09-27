@@ -1,7 +1,7 @@
 // Originally from https://www.creative-tim.com/ui/docs/components/stepper
 
+import { cn } from 'cn';
 import React from 'react';
-import { cn } from '~/lib/utils';
 
 const StepperContext = React.createContext<{
   activeStep: number;

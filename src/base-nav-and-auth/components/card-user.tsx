@@ -237,8 +237,8 @@ export default function CardUser(props: { activeSessions: AuthClient['$Infer']['
 
         <div className="flex w-max flex-col gap-1 border-l-2 px-2">
           <p className="font-medium text-xs">Active Sessions</p>
-          {props?.activeSessions
-            ?.filter((item) => item.userAgent)
+          {props.activeSessions
+            .filter((item) => item.userAgent)
             .map((item) => {
               return (
                 <div key={item.id}>

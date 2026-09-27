@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm';
 import { getOrganizationId } from '~/base-nav-and-auth/server/get-organization-id';
-import { db } from '~/lib/db';
-import { tableHorse } from '../db/table-horse';
+import { db } from '~/lib/drizzle/db';
+import { tableHorse } from '../drizzle/table-horse';
 import { type HorseType, horseSchema } from '../schema/horse';
 
 export async function handlerPutHorse({ request }: { request: Request }) {

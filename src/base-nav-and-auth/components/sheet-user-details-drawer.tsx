@@ -147,14 +147,14 @@ function ChangeRoleDialog({
     }
 
     setUserRole(
-      { userId: user.id, role: selectedRole },
+      { role: selectedRole, userId: user.id },
       {
+        onError: (error) => {
+          toast.error(error.message || 'Failed to update user role');
+        },
         onSuccess: () => {
           toast.success('User role updated successfully');
           onOpenChange(false);
-        },
-        onError: (error) => {
-          toast.error(error.message || 'Failed to update user role');
         },
       }
     );
@@ -272,16 +272,16 @@ function ResetPasswordDialog({
     }
 
     resetPassword(
-      { userId: user.id, password },
+      { password, userId: user.id },
       {
+        onError: (error) => {
+          toast.error(error.message || 'Failed to reset password');
+        },
         onSuccess: () => {
           toast.success('Password reset successfully');
           setPassword('');
           setConfirmPassword('');
           onOpenChange(false);
-        },
-        onError: (error) => {
-          toast.error(error.message || 'Failed to reset password');
         },
       }
     );
@@ -355,13 +355,13 @@ function BanUserDialog({
     banUser(
       { userId: user.id },
       {
+        onError: (error) => {
+          toast.error(error.message || 'Failed to ban user');
+        },
         onSuccess: () => {
           toast.success('User banned successfully');
           setReason('');
           onOpenChange(false);
-        },
-        onError: (error) => {
-          toast.error(error.message || 'Failed to ban user');
         },
       }
     );
@@ -434,11 +434,11 @@ export function SheetUserDetailsDrawer({ user, open, onOpenChange, currentUserRo
     revokeUserSessions(
       { userId: user.id },
       {
-        onSuccess: () => {
-          toast.success('All user sessions revoked');
-        },
         onError: (error) => {
           toast.error(error.message || 'Failed to revoke sessions');
+        },
+        onSuccess: () => {
+          toast.success('All user sessions revoked');
         },
       }
     );
@@ -451,11 +451,11 @@ export function SheetUserDetailsDrawer({ user, open, onOpenChange, currentUserRo
     unbanUser(
       { userId: user.id },
       {
-        onSuccess: () => {
-          toast.success('User unbanned successfully');
-        },
         onError: (error) => {
           toast.error(error.message || 'Failed to unban user');
+        },
+        onSuccess: () => {
+          toast.success('User unbanned successfully');
         },
       }
     );

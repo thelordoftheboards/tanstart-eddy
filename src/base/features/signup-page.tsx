@@ -59,7 +59,7 @@ export function SignupPage() {
       return;
     }
 
-    signupMutate({ name, email, password });
+    signupMutate({ email, name, password });
   };
 
   return (
@@ -114,7 +114,7 @@ export function SignupPage() {
               />
             </div>
             <Button className="mt-2 w-full" disabled={isPending} size="lg" type="submit">
-              {isPending && <LoaderCircle className="animate-spin" />}
+              {!!isPending && <LoaderCircle className="animate-spin" />}
               {isPending ? 'Signing up...' : 'Sign up'}
             </Button>
           </div>

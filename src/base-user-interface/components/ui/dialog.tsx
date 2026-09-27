@@ -2,9 +2,9 @@
 
 import { Dialog as DialogPrimitive } from '@base-ui/react/dialog';
 import { IconX } from '@tabler/icons-react';
+import { cn } from 'cn';
 import React from 'react';
 import { Button } from '~/components/ui/button';
-import { cn } from '~/lib/utils';
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />;
@@ -55,7 +55,7 @@ function DialogContent({
         {...props}
       >
         {children}
-        {showCloseButton && (
+        {!!showCloseButton && (
           <DialogPrimitive.Close
             data-slot="dialog-close"
             render={<Button className="absolute top-4 right-4" size="icon-sm" variant="ghost" />}
@@ -88,7 +88,7 @@ function DialogFooter({
       {...props}
     >
       {children}
-      {showCloseButton && <DialogPrimitive.Close render={<Button variant="outline" />}>Close</DialogPrimitive.Close>}
+      {!!showCloseButton && <DialogPrimitive.Close render={<Button variant="outline" />}>Close</DialogPrimitive.Close>}
     </div>
   );
 }

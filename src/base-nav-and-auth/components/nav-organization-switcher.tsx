@@ -20,7 +20,7 @@ export function NavOrganizationSwitcher() {
   const setActiveOrganization = useSetActiveOrganization();
 
   const { isMobile } = useSidebar();
-  const activeOrganization = organizations?.filter((org) => org.id === session?.session.activeOrganizationId)[0];
+  const activeOrganization = organizations?.find((org) => org.id === session?.session.activeOrganizationId);
 
   return (
     <SidebarMenu>
@@ -45,10 +45,10 @@ export function NavOrganizationSwitcher() {
                 <ChevronsUpDown className="ml-auto" />
               </>
             )}
-            {activeOrganization && (
+            {!!activeOrganization && (
               <>
                 <Avatar className="h-8 w-8 rounded-lg">
-                  {activeOrganization.logo && (
+                  {!!activeOrganization.logo && (
                     <AvatarImage alt={activeOrganization.name} src={activeOrganization.logo} />
                   )}
                   <AvatarFallback className="rounded-lg">{getInitials(activeOrganization.name)}</AvatarFallback>
@@ -79,7 +79,7 @@ export function NavOrganizationSwitcher() {
                   }}
                 >
                   <Avatar className="h-8 w-8 rounded-lg">
-                    {organization.logo && <AvatarImage alt={organization.name} src={organization.logo} />}
+                    {!!organization.logo && <AvatarImage alt={organization.name} src={organization.logo} />}
                     <AvatarFallback className="rounded-lg">{getInitials(organization.name)}</AvatarFallback>
                   </Avatar>
                   {organization.name}

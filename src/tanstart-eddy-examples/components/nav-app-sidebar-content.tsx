@@ -7,14 +7,13 @@ import { NavAppSidebarItemMenu } from '../../base-nav-and-auth/components/nav-ap
 export const arrNavAppSidebarItemMenu: MenuItemType[] = [
   ...arrNavAppSidebarItemMenuCumberland,
   {
-    title: 'Eddy',
     icon: IconFerry,
     items: [
       {
         icon: IconHorse,
+        requiresOrganization: true,
         title: 'Horses',
         url: '/dashboard/tanstart-eddy-examples/horses/horse-list',
-        requiresOrganization: true,
       },
       {
         title: 'Example Layout 4',
@@ -29,6 +28,7 @@ export const arrNavAppSidebarItemMenu: MenuItemType[] = [
         url: '/dashboard/tanstart-eddy-examples/example-layout-6',
       },
     ],
+    title: 'Eddy',
   },
 ];
 

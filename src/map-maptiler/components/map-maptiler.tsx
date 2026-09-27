@@ -76,7 +76,7 @@ function MapWrapper({
       ref={mapRef}
       // despite width and height being specified as attributes, if they are not also specified
       // as style, sometimes the map does not show properly.
-      style={{ width, height }}
+      style={{ height, width }}
       width={width}
     >
       <AttributionControl compact={true} />

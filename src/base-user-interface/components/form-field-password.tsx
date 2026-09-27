@@ -19,13 +19,13 @@ export function FormFieldPassword({
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const field = useFieldContext<string>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const isValidating = field.state.meta.isValidating;
+  const { isValidating } = field.state.meta;
 
   return (
     <Field className={className} data-invalid={isInvalid}>
       <FieldContent>
         <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-        {description && <FieldDescription>{description}</FieldDescription>}
+        {!!description && <FieldDescription>{description}</FieldDescription>}
       </FieldContent>
 
       <div className="relative flex w-full items-center justify-end">
@@ -54,8 +54,8 @@ export function FormFieldPassword({
         </Button>
       </div>
 
-      {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {isValidating && 'Validating ...'}
+      {!!isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {!!isValidating && 'Validating ...'}
     </Field>
   );
 }

@@ -4,9 +4,9 @@ import { adminAc, defaultStatements } from 'better-auth/plugins/admin/access';
 // Define custom statements for our application
 export const statement = {
   ...defaultStatements,
-  store: ['create', 'read', 'update', 'delete'],
-  project: ['create', 'read', 'update', 'delete', 'share'],
   billing: ['read', 'update', 'manage'],
+  project: ['create', 'read', 'update', 'delete', 'share'],
+  store: ['create', 'read', 'update', 'delete'],
 } as const;
 
 // Create access control instance
@@ -14,32 +14,32 @@ const ac = createAccessControl(statement);
 
 // Define roles with specific permissions
 const user = ac.newRole({
-  project: ['create', 'read'],
   billing: ['read'],
+  project: ['create', 'read'],
 });
 
 const manager = ac.newRole({
-  store: ['read', 'update'],
-  project: ['create', 'read'],
   billing: ['read'],
+  project: ['create', 'read'],
+  store: ['read', 'update'],
 });
 
 const admin = ac.newRole({
-  store: ['create', 'read', 'update', 'delete'],
-  project: ['create', 'read', 'update', 'delete', 'share'],
   billing: ['read', 'update'],
+  project: ['create', 'read', 'update', 'delete', 'share'],
+  store: ['create', 'read', 'update', 'delete'],
   ...adminAc.statements, // Include all admin statements
 });
 
 const superadmin = ac.newRole({
-  store: ['create', 'read', 'update', 'delete'],
-  project: ['create', 'read', 'update', 'delete', 'share'],
   billing: ['read', 'update', 'manage'],
+  project: ['create', 'read', 'update', 'delete', 'share'],
+  store: ['create', 'read', 'update', 'delete'],
   ...adminAc.statements, // Include all admin statements
 });
 
 // Collect all roles together for the purpose of exporting
-const roles: { [key in string]: Role } = { user, manager, admin, superadmin };
+const roles: { [key in string]: Role } = { admin, manager, superadmin, user };
 
 // Export the access control instance and roles
 export { ac, roles };

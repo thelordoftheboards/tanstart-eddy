@@ -21,7 +21,7 @@ export default function FormFieldPhoneNumber({
 }) {
   const field = useFieldContext<PhoneNumberType>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const isValidating = field.state.meta.isValidating;
+  const { isValidating } = field.state.meta;
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
     const input = event.target.value;
@@ -35,7 +35,7 @@ export default function FormFieldPhoneNumber({
     <Field className={className} data-invalid={isInvalid}>
       <FieldContent>
         <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-        {description && <FieldDescription>{description}</FieldDescription>}
+        {!!description && <FieldDescription>{description}</FieldDescription>}
       </FieldContent>
 
       <Input
@@ -50,8 +50,8 @@ export default function FormFieldPhoneNumber({
         value={field.state.value}
       />
 
-      {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {isValidating && 'Validating ...'}
+      {!!isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {!!isValidating && 'Validating ...'}
     </Field>
   );
 }

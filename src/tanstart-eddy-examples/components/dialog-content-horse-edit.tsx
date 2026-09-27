@@ -33,27 +33,27 @@ export function DialogContentHorseEdit({
   const isEditing = !!horse;
 
   const mutationHorseAdd = useMutationHorseAdd({
-    onSuccess: () => {
-      toast.success('Horse added successfully');
-    },
     onError: () => {
       toast.error('Failed to add horse');
     },
+    onSuccess: () => {
+      toast.success('Horse added successfully');
+    },
   });
   const mutationHorseDelete = useMutationHorseDelete({
-    onSuccess: () => {
-      toast.success('Horse deleted successfully');
-    },
     onError: () => {
       toast.error('Failed to delete horse');
     },
+    onSuccess: () => {
+      toast.success('Horse deleted successfully');
+    },
   });
   const mutationHorseUpdate = useMutationHorseUpdate({
-    onSuccess: () => {
-      toast.success('Horse updated successfully');
-    },
     onError: () => {
       toast.error('Failed to update horse');
+    },
+    onSuccess: () => {
+      toast.success('Horse updated successfully');
     },
   });
 
@@ -67,16 +67,13 @@ export function DialogContentHorseEdit({
 
   const form = useAppForm({
     defaultValues: (horse ?? {
-      name: '',
-      breed: '',
       birthYear: new Date().getFullYear(),
+      breed: '',
       color: '',
-      stallNumber: '',
       markings: [],
+      name: '',
+      stallNumber: '',
     }) satisfies HorseNoIdType as HorseNoIdType,
-    validators: {
-      onSubmit: horseNoIdSchema,
-    },
     onSubmit: ({ value }) => {
       if (horse) {
         mutationHorseUpdate.mutate({ id: horse.id, ...value });
@@ -85,6 +82,9 @@ export function DialogContentHorseEdit({
       }
 
       setOpen(false);
+    },
+    validators: {
+      onSubmit: horseNoIdSchema,
     },
   });
 
@@ -140,7 +140,7 @@ export function DialogContentHorseEdit({
                             <FieldDescription>
                               Add markings - pathches on face and legs - e.g. star, snip, blaze, coronet, sock, etc.
                             </FieldDescription>
-                            {field.state.meta.errors && <FieldError errors={field.state.meta.errors} />}
+                            {!!field.state.meta.errors && <FieldError errors={field.state.meta.errors} />}
                           </FieldContent>
                           <Button
                             onClick={() => field.pushValue({ markingDescription: '' })}
@@ -184,7 +184,7 @@ export function DialogContentHorseEdit({
                                           </InputGroupAddon>
                                         )}
                                       </InputGroup>
-                                      {isInvalid && <FieldError errors={innerField.state.meta.errors} />}
+                                      {!!isInvalid && <FieldError errors={innerField.state.meta.errors} />}
                                     </FieldContent>
                                   </Field>
                                 );

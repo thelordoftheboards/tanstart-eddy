@@ -11,8 +11,8 @@ export async function mutationFnPost<R, V>(queryStringApi: string, data: V): Pro
 
   try {
     const result = await axios.post<R>(queryString, data, {
-      withCredentials: true,
       validateStatus,
+      withCredentials: true,
     });
 
     checkResultAndThrowIfErrorIsSpecial<R>(result);

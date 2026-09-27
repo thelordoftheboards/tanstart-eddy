@@ -58,9 +58,9 @@ export function OrganizationCard(props: {
 
   const [isRevoking, setIsRevoking] = useState<string[]>([]);
   const inviteVariants = {
-    hidden: { opacity: 0, height: 0 },
-    visible: { opacity: 1, height: 'auto' },
-    exit: { opacity: 0, height: 0 },
+    exit: { height: 0, opacity: 0 },
+    hidden: { height: 0, opacity: 0 },
+    visible: { height: 'auto', opacity: 1 },
   };
 
   const { data } = useSession();
@@ -110,13 +110,13 @@ export function OrganizationCard(props: {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          {optimisticOrg?.id && (
+          {!!optimisticOrg?.id && (
             <CreateOrganizationDialog
               organization={{
                 id: optimisticOrg.id,
+                logo: optimisticOrg.logo,
                 name: optimisticOrg.name,
                 slug: optimisticOrg.slug,
-                logo: optimisticOrg.logo,
               }}
             />
           )}
@@ -217,11 +217,11 @@ export function OrganizationCard(props: {
                                 invitationId: invitation.id,
                               },
                               {
-                                onSuccess: () => {
-                                  toast.message('Invitation revoked successfully');
+                                onError: () => {
                                   setIsRevoking(isRevoking.filter((id) => id !== invitation.id));
                                 },
-                                onError: () => {
+                                onSuccess: () => {
+                                  toast.message('Invitation revoked successfully');
                                   setIsRevoking(isRevoking.filter((id) => id !== invitation.id));
                                 },
                               }
@@ -265,7 +265,7 @@ export function OrganizationCard(props: {
         </div>
         <div className="mt-4 flex w-full justify-end">
           <div>
-            <div>{optimisticOrg?.id && <InviteMemberDialog />}</div>
+            <div>{!!optimisticOrg?.id && <InviteMemberDialog />}</div>
           </div>
         </div>
       </CardContent>
@@ -287,6 +287,24 @@ function InviteMemberDialog() {
       email: '',
       role: 'member' as 'admin' | 'member',
     },
+    onSubmit: ({ value }) => {
+      inviteMember.mutate(
+        {
+          email: value.email,
+          role: value.role,
+        },
+        {
+          onError: (error) => {
+            toast.error(error.message);
+          },
+          onSuccess: () => {
+            toast.success('Member invited successfully');
+            form.reset();
+            setOpen(false);
+          },
+        }
+      );
+    },
     validators: {
       onChange: inviteMemberSchema,
 
@@ -297,24 +315,6 @@ function InviteMemberDialog() {
       //   }
       //   return;
       // },
-    },
-    onSubmit: ({ value }) => {
-      inviteMember.mutate(
-        {
-          email: value.email,
-          role: value.role,
-        },
-        {
-          onSuccess: () => {
-            toast.success('Member invited successfully');
-            form.reset();
-            setOpen(false);
-          },
-          onError: (error) => {
-            toast.error(error.message);
-          },
-        }
-      );
     },
   });
   return (

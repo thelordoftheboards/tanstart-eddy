@@ -38,47 +38,47 @@ const techStack: {
 }[] = [
   {
     category: 'Category 1',
-    icon: IconPentagonNumber1,
     description:
       'Vivamus turpis lectus, sollicitudin id purus eget, pharetra varius dolor. Sed sit amet tristique dolor. Nam tincidunt tempus mauris id dapibus.',
-    libs: [{ name: 'Lacinia vel', href: 'https://tailwindcss.com/' }],
+    icon: IconPentagonNumber1,
+    libs: [{ href: 'https://tailwindcss.com/', name: 'Lacinia vel' }],
   },
   {
     category: 'Category 2',
-    icon: IconPentagonNumber2,
     description:
       'Cras eros dolor, suscipit non placerat sodales, vestibulum id est. Nullam viverra fringilla orci, eget sodales nibh malesuada laoreet. Sed volutpat fringilla fringilla.',
+    icon: IconPentagonNumber2,
     libs: [
-      { name: 'Justo', href: 'https://ui.shadcn.com/' },
-      { name: 'Duis commodo', href: 'https://tailwindcss.com/' },
+      { href: 'https://ui.shadcn.com/', name: 'Justo' },
+      { href: 'https://tailwindcss.com/', name: 'Duis commodo' },
     ],
   },
   {
     category: 'Category 3',
-    icon: IconPentagonNumber3,
     description:
       'Quisque elementum, eros quis malesuada malesuada, lacus massa malesuada libero, sed volutpat nisi orci feugiat magna. Aliquam eu sapien sed odio rhoncus varius.',
+    icon: IconPentagonNumber3,
     libs: [],
   },
   {
     category: 'Category 4',
-    icon: IconPentagonNumber4,
     description:
       'Curabitur nec efficitur mi. Aenean vestibulum diam in purus mattis ornare. Suspendisse vitae eros metus. ',
-    libs: [{ name: 'Vivamus lobortis', href: 'https://tailwindcss.com/' }],
+    icon: IconPentagonNumber4,
+    libs: [{ href: 'https://tailwindcss.com/', name: 'Vivamus lobortis' }],
   },
   {
     category: 'Category 5',
-    icon: IconPentagonNumber5,
     description:
       'Sed aliquet urna vel enim luctus, a iaculis risus sollicitudin. Nunc in imperdiet velit. Mauris posuere ac felis ut malesuada.',
-    libs: [{ name: 'Phasellus semper', href: 'https://ui.shadcn.com/' }],
+    icon: IconPentagonNumber5,
+    libs: [{ href: 'https://ui.shadcn.com/', name: 'Phasellus semper' }],
   },
   {
     category: 'Category 6',
-    icon: IconPentagonNumber6,
     description:
       'Nunc vel augue a lectus pharetra faucibus eu id dolor. Ut nec ultricies risus. Sed id nisi augue. Integer dictum mauris quis elit rhoncus sagittis.',
+    icon: IconPentagonNumber6,
     libs: [],
   },
 ];

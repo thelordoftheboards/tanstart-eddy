@@ -15,7 +15,7 @@ export function useMutationHorseDelete(
     onSuccess,
     onError,
     ...extraOptions
-  } = options ?? { mutationFn: null, onSuccess: null, onError: null };
+  } = options ?? { mutationFn: null, onError: null, onSuccess: null };
 
   const queryClient = useQueryClient();
   return useMutation<{ success: boolean; id: string }, Error, { id: string }>({
@@ -24,6 +24,13 @@ export function useMutationHorseDelete(
         `/api/v1/tanstart-eddy-examples/horses/${data.id}`,
         data
       ),
+
+    onError: (error, variables, onMutateResult, context) => {
+      console.error('Error deleting:', error);
+      if (onError) {
+        onError(error, variables, onMutateResult, context);
+      }
+    },
 
     onSuccess: (data, variables, onMutateResult, context) => {
       if (DeleteSchema.safeParse(data).success) {
@@ -39,13 +46,6 @@ export function useMutationHorseDelete(
         if (onError) {
           onError(new Error('Data received from server, but is incorrect'), variables, onMutateResult, context);
         }
-      }
-    },
-
-    onError: (error, variables, onMutateResult, context) => {
-      console.error('Error deleting:', error);
-      if (onError) {
-        onError(error, variables, onMutateResult, context);
       }
     },
 

@@ -117,7 +117,7 @@ export function PageAdminOverview() {
             </div>
           </CardContent>
         </Card>
-        {isLoading && (
+        {!!isLoading && (
           <Card>
             <CardContent className="pt-6">
               <div className="flex items-center justify-center">

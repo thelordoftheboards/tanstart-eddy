@@ -8,15 +8,15 @@ export default function TanstackDevTools() {
     <TanStackDevtools
       plugins={[
         {
-          name: 'TSt Query',
+          name: 'Query',
           render: <ReactQueryDevtoolsPanel />,
         },
         {
-          name: 'TSt Router',
+          name: 'Router',
           render: <TanStackRouterDevtoolsPanel />,
         },
         {
-          name: 'TSt Forms',
+          name: 'Forms',
           render: <FormDevtoolsPanel />,
         },
       ]}

@@ -1,24 +1,22 @@
 import { type BetterAuthOptions } from 'better-auth/minimal';
 import { eq } from 'drizzle-orm';
 import { serviceHumanReadableName } from '~/base-config/server/organization-info';
-import { sendEmail } from '~/base-email/server/send-emai';
 import { emailFromForSystemEmails } from '~/base-nav-and-auth-config/server/organization-info';
-import { db } from '~/lib/db';
 // biome-ignore lint/performance/noNamespaceImport: Allow
-import * as schema from '~/lib/db/schema/auth.schema';
+import * as schema from '~/lib/drizzle/auth';
+import { db } from '~/lib/drizzle/db';
+import { sendEmail } from '../../base-email/server/send-emai';
 import { generateWelcome } from './email/welcome';
 
 export const databaseHooks: BetterAuthOptions['databaseHooks'] = {
   session: {
     create: {
       before: async (session) => {
-        const member = (
-          await db
-            .select()
-            .from(schema.member)
-            .where(eq(schema.member.userId, session.userId ?? ''))
-            .limit(1)
-        )[0];
+        const [member] = await db
+          .select()
+          .from(schema.member)
+          .where(eq(schema.member.userId, session.userId ?? ''))
+          .limit(1);
 
         return {
           data: {
@@ -36,8 +34,8 @@ export const databaseHooks: BetterAuthOptions['databaseHooks'] = {
       after: async (user) => {
         sendEmail({
           from: emailFromForSystemEmails,
-          to: user.email,
           subject: `Welcome to ${serviceHumanReadableName}`,
+          to: user.email,
           ...(await generateWelcome(user.email)),
         });
       },

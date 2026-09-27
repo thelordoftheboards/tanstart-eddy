@@ -26,8 +26,8 @@ import { useSession } from '../hooks/auth-hooks';
 const resizer: typeof Resizer = Resizer.default || Resizer;
 
 const CardUserChangeUserSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters').optional(),
   image: z.instanceof(File).optional(),
+  name: z.string().min(2, 'Name must be at least 2 characters').optional(),
 });
 
 export function CardUserChangeUser() {
@@ -38,8 +38,30 @@ export function CardUserChangeUser() {
 
   const form = useAppForm({
     defaultValues: {
-      name: data?.user.name,
       image: undefined as File | undefined,
+      name: data?.user.name,
+    },
+    onSubmit: async ({ value }) => {
+      try {
+        await authClient.updateUser({
+          fetchOptions: {
+            onError: (error) => {
+              toast.error(error.error.message);
+            },
+            onSuccess: () => {
+              toast.success('User updated successfully');
+            },
+          },
+          image: value.image ? await convertImageToBase64(value.image) : undefined,
+          name: value.name ? value.name : undefined,
+        });
+        form.reset();
+        router.invalidate();
+        setImagePreview(null);
+        setOpen(false);
+      } catch {
+        toast.error('An error occurred while updating user');
+      }
     },
     validators: {
       // @ts-expect-error There should be a way to specify the schema. If function is used the field errors do not always show properly.
@@ -51,28 +73,6 @@ export function CardUserChangeUser() {
       //   }
       //   return;
       // },
-    },
-    onSubmit: async ({ value }) => {
-      try {
-        await authClient.updateUser({
-          image: value.image ? await convertImageToBase64(value.image) : undefined,
-          name: value.name ? value.name : undefined,
-          fetchOptions: {
-            onSuccess: () => {
-              toast.success('User updated successfully');
-            },
-            onError: (error) => {
-              toast.error(error.error.message);
-            },
-          },
-        });
-        form.reset();
-        router.invalidate();
-        setImagePreview(null);
-        setOpen(false);
-      } catch {
-        toast.error('An error occurred while updating user');
-      }
     },
   });
 
@@ -119,7 +119,7 @@ export function CardUserChangeUser() {
           <div className="grid gap-2">
             <Label htmlFor="image">Profile Image</Label>
             <div className="flex items-end gap-4">
-              {imagePreview && (
+              {!!imagePreview && (
                 <div className="relative h-16 w-16 overflow-hidden rounded-sm">
                   {/** biome-ignore lint/correctness/useImageSize: Allow */}
                   <img alt="Profile preview" className="h-full w-full object-cover" src={imagePreview} />
@@ -133,7 +133,7 @@ export function CardUserChangeUser() {
                   onChange={handleImageChange}
                   type="file"
                 />
-                {imagePreview && <X className="cursor-pointer" onClick={clearImage} />}
+                {!!imagePreview && <X className="cursor-pointer" onClick={clearImage} />}
               </div>
             </div>
           </div>

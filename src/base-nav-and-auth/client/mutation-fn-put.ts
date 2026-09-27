@@ -11,8 +11,8 @@ export async function mutationFnPut<R, V>(queryStringApi: string, data: V): Prom
 
   try {
     const result = await axios.put<R>(queryString, data, {
-      withCredentials: true,
       validateStatus,
+      withCredentials: true,
     });
 
     checkResultAndThrowIfErrorIsSpecial<R>(result);

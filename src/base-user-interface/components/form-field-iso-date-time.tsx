@@ -23,7 +23,7 @@ export default function FormFieldIsoDateTime({
 }) {
   const field = useFieldContext<string | null>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const isValidating = field.state.meta.isValidating;
+  const { isValidating } = field.state.meta;
   const { value } = field.state;
 
   const valueAsDate = value ? new Date(value) : null;
@@ -98,7 +98,7 @@ export default function FormFieldIsoDateTime({
     <Field className={className} data-invalid={isInvalid}>
       <FieldContent>
         <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-        {description && <FieldDescription>{description}</FieldDescription>}
+        {!!description && <FieldDescription>{description}</FieldDescription>}
       </FieldContent>
 
       <div className="mt-1 flex w-full">
@@ -225,15 +225,15 @@ export default function FormFieldIsoDateTime({
         </Popover>
 
         {/* Clear button */}
-        {nullable && (
+        {!!nullable && (
           <Button aria-label="Clear" onClick={handleClickClear} size="icon" variant="ghost">
             <IconX className="h-4 w-4" />
           </Button>
         )}
       </div>
 
-      {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {isValidating && 'Validating ...'}
+      {!!isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {!!isValidating && 'Validating ...'}
     </Field>
   );
 }

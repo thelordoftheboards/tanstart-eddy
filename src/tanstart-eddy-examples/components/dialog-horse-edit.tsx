@@ -19,7 +19,7 @@ export function DialogHorseEdit({ horse, isOpen, setOpen }: DialogHorseEditProps
     <Dialog onOpenChange={handleSetOpen} open={open}>
       {!horse && <DialogTrigger render={<Button>Add Horse</Button>} />}
 
-      {open && <DialogContentHorseEdit horse={horse} setOpen={handleSetOpen} />}
+      {!!open && <DialogContentHorseEdit horse={horse} setOpen={handleSetOpen} />}
     </Dialog>
   );
 }

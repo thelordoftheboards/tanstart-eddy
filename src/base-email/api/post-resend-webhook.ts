@@ -1,0 +1,77 @@
+import { eq } from 'drizzle-orm';
+import { v7 as uuidv7 } from 'uuid';
+import { db } from '~/lib/drizzle/db';
+import { env } from '~/lib/env.server';
+import { receivedEmailTable } from '../drizzle/received-email';
+import {
+  type WebhookPayloadEmailReceivedType,
+  webhookPayloadEmailReceivedSchema,
+} from '../schema/webhook-payload-email-received';
+import { resend } from '../server/resend';
+
+/**
+ * A webhook handler for POST requests from resend for when a new email is received
+ * as per https://resend.com/blog/inbound-emails
+ */
+export async function postResendWebhook({ request }: { request: Request }) {
+  const requestDataText = await request.text();
+
+  try {
+    // Verify webhook per https://resend.com/docs/webhooks/verify-webhooks-requests
+    // Throws an error if the webhook is invalid
+    // Otherwise, returns the parsed payload object
+    resend.webhooks.verify({
+      headers: {
+        // @ts-expect-error The item should be present in header as per documentation
+        id: request.headers['svix-id'],
+        // @ts-expect-error The item should be present in header as per documentation
+        signature: request.headers['svix-signature'],
+        // @ts-expect-error The item should be present in header as per documentation
+        timestamp: request.headers['svix-timestamp'],
+      },
+      payload: requestDataText,
+      webhookSecret: env.RESEND_WEBHOOK_EMAIL_RECEIVED_SIGNING_SECRET,
+    });
+  } catch (err) {
+    console.error('postResendWebhook failed at resend.webhooks.verify');
+    console.error(err);
+  }
+
+  const requestData = JSON.parse(requestDataText);
+  const parsedData: WebhookPayloadEmailReceivedType = webhookPayloadEmailReceivedSchema.parse(requestData);
+
+  const id = uuidv7();
+  const dtNow = new Date();
+
+  await db.insert(receivedEmailTable).values({
+    emailId: parsedData.data.email_id,
+    from: parsedData.data.from,
+    id,
+    processingStatus: 10,
+    receivedOn: dtNow,
+    webhookPayloadEmailReceivedJson: JSON.stringify(requestData),
+  });
+
+  // Process the rest asynchronously
+  setTimeout(async () => {
+    // Proceeed to retrieve the emal content
+    // https://resend.com/docs/api-reference/emails/retrieve-received-email
+    const { data, error } = await resend.emails.receiving.get(parsedData.data.email_id);
+
+    if (error) {
+      await db.update(receivedEmailTable).set({ processingStatus: 20 }).where(eq(receivedEmailTable.id, id));
+
+      throw new Error('Failed retrieving email contents from resend', { cause: error });
+    }
+
+    await db
+      .update(receivedEmailTable)
+      .set({
+        contentJson: JSON.stringify(data),
+        processingStatus: 100,
+      })
+      .where(eq(receivedEmailTable.id, id));
+  });
+
+  return new Response('', { status: 200 });
+}

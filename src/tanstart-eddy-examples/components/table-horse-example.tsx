@@ -20,11 +20,11 @@ type HorseType = {
 
 const arrHorse: HorseType[] = [
   {
+    birthYear: 2020,
+    breed: 'Breed 1234',
+    colorAndMarkings: 'roan',
     id: '1234',
     name: 'Horse 1234',
-    breed: 'Breed 1234',
-    birthYear: 2020,
-    colorAndMarkings: 'roan',
     stallNumber: '11A',
   },
 ];
@@ -61,7 +61,7 @@ const arrHorse: HorseType[] = [
   const arrColor = ['Bay', 'Chestnut', 'Black', 'Gray', 'Dun', 'Roan'];
   const arrMarkings = ['Star', null, null, 'Stripe', null, 'Blaze', null, null, 'Stocking'];
 
-  for (let ix = 0; ix < 100; ix++) {
+  for (let ix = 0; ix < 100; ix += 1) {
     const id = `horse-${ix}`;
     const name = `${arrFirstName[ix % arrFirstName.length]} ${arrLastName[ix % arrLastName.length]}`;
     const breed = arrBreed[ix % arrBreed.length];
@@ -70,11 +70,11 @@ const arrHorse: HorseType[] = [
     const stallNumber = `${Math.ceil(ix + 1 / 2)}${ix % 2 === 0 ? 'A' : 'B'}`;
 
     arrHorse.push({
+      birthYear,
+      breed,
+      colorAndMarkings,
       id,
       name,
-      breed,
-      birthYear,
-      colorAndMarkings,
       stallNumber,
     });
   }

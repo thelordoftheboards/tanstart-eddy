@@ -2,9 +2,9 @@
 
 import { Dialog as SheetPrimitive } from '@base-ui/react/dialog';
 import { IconX } from '@tabler/icons-react';
+import { cn } from 'cn';
 import React from 'react';
 import { Button } from '~/components/ui/button';
-import { cn } from '~/lib/utils';
 
 function Sheet({ ...props }: SheetPrimitive.Root.Props) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
@@ -58,7 +58,7 @@ function SheetContent({
         {...props}
       >
         {children}
-        {showCloseButton && (
+        {!!showCloseButton && (
           <SheetPrimitive.Close
             data-slot="sheet-close"
             render={<Button className="absolute top-4 right-4" size="icon-sm" variant="ghost" />}

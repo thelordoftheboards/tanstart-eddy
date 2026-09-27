@@ -13,9 +13,9 @@ export function NavAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>
 
   const user = session?.user
     ? {
-        name: session.user.name || session.user.email,
-        email: session.user.email,
         avatar: session.user.image ?? null,
+        email: session.user.email,
+        name: session.user.name || session.user.email,
       }
     : undefined;
   const userCanManageUsers = canManageUsers(currentUserRole);
@@ -28,7 +28,7 @@ export function NavAppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>
 
       <NavAppSidebarContent />
 
-      <SidebarFooter>{user && <NavUser user={user} userCanManageUsers={userCanManageUsers} />}</SidebarFooter>
+      <SidebarFooter>{!!user && <NavUser user={user} userCanManageUsers={userCanManageUsers} />}</SidebarFooter>
 
       <SidebarRail />
     </Sidebar>

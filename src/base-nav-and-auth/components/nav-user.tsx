@@ -1,6 +1,6 @@
 import { IconInfoSquare } from '@tabler/icons-react';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from '@tanstack/react-router';
+import { Link, useRouter } from '@tanstack/react-router';
 import {
   BadgeCheck as IconBadgeCheck,
   ChevronsUpDown as IconChevronsUpDown,
@@ -69,7 +69,7 @@ export function NavUser({
             }
           >
             <Avatar className="h-8 w-8 rounded-lg">
-              {user.avatar && <AvatarImage alt={user.name} src={user.avatar} />}
+              {!!user.avatar && <AvatarImage alt={user.name} src={user.avatar} />}
               <AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
             </Avatar>
             <div className="grid flex-1 text-left text-sm leading-tight">
@@ -89,7 +89,7 @@ export function NavUser({
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                   <Avatar className="h-8 w-8 rounded-lg">
-                    {user.avatar && <AvatarImage alt={user.name} src={user.avatar} />}
+                    {!!user.avatar && <AvatarImage alt={user.name} src={user.avatar} />}
                     <AvatarFallback className="rounded-lg">{getInitials(user.name)}</AvatarFallback>
                   </Avatar>
                   <div className="grid flex-1 text-left text-sm leading-tight">
@@ -106,16 +106,14 @@ export function NavUser({
 
             <DropdownMenuSeparator />
 
-            {userCanManageUsers && (
+            {!!userCanManageUsers && (
               <>
                 <DropdownMenuGroup>
-                  {/** biome-ignore lint/a11y/useAnchorContent: Allow */}
-                  <DropdownMenuItem render={<a href={'/dashboard/admin'} />}>
+                  <DropdownMenuItem render={<Link to={'/dashboard/admin'} />}>
                     <IconShield />
                     Admin Overview
                   </DropdownMenuItem>
-                  {/** biome-ignore lint/a11y/useAnchorContent: Allow */}
-                  <DropdownMenuItem render={<a href={'/dashboard/admin/users'} />}>
+                  <DropdownMenuItem render={<Link to={'/dashboard/admin/users'} />}>
                     <IconUsers />
                     Users
                   </DropdownMenuItem>
@@ -136,8 +134,7 @@ export function NavUser({
             */}
 
             <DropdownMenuGroup>
-              {/** biome-ignore lint/a11y/useAnchorContent: Allow */}
-              <DropdownMenuItem render={<a href={'/dashboard/account'} />}>
+              <DropdownMenuItem render={<Link to={'/dashboard/account'} />}>
                 <IconBadgeCheck />
                 Account
               </DropdownMenuItem>
@@ -157,11 +154,14 @@ export function NavUser({
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              {/** biome-ignore lint/a11y/useAnchorContent: Allow */}
-              <DropdownMenuItem render={<a href={'/dashboard/account/about/'} />}>
-                <IconInfoSquare />
-                About
-              </DropdownMenuItem>
+              <DropdownMenuItem
+                render={
+                  <a href={'/dashboard/account/about/'}>
+                    <IconInfoSquare />
+                    About
+                  </a>
+                }
+              />
             </DropdownMenuGroup>
 
             <DropdownMenuSeparator />

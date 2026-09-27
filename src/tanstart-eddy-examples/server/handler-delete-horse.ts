@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm';
 import { getOrganizationId } from '~/base-nav-and-auth/server/get-organization-id';
-import { db } from '~/lib/db';
-import { tableHorse } from '../db/table-horse';
+import { db } from '~/lib/drizzle/db';
+import { tableHorse } from '../drizzle/table-horse';
 
 export async function handlerDeleteHorse({ request }: { request: Request }) {
   const organizationId = await getOrganizationId();
@@ -16,5 +16,5 @@ export async function handlerDeleteHorse({ request }: { request: Request }) {
     .delete(tableHorse)
     .where(and(eq(tableHorse.id, requestData.id), eq(tableHorse.organizationId, organizationId)));
 
-  return Response.json({ success: true, id: requestData.id });
+  return Response.json({ id: requestData.id, success: true });
 }

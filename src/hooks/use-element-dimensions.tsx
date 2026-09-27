@@ -13,6 +13,7 @@ export function useElementDimensions<T extends HTMLElement = HTMLDivElement>(): 
   const [dimensions, setDimensions] = useState<Dimensions>({ height: 0, width: 0 });
 
   useEffect(() => {
+    // biome-ignore lint/suspicious/noUnnecessaryConditions: Could be false maybe?
     if (!ref.current) {
       return;
     }

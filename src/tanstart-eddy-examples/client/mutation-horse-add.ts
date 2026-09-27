@@ -8,11 +8,18 @@ export function useMutationHorseAdd(options?: UseMutationOptions<HorseType, Erro
     onSuccess,
     onError,
     ...extraOptions
-  } = options ?? { mutationFn: null, onSuccess: null, onError: null };
+  } = options ?? { mutationFn: null, onError: null, onSuccess: null };
 
   const queryClient = useQueryClient();
   return useMutation<HorseType, Error, HorseNoIdType>({
     mutationFn: (data) => mutationFnPost<HorseType, HorseNoIdType>('/api/v1/tanstart-eddy-examples/horses/', data),
+
+    onError: (error, variables, onMutateResult, context) => {
+      console.error('Error adding:', error);
+      if (onError) {
+        onError(error, variables, onMutateResult, context);
+      }
+    },
 
     onSuccess: (data, variables, onMutateResult, context) => {
       if (horseSchema.safeParse(data).success) {
@@ -28,13 +35,6 @@ export function useMutationHorseAdd(options?: UseMutationOptions<HorseType, Erro
         if (onError) {
           onError(new Error('Data received from server, but is incorrect'), variables, onMutateResult, context);
         }
-      }
-    },
-
-    onError: (error, variables, onMutateResult, context) => {
-      console.error('Error adding:', error);
-      if (onError) {
-        onError(error, variables, onMutateResult, context);
       }
     },
 

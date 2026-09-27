@@ -7,7 +7,7 @@
       "!**/*.gen.ts",
       "!src/lib/db/migrations/*",
       "!bun.lock",
-      "!src/components/*"
+      "!src/components/**/*"
     ]
   },
   "formatter": {
@@ -41,7 +41,10 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "performance": {
+        "noJsxPropsBind": "off"
+      },
+      "preset": "recommended",
       "correctness": {
         "useExhaustiveDependencies": "info",
         "noChildrenProp": "off"

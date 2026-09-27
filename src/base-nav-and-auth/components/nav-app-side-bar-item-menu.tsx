@@ -35,25 +35,25 @@ export function NavAppSidebarItemMenu({
 
   return (
     <SidebarGroup>
-      {sidebarGroupLabel && <SidebarGroupLabel>{sidebarGroupLabel}</SidebarGroupLabel>}
+      {!!sidebarGroupLabel && <SidebarGroupLabel>{sidebarGroupLabel}</SidebarGroupLabel>}
       <SidebarMenu>
         {items.map((item: MenuItemType) => (
           <React.Fragment key={item.title}>
             {'items' in item && (hasOrganization || !item.requiresOrganization) && (
               <Collapsible className="group/collapsible" defaultOpen={item.isActive} render={<SidebarMenuItem />}>
                 <CollapsibleTrigger render={<SidebarMenuButton tooltip={item.title} />}>
-                  {item.icon && <item.icon />}
+                  {!!item.icon && <item.icon />}
                   <span>{item.title}</span>
                   <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                 </CollapsibleTrigger>
                 <CollapsibleContent>
                   <SidebarMenuSub>
-                    {item.items?.map((subItem) => (
+                    {item.items.map((subItem) => (
                       <React.Fragment key={subItem.title}>
                         {(hasOrganization || !subItem.requiresOrganization) && (
                           <SidebarMenuSubItem>
                             <SidebarMenuSubButton render={<Link onClick={closeSidebarOnMobile} to={subItem.url} />}>
-                              {subItem.icon && <subItem.icon />}
+                              {!!subItem.icon && <subItem.icon />}
                               <span>{subItem.title}</span>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
@@ -67,7 +67,7 @@ export function NavAppSidebarItemMenu({
             {'url' in item && (hasOrganization || !item.requiresOrganization) && (
               <SidebarMenuItem key={item.title}>
                 <SidebarMenuButton render={<Link onClick={closeSidebarOnMobile} to={item.url} />}>
-                  {item.icon && <item.icon />}
+                  {!!item.icon && <item.icon />}
                   <span>{item.title}</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>

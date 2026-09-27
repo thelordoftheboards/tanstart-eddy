@@ -1,6 +1,8 @@
 /** biome-ignore-all lint/suspicious/noArrayIndexKey: The breadcrumbs are not expected to dynamically change */
 
 import { IconLayoutSidebar } from '@tabler/icons-react';
+import { Link } from '@tanstack/react-router';
+import { cn } from 'cn';
 import { Fragment, type ReactNode } from 'react';
 import {
   Breadcrumb,
@@ -12,7 +14,6 @@ import {
 import { Button } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
 import { SidebarTrigger, useSidebar } from '~/components/ui/sidebar';
-import { cn } from '~/lib/utils';
 
 export function NavHeaderBreadcrumbs({ arrBreadcrumbs }: { arrBreadcrumbs: Array<{ title: string; url?: string }> }) {
   return (
@@ -28,7 +29,7 @@ export function NavHeaderBreadcrumbs({ arrBreadcrumbs }: { arrBreadcrumbs: Array
               <Fragment key={ix}>
                 <BreadcrumbItem className="hidden md:block">
                   {breadcrumb.url ? (
-                    <BreadcrumbLink href={breadcrumb.url}>{breadcrumb.title}</BreadcrumbLink>
+                    <BreadcrumbLink render={<Link to={breadcrumb.url} />}>{breadcrumb.title}</BreadcrumbLink>
                   ) : (
                     <BreadcrumbLink>{breadcrumb.title}</BreadcrumbLink>
                   )}
@@ -85,7 +86,7 @@ export function InsetContainerWithFloatingTriggerAndTitle({
       <NavHeadlessFloatingTrigger />
 
       <div className="flex gap-2 pl-13">
-        {subTitle && (
+        {!!subTitle && (
           <div>
             <h1 className="font-bold text-2xl tracking-tight">{title}</h1>
             <p className="text-muted-foreground">{subTitle}</p>

@@ -4,6 +4,6 @@ import { type AboutType } from '../schema/about';
 
 export const queryOptionsAbout = () =>
   queryOptions({
-    queryKey: ['about'],
     queryFn: () => queryFnGet<AboutType>('/api/v1/system/about'),
+    queryKey: ['about'],
   });

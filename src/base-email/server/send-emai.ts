@@ -1,6 +1,6 @@
 import retry from 'async-retry';
 import { type CreateEmailOptions, type CreateEmailResponse } from 'resend';
-import { env } from '~/lib/env.server';
+import { env } from '../../lib/env.server';
 import { resend } from './resend';
 
 /**
@@ -39,11 +39,11 @@ export async function sendEmail(payload: CreateEmailOptions): Promise<CreateEmai
       return data;
     },
     {
-      retries: 5,
       minTimeout: 8000, // Wait 8s, then 16s, then 32s...
       onRetry: (err, attempt) => {
         console.warn(`[Resend] Attempt ${attempt} failed: ${err}. Retrying...`);
       },
+      retries: 5,
     }
   );
 }

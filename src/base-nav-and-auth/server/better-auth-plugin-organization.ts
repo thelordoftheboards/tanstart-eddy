@@ -1,7 +1,7 @@
 import { organization } from 'better-auth/plugins';
-import { sendEmail } from '~/base-email/server/send-emai';
 import { emailFromForSystemEmails } from '~/base-nav-and-auth-config/server/organization-info';
-import { env } from '~/lib/env.server';
+import { sendEmail } from '../../base-email/server/send-emai';
+import { env } from '../../lib/env.server';
 import { generateOrganizationInvitation } from './email/organization-invitation';
 
 export const organizationPlugin = organization({
@@ -9,13 +9,13 @@ export const organizationPlugin = organization({
     const url = `${env.SERVER_URL}/accept-invitation/${invitation.id}`;
     sendEmail({
       from: emailFromForSystemEmails,
-      to: email,
       subject: `Invitation to join ${organization.name}`,
+      to: email,
       ...(await generateOrganizationInvitation({
         email,
         organization_name: theOrganization.name,
-        url,
         role,
+        url,
       })),
     });
   },

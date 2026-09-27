@@ -20,14 +20,14 @@ export default function FormFieldDate({
 }) {
   const field = useFieldContext<Date | undefined>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const isValidating = field.state.meta.isValidating;
+  const { isValidating } = field.state.meta;
   const { value } = field.state;
 
   return (
     <Field className={className} data-invalid={isInvalid}>
       <FieldContent>
         <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-        {description && <FieldDescription>{description}</FieldDescription>}
+        {!!description && <FieldDescription>{description}</FieldDescription>}
       </FieldContent>
 
       <Popover>
@@ -57,15 +57,15 @@ export default function FormFieldDate({
           />
 
           <div className="flex p-2">
-            {nullable && <Button onClick={() => field.setValue(undefined)}>Clear</Button>}
+            {!!nullable && <Button onClick={() => field.setValue(undefined)}>Clear</Button>}
             <div className="flex-1" />
             <BaseUiPopover.Close render={<Button variant="outline" />}>Close</BaseUiPopover.Close>
           </div>
         </PopoverContent>
       </Popover>
 
-      {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {isValidating && 'Validating ...'}
+      {!!isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {!!isValidating && 'Validating ...'}
     </Field>
   );
 }

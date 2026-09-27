@@ -19,14 +19,14 @@ export default function FormFieldNumber({
 }) {
   const field = useFieldContext<number>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const isValidating = field.state.meta.isValidating;
+  const { isValidating } = field.state.meta;
   const isValidNumber = typeof field.state.value === 'number' && !Number.isNaN(field.state.value);
 
   return (
     <Field className={className} data-invalid={isInvalid}>
       <FieldContent>
         <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-        {description && <FieldDescription>{description}</FieldDescription>}
+        {!!description && <FieldDescription>{description}</FieldDescription>}
       </FieldContent>
 
       <Input
@@ -41,8 +41,8 @@ export default function FormFieldNumber({
         value={isValidNumber ? field.state.value : ''}
       />
 
-      {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {isValidating && 'Validating ...'}
+      {!!isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {!!isValidating && 'Validating ...'}
     </Field>
   );
 }

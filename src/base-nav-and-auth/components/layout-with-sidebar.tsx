@@ -1,6 +1,6 @@
+import { cn } from 'cn';
 import { type ReactNode } from 'react';
 import { SidebarProvider } from '~/components/ui/sidebar';
-import { cn } from '~/lib/utils';
 import { NavAppSidebar } from './nav-app-sidebar';
 
 function SidebarInset({ className, ...props }: React.ComponentProps<'main'>) {

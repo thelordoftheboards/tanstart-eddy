@@ -2,7 +2,6 @@ import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { authQueryOptions } from '~/lib/auth/queries';
 
 export const Route = createFileRoute('/(auth-pages)')({
-  component: RouteComponent,
   beforeLoad: async ({ context }) => {
     const REDIRECT_URL = '/dashboard';
 
@@ -20,6 +19,7 @@ export const Route = createFileRoute('/(auth-pages)')({
       redirectUrl: REDIRECT_URL,
     };
   },
+  component: RouteComponent,
 });
 
 function RouteComponent() {

@@ -1,5 +1,6 @@
 {
   "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["src/lsdm-nirmata/docs/*", "src/lsdm-nirmata/prompts/*"],
   "compilerOptions": {
     "target": "ES2022",
     "module": "ES2022",
@@ -17,6 +18,7 @@
       "~/*": ["./src/*"]
     },
     "noEmit": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noErrorTruncation": true
   }
 }

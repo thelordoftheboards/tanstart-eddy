@@ -10,9 +10,6 @@ export default defineConfig({
   define: {
     __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
   },
-  resolve: {
-    tsconfigPaths: true,
-  },
   plugins: [
     devtools({
       injectSource: {
@@ -23,7 +20,13 @@ export default defineConfig({
     }),
     tanstackStart(),
     // https://tanstack.com/start/latest/docs/framework/react/guide/hosting
-    nitro({ preset: 'bun', plugins: ['src/lib/run-migrations-plugin.ts'] }),
+    nitro({
+      plugins: [
+        // Perform migrations and seeding
+        'src/base/plugins/run-migrations-plugin.ts',
+      ],
+      preset: 'bun',
+    }),
     viteReact({
       // // https://react.dev/learn/react-compiler
       // babel: {
@@ -41,6 +44,9 @@ export default defineConfig({
     babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
   ],
+  resolve: {
+    tsconfigPaths: true,
+  },
   server: {
     allowedHosts: [process.env.SERVER_HOST ?? 'localhost'],
   },

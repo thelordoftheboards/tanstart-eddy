@@ -5,7 +5,6 @@ import { NavAppSidebarItemMenu } from '../../base-nav-and-auth/components/nav-ap
 
 export const arrNavAppSidebarItemMenu: MenuItemType[] = [
   {
-    title: 'Cumberland',
     icon: IconFerry,
     isActive: true,
     items: [
@@ -30,6 +29,7 @@ export const arrNavAppSidebarItemMenu: MenuItemType[] = [
         url: '/dashboard/tanstart-cumberland-examples/example-layout-3',
       },
     ],
+    title: 'Cumberland',
   },
 ];
 

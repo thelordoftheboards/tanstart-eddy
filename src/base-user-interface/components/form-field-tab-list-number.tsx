@@ -20,13 +20,13 @@ export default function FormFieldTabListNumber({
 }) {
   const field = useFieldContext<string>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const isValidating = field.state.meta.isValidating;
+  const { isValidating } = field.state.meta;
 
   return (
     <Field className={className} data-invalid={isInvalid}>
       <FieldContent>
         <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-        {description && <FieldDescription>{description}</FieldDescription>}
+        {!!description && <FieldDescription>{description}</FieldDescription>}
       </FieldContent>
 
       <Tabs onValueChange={(value) => field.handleChange(value)} value={field.state.value}>
@@ -38,15 +38,15 @@ export default function FormFieldTabListNumber({
         >
           {options.map((option) => (
             <TabsTrigger className="gap-2-xxxxx" key={option.value} value={option.value}>
-              {option.icon && <option.icon className="h-4 w-4" />}
+              {!!option.icon && <option.icon className="h-4 w-4" />}
               {option.text}
             </TabsTrigger>
           ))}
         </TabsList>
       </Tabs>
 
-      {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {isValidating && 'Validating ...'}
+      {!!isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {!!isValidating && 'Validating ...'}
     </Field>
   );
 }

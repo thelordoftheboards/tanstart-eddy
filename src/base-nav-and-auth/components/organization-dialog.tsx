@@ -24,12 +24,12 @@ import { useCreateOrganization, useUpdateOrganization } from '../hooks/organizat
 const resizer: typeof Resizer = Resizer.default || Resizer;
 
 const createOrganizationSchema = z.object({
+  logo: z.instanceof(File).optional(),
   name: z.string().min(2, 'Organization name must be at least 2 characters'),
   slug: z
     .string()
     .min(2, 'Slug must be at least 2 characters')
     .regex(/^[a-z0-9-]+$/, 'Slug can only contain lowercase letters, numbers, and hyphens'),
-  logo: z.instanceof(File).optional(),
 });
 
 export type CreateOrganizationType = z.infer<typeof createOrganizationSchema>;
@@ -51,20 +51,10 @@ export function CreateOrganizationDialog(props: { organization?: Organization })
 
   const form = useAppForm({
     defaultValues: {
+      logo: undefined as File | undefined,
       name: props.organization?.name || '',
       slug: props.organization?.slug || '',
-      logo: undefined as File | undefined,
     } satisfies CreateOrganizationType as CreateOrganizationType,
-    validators: {
-      onSubmit: createOrganizationSchema,
-      //   ({ value }) => {
-      //   const result = createOrganizationSchema.safeParse(value);
-      //   if (!result.success) {
-      //     return result.error.issues;
-      //   }
-      //   return;
-      // },
-    },
     onSubmit: async ({ value }) => {
       try {
         let logoBase64: string | undefined;
@@ -75,30 +65,33 @@ export function CreateOrganizationDialog(props: { organization?: Organization })
         if (isEditMode && props.organization) {
           updateOrganization.mutate(
             {
-              organizationId: props.organization.id,
-              name: value.name,
               logo: logoBase64,
+              name: value.name,
+              organizationId: props.organization.id,
             },
             {
+              onError: (error) => {
+                toast.error(error.message);
+              },
               onSuccess: () => {
                 toast.success('Organization updated successfully');
                 setOpen(false);
                 setLogoPreview(null);
                 setIsSlugEdited(false);
               },
-              onError: (error) => {
-                toast.error(error.message);
-              },
             }
           );
         } else {
           createOrganization.mutate(
             {
+              logo: logoBase64,
               name: value.name,
               slug: value.slug,
-              logo: logoBase64,
             },
             {
+              onError: (error) => {
+                toast.error(error.message);
+              },
               onSuccess: () => {
                 toast.success('Organization created successfully');
                 setOpen(false);
@@ -106,15 +99,22 @@ export function CreateOrganizationDialog(props: { organization?: Organization })
                 setLogoPreview(null);
                 setIsSlugEdited(false);
               },
-              onError: (error) => {
-                toast.error(error.message);
-              },
             }
           );
         }
       } catch {
         toast.error('An error occurred while saving organization');
       }
+    },
+    validators: {
+      onSubmit: createOrganizationSchema,
+      //   ({ value }) => {
+      //   const result = createOrganizationSchema.safeParse(value);
+      //   if (!result.success) {
+      //     return result.error.issues;
+      //   }
+      //   return;
+      // },
     },
   });
 
@@ -207,7 +207,7 @@ export function CreateOrganizationDialog(props: { organization?: Organization })
                         type="text"
                         value={field.state.value}
                       />
-                      {isInvalid && <FieldError errors={field.state.meta.errors} />}
+                      {!!isInvalid && <FieldError errors={field.state.meta.errors} />}
                     </div>
                   );
                 }}
@@ -220,7 +220,7 @@ export function CreateOrganizationDialog(props: { organization?: Organization })
               <FieldLabel>Logo</FieldLabel>
             </FieldContent>
             <Input accept="image/*" onChange={handleLogoChange} type="file" />
-            {logoPreview && (
+            {!!logoPreview && (
               <div className="mt-2 flex items-center gap-2">
                 <img
                   alt="Logo preview"

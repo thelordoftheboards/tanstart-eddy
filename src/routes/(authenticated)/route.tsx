@@ -2,7 +2,6 @@ import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
 import { authQueryOptions } from '~/lib/auth/queries';
 
 export const Route = createFileRoute('/(authenticated)')({
-  component: Outlet,
   beforeLoad: async ({ context }) => {
     const user = await context.queryClient.ensureQueryData({
       ...authQueryOptions(),
@@ -15,4 +14,5 @@ export const Route = createFileRoute('/(authenticated)')({
     // re-return to update type as non-null for child routes
     return { user };
   },
+  component: Outlet,
 });

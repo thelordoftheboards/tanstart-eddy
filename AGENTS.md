@@ -7,6 +7,7 @@ This project uses **Ultracite**, a zero-config Biome preset that enforces strict
 - **Format code**: `bun x ultracite fix`
 - **Check for issues**: `bun x ultracite check`
 - **Diagnose setup**: `bun x ultracite doctor`
+- **React/frontend conventions**: `react` skill (`.agents/skills/react/SKILL.md`)
 
 Biome (the underlying engine) provides extremely fast Rust-based linting and formatting. Most issues are automatically fixable.
 
@@ -24,7 +25,7 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 - Leverage TypeScript's type narrowing instead of type assertions
 - Use meaningful variable names instead of magic numbers - extract constants with descriptive names
 
-### Modern JavaScript/TypeScript
+### Modern TypeScript
 
 - Use arrow functions for callbacks and short functions
 - Prefer `for...of` loops over `.forEach()` and indexed `for` loops
@@ -39,21 +40,6 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 - Use `async/await` syntax instead of promise chains for better readability
 - Handle errors appropriately in async code with try-catch blocks
 - Don't use async functions as Promise executors
-
-### React & JSX
-
-- Use function components over class components
-- Call hooks at the top level only, never conditionally
-- Specify all dependencies in hook dependency arrays correctly
-- Use the `key` prop for elements in iterables (prefer unique IDs over array indices)
-- Nest children between opening and closing tags instead of passing as props
-- Don't define components inside other components
-- Use semantic HTML and ARIA attributes for accessibility:
-  - Provide meaningful alt text for images
-  - Use proper heading hierarchy
-  - Add labels for form inputs
-  - Include keyboard event handlers alongside mouse events
-  - Use semantic elements (`<button>`, `<nav>`, etc.) instead of divs with roles
 
 ### Error Handling & Debugging
 
@@ -72,9 +58,7 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 
 ### Security
 
-- Add `rel="noopener"` when using `target="_blank"` on links
-- Avoid `dangerouslySetInnerHTML` unless absolutely necessary
-- Don't use `eval()` or assign directly to `document.cookie`
+- Don't use `eval()`
 - Validate and sanitize user input
 
 ### Performance
@@ -83,12 +67,6 @@ Write code that is **accessible, performant, type-safe, and maintainable**. Focu
 - Use top-level regex literals instead of creating them in loops
 - Prefer specific imports over namespace imports
 - Avoid barrel files (index files that re-export everything)
-- Use proper image components (e.g., Next.js `<Image>`) over `<img>` tags
-
-### Framework-Specific Guidance
-
-**React 19+:**
-- Use ref as a prop instead of `React.forwardRef`
 
 ---
 

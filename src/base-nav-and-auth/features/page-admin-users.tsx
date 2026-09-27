@@ -142,8 +142,8 @@ function CreateUserDialog() {
     password: string;
     role: UserRole;
   }>({
-    name: '',
     email: '',
+    name: '',
     password: '',
     role: 'user',
   });
@@ -155,7 +155,7 @@ function CreateUserDialog() {
     createUser(formData, {
       onSuccess: () => {
         setOpen(false);
-        setFormData({ name: '', email: '', password: '', role: 'user' });
+        setFormData({ email: '', name: '', password: '', role: 'user' });
       },
     });
   };
@@ -262,14 +262,14 @@ export function PageAdminUsers() {
 
   const normalizedUsers: User[] =
     users?.map((user) => ({
-      id: user.id,
-      name: user.name || 'Unknown',
-      email: user.email,
-      role: user.role || 'user',
-      emailVerified: user.emailVerified,
       banned: user.banned ?? true,
       createdAt: user.createdAt ? new Date(user.createdAt) : new Date(),
+      email: user.email,
+      emailVerified: user.emailVerified,
+      id: user.id,
       image: user.image || undefined,
+      name: user.name || 'Unknown',
+      role: user.role || 'user',
     })) || [];
 
   const filteredUsers = normalizedUsers.filter((user) => {
@@ -315,7 +315,7 @@ export function PageAdminUsers() {
         break;
       case 'setRole':
         if (canSetUserRoles(currentUserRole) && userRole) {
-          setUserRole({ userId, role: userRole });
+          setUserRole({ role: userRole, userId });
         }
         break;
       case 'impersonate':
@@ -334,11 +334,11 @@ export function PageAdminUsers() {
   };
 
   const stats = {
-    total: normalizedUsers.length,
     active: normalizedUsers.filter((u) => u.emailVerified && !u.banned).length,
-    pending: normalizedUsers.filter((u) => !(u.emailVerified || u.banned)).length,
-    banned: normalizedUsers.filter((u) => u.banned).length,
     admins: normalizedUsers.filter((u) => u.role === 'admin' || u.role === 'superadmin').length,
+    banned: normalizedUsers.filter((u) => u.banned).length,
+    pending: normalizedUsers.filter((u) => !(u.emailVerified || u.banned)).length,
+    total: normalizedUsers.length,
   };
 
   return (

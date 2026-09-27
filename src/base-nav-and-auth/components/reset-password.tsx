@@ -9,8 +9,8 @@ import { authClient } from '~/lib/auth/auth-client';
 
 const resetPasswordSchema = z
   .object({
-    password: z.string().min(8, 'Password must be at least 8 characters'),
     confirmPassword: z.string(),
+    password: z.string().min(8, 'Password must be at least 8 characters'),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'The two passwords do not match.',
@@ -22,19 +22,8 @@ export default function ResetPasswordForm() {
 
   const form = useAppForm({
     defaultValues: {
-      password: '',
       confirmPassword: '',
-    },
-    validators: {
-      onChange: resetPasswordSchema,
-
-      // onChange: ({ value }) => {
-      //   const result = resetPasswordSchema.safeParse(value);
-      //   if (!result.success) {
-      //     return result.error.issues;
-      //   }
-      //   return;
-      // },
+      password: '',
     },
     onSubmit: async ({ value }) => {
       try {
@@ -51,6 +40,17 @@ export default function ResetPasswordForm() {
       } catch {
         toast.error('An error occurred during password reset');
       }
+    },
+    validators: {
+      onChange: resetPasswordSchema,
+
+      // onChange: ({ value }) => {
+      //   const result = resetPasswordSchema.safeParse(value);
+      //   if (!result.success) {
+      //     return result.error.issues;
+      //   }
+      //   return;
+      // },
     },
   });
   return (

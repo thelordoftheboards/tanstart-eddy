@@ -6,14 +6,14 @@ export const meta: (React.DetailedHTMLProps<React.MetaHTMLAttributes<HTMLMetaEle
       charSet: 'utf-8',
     },
     {
-      name: 'viewport',
       content: 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no',
+      name: 'viewport',
     },
     {
       title: 'Tanstart Eddy',
     },
     {
-      name: 'description',
       content: 'Starter kit for 🏝️ TanStack Start.',
+      name: 'description',
     },
   ];

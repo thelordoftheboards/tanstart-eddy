@@ -5,14 +5,13 @@ import { authClient } from '~/lib/auth/auth-client';
 const userQueryKeys = {
   all: ['users'] as const,
   list: () => [...userQueryKeys.all, 'list'] as const,
-  sessions: () => ['sessions'] as const,
   passkeys: () => ['passkeys'] as const,
+  sessions: () => ['sessions'] as const,
   twoFactor: () => ['twoFactor'] as const,
 };
 
 export const useUsers = () => {
   return useQuery({
-    queryKey: userQueryKeys.list(),
     queryFn: async () => {
       const data = await authClient.admin.listUsers(
         {
@@ -29,9 +28,10 @@ export const useUsers = () => {
 
       return data?.users || [];
     },
+    queryKey: userQueryKeys.list(),
     retry: (failureCount, error: Error) => {
       // Don't retry if it's a permission error
-      if (error?.message?.includes('forbidden')) {
+      if (error.message.includes('forbidden')) {
         return false;
       }
       return failureCount < 2;
@@ -41,16 +41,16 @@ export const useUsers = () => {
 
 export const useSessions = () =>
   useQuery({
-    queryKey: userQueryKeys.sessions(),
     queryFn: async () => {
       const getSession = authClient.getSession();
       const getSessions = authClient.listSessions();
       const getOrganization = authClient.organization.getFullOrganization();
       const [session, organization, sessions] = await Promise.all([getSession, getOrganization, getSessions]);
-      return { session, organization, sessions } as const;
+      return { organization, session, sessions } as const;
     },
+    queryKey: userQueryKeys.sessions(),
     retry: (failureCount, error: Error) => {
-      if (error?.message?.includes('forbidden')) {
+      if (error.message.includes('forbidden')) {
         return false;
       }
       return failureCount < 2;
@@ -79,8 +79,8 @@ export const useCreateUser = () => {
     }) => {
       const result = await authClient.admin.createUser({
         email,
-        password,
         name,
+        password,
         role: role || 'user',
       });
 
@@ -90,11 +90,11 @@ export const useCreateUser = () => {
 
       return result;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
-    },
     onError: (error: Error) => {
       console.error('Create user error:', error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
     },
   });
 };
@@ -114,11 +114,11 @@ export const useRemoveUser = () => {
 
       return result;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
-    },
     onError: (error: Error) => {
       console.error('Remove user error:', error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
     },
   });
 };
@@ -138,11 +138,11 @@ export const useDeleteUser = () => {
 
       return result;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
-    },
     onError: (error: Error) => {
       console.error('Delete user error:', error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
     },
   });
 };
@@ -153,8 +153,8 @@ export const useSetUserRole = () => {
   return useMutation({
     mutationFn: async ({ userId, role }: { userId: string; role: string }) => {
       const result = await authClient.admin.setRole({
-        userId,
         role,
+        userId,
       });
 
       if (result.error) {
@@ -163,11 +163,11 @@ export const useSetUserRole = () => {
 
       return result;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
-    },
     onError: (error: Error) => {
       console.error('Set user role error:', error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
     },
   });
 };
@@ -178,8 +178,8 @@ export const useResetUserPassword = () => {
   return useMutation({
     mutationFn: async ({ userId, password }: { userId: string; password: string }) => {
       const result = await authClient.admin.setUserPassword({
-        userId,
         newPassword: password,
+        userId,
       });
 
       if (result.error) {
@@ -188,11 +188,11 @@ export const useResetUserPassword = () => {
 
       return result;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
-    },
     onError: (error: Error) => {
       console.error('Reset user password error:', error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
     },
   });
 };
@@ -212,11 +212,11 @@ export const useRevokeUserSessions = () => {
 
       return result;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userQueryKeys.sessions() });
-    },
     onError: (error: Error) => {
       console.error('Revoke user sessions error:', error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: userQueryKeys.sessions() });
     },
   });
 };
@@ -254,11 +254,11 @@ export const useBanUser = () => {
 
       return result;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
-    },
     onError: (error: Error) => {
       console.error('Ban user error:', error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
     },
   });
 };
@@ -278,11 +278,11 @@ export const useUnbanUser = () => {
 
       return result;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
-    },
     onError: (error: Error) => {
       console.error('Unban user error:', error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: userQueryKeys.list() });
     },
   });
 };
@@ -302,11 +302,11 @@ export const useRevokeSession = () => {
 
       return result;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: userQueryKeys.sessions() });
-    },
     onError: (error: Error) => {
       console.error('Revoke session error:', error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: userQueryKeys.sessions() });
     },
   });
 };
@@ -340,8 +340,8 @@ export const useUpdateUser = () => {
   return useMutation({
     mutationFn: async ({ name, image }: { name?: string; image?: string }) => {
       const result = await authClient.updateUser({
-        name,
         image,
+        name,
       });
 
       if (result.error) {
@@ -350,12 +350,12 @@ export const useUpdateUser = () => {
 
       return result;
     },
+    onError: (error: Error) => {
+      console.error('Update user error:', error);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: userQueryKeys.sessions() });
       queryClient.invalidateQueries({ queryKey: ['session'] });
-    },
-    onError: (error: Error) => {
-      console.error('Update user error:', error);
     },
   });
 };

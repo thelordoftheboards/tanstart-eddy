@@ -1,0 +1,16 @@
+[
+  {
+    "accessToken": null,
+    "accessTokenExpiresAt": null,
+    "accountId": "01a0c072-3969-72b3-a461-2406c0f148de",
+    "id": "01a0c072-396e-7563-9be5-d796134b7cb3",
+    "idToken": null,
+    "issuer": null,
+    "password": "4b63bdffdaaf68c70174da961ae98621:2124f56534dcf90febac80db5a1ec695a6130297f18611561e4881b9dee973cce27527b6b9265b7e138487a3bf76d354aa2cecc5457461b7dcd9ca1219035112",
+    "providerId": "credential",
+    "refreshToken": null,
+    "refreshTokenExpiresAt": null,
+    "scope": null,
+    "userId": "01a0c072-3969-72b3-a461-2406c0f148de"
+  }
+]

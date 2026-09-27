@@ -1,7 +1,7 @@
 import { v7 as uuidv7 } from 'uuid';
 import { getOrganizationId } from '~/base-nav-and-auth/server/get-organization-id';
-import { db } from '~/lib/db';
-import { tableHorse } from '../db/table-horse';
+import { db } from '~/lib/drizzle/db';
+import { tableHorse } from '../drizzle/table-horse';
 import { type HorseNoIdType, horseNoIdSchema } from '../schema/horse';
 
 export async function handlerPostHorse({ request }: { request: Request }) {

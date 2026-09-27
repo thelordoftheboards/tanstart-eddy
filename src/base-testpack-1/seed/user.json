@@ -1,0 +1,13 @@
+[
+  {
+    "banExpires": null,
+    "banned": false,
+    "banReason": null,
+    "email": "vance.marcus@losidem.com",
+    "emailVerified": false,
+    "id": "01a0c072-3969-72b3-a461-2406c0f148de",
+    "image": null,
+    "name": "Marcus Vance",
+    "role": "user"
+  }
+]

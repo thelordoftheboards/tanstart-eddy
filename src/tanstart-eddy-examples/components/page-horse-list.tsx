@@ -38,7 +38,7 @@ export function PageHorseList() {
       titleExtraElements={
         <div className="mx-2 flex grow flex-row-reverse flex-wrap items-center gap-2">
           <DialogHorseEdit />
-          {editingHorse && (
+          {!!editingHorse && (
             <DialogHorseEdit
               horse={editingHorse}
               isOpen={!!editingHorse}

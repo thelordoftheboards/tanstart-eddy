@@ -22,11 +22,11 @@ export const Route = createRootRouteWithContext<{
     // so we're only prefetching here and not awaiting.
     // for protected routes with loader data, see /(authenticated)/route.tsx
   },
-  head: () => ({
-    meta,
-    links: [{ rel: 'stylesheet', href: appCss }],
-  }),
   component: RootComponent,
+  head: () => ({
+    links: [{ href: appCss, rel: 'stylesheet' }],
+    meta,
+  }),
 });
 
 function RootComponent() {

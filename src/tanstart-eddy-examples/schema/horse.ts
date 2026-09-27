@@ -5,24 +5,24 @@ export const horseMarkingsSchema = z.array(z.object({ markingDescription: z.stri
 export type HorseMarkingsType = z.infer<typeof horseMarkingsSchema>;
 
 export const horseSchema = z.object({
-  id: z.uuid({ message: 'ID must be a valid UUID', version: 'v7' }),
-  name: z.string().min(2, { message: 'Name must be at least 2 characters long' }).describe('e.g., Thunder, Moonlight'),
-  breed: z.string().describe('e.g., Arabian, Quarter Horse, Thoroughbred'),
   birthYear: z
     .number()
     .int()
     .min(1900)
     .max(new Date().getFullYear())
     .describe("The horse's year of birth (e.g., 2015)"),
+  breed: z.string().describe('e.g., Arabian, Quarter Horse, Thoroughbred'),
   color: z
     .string()
     .min(3, { message: 'Description must be at least 3 characters long' })
     .describe('e.g., Bay with white blaze, Dapple grey'),
+  id: z.uuid({ message: 'ID must be a valid UUID', version: 'v7' }),
+  markings: horseMarkingsSchema,
+  name: z.string().min(2, { message: 'Name must be at least 2 characters long' }).describe('e.g., Thunder, Moonlight'),
   stallNumber: z
     .string()
     .regex(/^[A-Z0-9]+$/i, { message: 'Stall number must be alphanumeric' })
     .describe('The horse\'s assigned stall number (e.g., "Stall 1A", 42)'),
-  markings: horseMarkingsSchema,
 });
 
 export type HorseType = z.infer<typeof horseSchema>;

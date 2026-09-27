@@ -4,10 +4,10 @@ import {
   IconLayoutNavbarFilled,
   IconLayoutRows,
 } from '@tabler/icons-react';
+import { cn } from 'cn';
 import { Home, Settings, User } from 'lucide-react';
 import { Button } from '~/components/ui/button';
 import { Tabs, TabsList, TabsTrigger } from '~/components/ui/tabs';
-import { cn } from '~/lib/utils';
 
 export function ToolbarForSplitScreen({
   paddingLeft,

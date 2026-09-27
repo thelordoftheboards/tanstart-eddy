@@ -1,5 +1,4 @@
 import { type Response } from 'redaxios';
-import { OuterError } from '~/base/utils/outer-error';
 import { type UserReportableErrorsType, userReportableErrorsSchema } from '../schema/user-reportable-errors';
 
 /**
@@ -64,12 +63,13 @@ export function processAxiosOrSpecialException(
   queryString: string,
   dataAsStr: string | null
 ) {
-  console.error('queryFnGet:', err);
-
   // Do not wrap user reportable errors since they already contain all the infromation
   if (err instanceof UserReportableErrorsError) {
     throw err;
   }
 
-  throw new OuterError(`Failed to ${verb}, query string: [${queryString}  ], data: [${dataAsStr}]`, err);
+  throw new Error(
+    `Failed to process axios or special exception | ${JSON.stringify({ dataAsStr, queryString, verb })}`,
+    { cause: err }
+  );
 }

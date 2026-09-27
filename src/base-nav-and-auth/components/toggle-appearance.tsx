@@ -35,22 +35,22 @@ export function ToggleAppearance() {
 
   const themes = [
     {
-      value: 'light',
-      label: 'Light',
-      icon: IconSun,
       description: 'Light mode theme',
+      icon: IconSun,
+      label: 'Light',
+      value: 'light',
     },
     {
-      value: 'dark',
-      label: 'Dark',
-      icon: IconMoon,
       description: 'Dark mode theme',
+      icon: IconMoon,
+      label: 'Dark',
+      value: 'dark',
     },
     {
-      value: 'system',
-      label: 'System',
-      icon: IconDeviceDesktop,
       description: 'Use system preference',
+      icon: IconDeviceDesktop,
+      label: 'System',
+      value: 'system',
     },
   ];
 

@@ -11,8 +11,8 @@ export async function queryFnGet<T>(queryStringApi: string): Promise<T> {
 
   try {
     const result = await axios.get<T>(queryString, {
-      withCredentials: true,
       validateStatus,
+      withCredentials: true,
     });
 
     checkResultAndThrowIfErrorIsSpecial<T>(result);

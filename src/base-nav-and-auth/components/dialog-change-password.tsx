@@ -19,9 +19,9 @@ import { authClient } from '~/lib/auth/auth-client';
 
 const changePasswordSchema = z
   .object({
+    confirmPassword: z.string(),
     currentPassword: z.string().min(1, 'Current password is required'),
     newPassword: z.string().min(8, 'Password must be at least 8 characters'),
-    confirmPassword: z.string(),
     signOutDevices: z.boolean().optional(),
   })
   .refine((data) => data.newPassword === data.confirmPassword, {
@@ -34,27 +34,16 @@ export function DialogChangePassword() {
 
   const form = useAppForm({
     defaultValues: {
+      confirmPassword: '',
       currentPassword: '',
       newPassword: '',
-      confirmPassword: '',
       signOutDevices: false,
-    },
-    validators: {
-      // @ts-expect-error There should be a way to specify the schema. If function is used the field errors do not always show properly.
-      onChange: changePasswordSchema,
-      // onChange: ({ value }) => {
-      //   const result = changePasswordSchema.safeParse(value);
-      //   if (!result.success) {
-      //     return result.error.issues;
-      //   }
-      //   return;
-      // },
     },
     onSubmit: async ({ value }) => {
       try {
         const res = await authClient.changePassword({
-          newPassword: value.newPassword,
           currentPassword: value.currentPassword,
+          newPassword: value.newPassword,
           revokeOtherSessions: value.signOutDevices,
         });
         if (res.error) {
@@ -67,6 +56,17 @@ export function DialogChangePassword() {
       } catch {
         toast.error('An error occurred while changing password');
       }
+    },
+    validators: {
+      // @ts-expect-error There should be a way to specify the schema. If function is used the field errors do not always show properly.
+      onChange: changePasswordSchema,
+      // onChange: ({ value }) => {
+      //   const result = changePasswordSchema.safeParse(value);
+      //   if (!result.success) {
+      //     return result.error.issues;
+      //   }
+      //   return;
+      // },
     },
   });
   return (

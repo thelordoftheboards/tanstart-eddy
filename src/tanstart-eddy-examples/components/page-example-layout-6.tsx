@@ -1,9 +1,9 @@
+import { cn } from 'cn';
 import React, { useState } from 'react';
 import { type ViewState } from 'react-map-gl/maplibre';
 import { NavHeadlessFloatingTrigger } from '~/base-nav-and-auth/components/layout-elements';
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '~/base-user-interface/components/ui/resizable';
 import { useElementDimensions } from '~/hooks/use-element-dimensions';
-import { cn } from '~/lib/utils';
 import { MapMaptiler } from '~/map-maptiler/components/map-maptiler';
 import { TableHorse } from './table-horse-example';
 import { ToolbarForSplitScreen } from './toolbar-for-split-screen';
@@ -14,12 +14,12 @@ export function PageExampleLayout6() {
   const [refMapContainer, dimensionsMapContainer] = useElementDimensions();
 
   const [viewState, setViewState] = useState<ViewState>({
-    longitude: -84.491_326_5,
-    latitude: 39.088_012_3,
-    zoom: 13,
     bearing: 0,
+    latitude: 39.088_012_3,
+    longitude: -84.491_326_5,
+    padding: { bottom: 0, left: 0, right: 0, top: 0 },
     pitch: 0,
-    padding: { top: 0, bottom: 0, right: 0, left: 0 },
+    zoom: 13,
   });
 
   return (
@@ -45,7 +45,7 @@ export function PageExampleLayout6() {
             )}
             ref={refMapContainer}
             style={
-              direction === 'horizontal' ? { minHeight: 'calc(100vh - 54px)', maxHeight: 'calc(100vh - 54px)' } : {}
+              direction === 'horizontal' ? { maxHeight: 'calc(100vh - 54px)', minHeight: 'calc(100vh - 54px)' } : {}
             }
           >
             <MapMaptiler
@@ -66,7 +66,7 @@ export function PageExampleLayout6() {
               direction === 'horizontal' ? '' : 'h-full'
             )}
             style={
-              direction === 'horizontal' ? { minHeight: 'calc(100vh - 54px)', maxHeight: 'calc(100vh - 54px)' } : {}
+              direction === 'horizontal' ? { maxHeight: 'calc(100vh - 54px)', minHeight: 'calc(100vh - 54px)' } : {}
             }
           >
             <TableHorse />

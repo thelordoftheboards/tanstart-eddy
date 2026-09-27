@@ -4,6 +4,6 @@ import { handlerPutHorse } from '~/tanstart-eddy-examples/server/handler-put-hor
 
 export const Route = createFileRoute('/api/v1/tanstart-eddy-examples/horses/$id')({
   server: {
-    handlers: { PUT: handlerPutHorse, DELETE: handlerDeleteHorse },
+    handlers: { DELETE: handlerDeleteHorse, PUT: handlerPutHorse },
   },
 });

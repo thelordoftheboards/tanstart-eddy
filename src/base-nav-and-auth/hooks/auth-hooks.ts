@@ -31,13 +31,13 @@ export const useLogin = () => {
 
       return result;
     },
+    onError(error: any) {
+      console.error('Login error:', error);
+    },
     onSuccess(response) {
       if (response.data?.user.id) {
         router.navigate({ to: '/dashboard' });
       }
-    },
-    onError(error: any) {
-      console.error('Login error:', error);
     },
   });
 
@@ -60,8 +60,8 @@ export const useLogin = () => {
   const loginWithSocial = useMutation({
     mutationFn: async ({ provider, callbackURL }: { provider: SocialProvider; callbackURL: string }) => {
       const result = await authClient.signIn.social({
-        provider,
         callbackURL: callbackURL || '/dashboard',
+        provider,
       });
 
       if (result.error) {
@@ -104,13 +104,13 @@ export const useRegister = ({
   useMutation({
     mutationFn: async ({ email, password, name }: { email: string; password: string; name: string }) =>
       await authClient.signUp.email(
-        { email, password, name },
+        { email, name, password },
         {
-          onSuccess: () => {
-            onSuccess();
-          },
           onError: (error: ErrorContext) => {
             onError(error);
+          },
+          onSuccess: () => {
+            onSuccess();
           },
         }
       ),
@@ -206,14 +206,14 @@ export const useAuthHelpers = () => {
     // sendOtp,
     // verifyOtp,
     resetPassword,
+    revokeSession,
     // verifyTwoFactor,
     // getTotpUri,
     // enableTwoFactor,
     // disableTwoFactor,
     // verifyTotpForEnable,
     sendVerificationEmail,
-    verifyEmail,
-    revokeSession,
     signOut,
+    verifyEmail,
   };
 };

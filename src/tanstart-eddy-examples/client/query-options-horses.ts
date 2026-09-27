@@ -4,6 +4,6 @@ import { type HorseType } from '../schema/horse';
 
 export const queryOptionsHorses = () =>
   queryOptions({
-    queryKey: ['horse'],
     queryFn: () => queryFnGet<HorseType[]>('/api/v1/tanstart-eddy-examples/horses'),
+    queryKey: ['horse'],
   });

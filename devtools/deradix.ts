@@ -44,7 +44,7 @@ module.exports = function transform(file, api) {
       return; // Cannot reliably migrate if multiple or no children
     }
 
-    const soleChild = nonWsChildren[0];
+    const [soleChild] = nonWsChildren;
     let renderPropValue = null; // This will hold the AST node for render={...}
     let newParentChildren = []; // Children that will remain inside the parent component
 
@@ -68,7 +68,7 @@ module.exports = function transform(file, api) {
       }
     } else if (soleChild.type === 'JSXExpressionContainer') {
       // Case: <Parent asChild>{expression}</Parent>
-      const expression = soleChild.expression;
+      const { expression } = soleChild;
 
       if (expression.type === 'JSXElement') {
         // Case: <Parent asChild>{<Child>...</Child>}</Parent>

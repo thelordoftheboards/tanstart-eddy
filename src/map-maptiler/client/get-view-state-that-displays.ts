@@ -1,16 +1,16 @@
 import { bbox, center, featureCollection, point } from '@turf/turf';
 import { type ViewState } from 'react-map-gl/maplibre';
 
-const padding = { top: 0, bottom: 0, right: 0, left: 0 };
+const padding = { bottom: 0, left: 0, right: 0, top: 0 };
 
 export function getViewStateForEmpty(): ViewState {
   return {
-    longitude: -98.58, // Approx center of continental US
-    latitude: 39.83, // Approx center of continental US
-    zoom: 3, // Zoom level to show entire continental US
-    pitch: 0,
     bearing: 0,
+    latitude: 39.83, // Approx center of continental US
+    longitude: -98.58, // Approx center of continental US
     padding,
+    pitch: 0,
+    zoom: 3, // Zoom level to show entire continental US
   };
 }
 
@@ -50,12 +50,12 @@ export function getViewStateThatDisplays<
   const zoom = Math.max(0, Math.min(15, Math.floor(Math.min(zoomLat, zoomLon))));
 
   const viewState = {
-    longitude: aCenter[0],
-    latitude: aCenter[1],
-    zoom,
-    pitch: 0,
     bearing: 0,
+    latitude: aCenter[1],
+    longitude: aCenter[0],
     padding,
+    pitch: 0,
+    zoom,
   };
 
   return viewState;

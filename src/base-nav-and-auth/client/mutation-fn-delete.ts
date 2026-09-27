@@ -12,8 +12,8 @@ export async function mutationFnDelete<R, V>(queryStringApi: string, data: V): P
   try {
     const result = await axios.delete<R>(queryString, {
       data,
-      withCredentials: true,
       validateStatus,
+      withCredentials: true,
     });
 
     checkResultAndThrowIfErrorIsSpecial<R>(result);

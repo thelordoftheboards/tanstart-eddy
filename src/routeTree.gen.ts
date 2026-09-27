@@ -9,51 +9,51 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as authenticatedRouteRouteImport } from './routes/(authenticated)/route'
-import { Route as authPagesRouteRouteImport } from './routes/(auth-pages)/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as authPagesSignupRouteImport } from './routes/(auth-pages)/signup'
+import { Route as authPagesRouteRouteImport } from './routes/(auth-pages)/route'
+import { Route as authenticatedRouteRouteImport } from './routes/(authenticated)/route'
 import { Route as authPagesLoginRouteImport } from './routes/(auth-pages)/login'
+import { Route as authPagesSignupRouteImport } from './routes/(auth-pages)/signup'
 import { Route as authenticatedDashboardRouteRouteImport } from './routes/(authenticated)/dashboard/route'
 import { Route as authenticatedDashboardIndexRouteImport } from './routes/(authenticated)/dashboard/index'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as authenticatedDashboardAdminIndexRouteImport } from './routes/(authenticated)/dashboard/admin/index'
 import { Route as authenticatedDashboardAccountIndexRouteImport } from './routes/(authenticated)/dashboard/account/index'
-import { Route as authenticatedDashboardTanstartEddyExamplesExampleLayout6RouteImport } from './routes/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-6'
-import { Route as authenticatedDashboardTanstartEddyExamplesExampleLayout5RouteImport } from './routes/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-5'
-import { Route as authenticatedDashboardTanstartEddyExamplesExampleLayout4RouteImport } from './routes/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-4'
-import { Route as authenticatedDashboardTanstartCumberlandExamplesExampleLayout3RouteImport } from './routes/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-3'
-import { Route as authenticatedDashboardTanstartCumberlandExamplesExampleLayout2RouteImport } from './routes/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-2'
-import { Route as authenticatedDashboardTanstartCumberlandExamplesExampleLayout1RouteImport } from './routes/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-1'
-import { Route as authenticatedDashboardAdminUsersRouteImport } from './routes/(authenticated)/dashboard/admin/users'
 import { Route as authenticatedDashboardAccountAboutRouteImport } from './routes/(authenticated)/dashboard/account/about'
-import { Route as ApiV1TanstartEddyExamplesHorsesIndexRouteImport } from './routes/api/v1/tanstart-eddy-examples/horses/index'
-import { Route as ApiV1SystemGlobalClientSettingsIndexRouteImport } from './routes/api/v1/system/global-client-settings/index'
-import { Route as ApiV1SystemAboutIndexRouteImport } from './routes/api/v1/system/about/index'
-import { Route as ApiV1TanstartEddyExamplesHorsesIdRouteImport } from './routes/api/v1/tanstart-eddy-examples/horses/$id'
+import { Route as authenticatedDashboardAdminIndexRouteImport } from './routes/(authenticated)/dashboard/admin/index'
+import { Route as authenticatedDashboardAdminUsersRouteImport } from './routes/(authenticated)/dashboard/admin/users'
+import { Route as authenticatedDashboardTanstartCumberlandExamplesExampleLayout1RouteImport } from './routes/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-1'
+import { Route as authenticatedDashboardTanstartCumberlandExamplesExampleLayout2RouteImport } from './routes/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-2'
+import { Route as authenticatedDashboardTanstartCumberlandExamplesExampleLayout3RouteImport } from './routes/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-3'
+import { Route as authenticatedDashboardTanstartEddyExamplesExampleLayout4RouteImport } from './routes/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-4'
+import { Route as authenticatedDashboardTanstartEddyExamplesExampleLayout5RouteImport } from './routes/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-5'
+import { Route as authenticatedDashboardTanstartEddyExamplesExampleLayout6RouteImport } from './routes/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-6'
 import { Route as authenticatedDashboardTanstartEddyExamplesHorsesHorseListRouteImport } from './routes/(authenticated)/dashboard/tanstart-eddy-examples/horses/horse-list'
+import { Route as ApiV1SystemAboutIndexRouteImport } from './routes/api/v1/system/about/index'
+import { Route as ApiV1SystemGlobalClientSettingsIndexRouteImport } from './routes/api/v1/system/global-client-settings/index'
+import { Route as ApiV1TanstartEddyExamplesHorsesIndexRouteImport } from './routes/api/v1/tanstart-eddy-examples/horses/index'
+import { Route as ApiV1TanstartEddyExamplesHorsesIdRouteImport } from './routes/api/v1/tanstart-eddy-examples/horses/$id'
 
-const authenticatedRouteRoute = authenticatedRouteRouteImport.update({
-  id: '/(authenticated)',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const authPagesRouteRoute = authPagesRouteRouteImport.update({
   id: '/(auth-pages)',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const authenticatedRouteRoute = authenticatedRouteRouteImport.update({
+  id: '/(authenticated)',
   getParentRoute: () => rootRouteImport,
-} as any)
-const authPagesSignupRoute = authPagesSignupRouteImport.update({
-  id: '/signup',
-  path: '/signup',
-  getParentRoute: () => authPagesRouteRoute,
 } as any)
 const authPagesLoginRoute = authPagesLoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => authPagesRouteRoute,
+} as any)
+const authPagesSignupRoute = authPagesSignupRouteImport.update({
+  id: '/signup',
+  path: '/signup',
   getParentRoute: () => authPagesRouteRoute,
 } as any)
 const authenticatedDashboardRouteRoute =
@@ -73,41 +73,35 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
-const authenticatedDashboardAdminIndexRoute =
-  authenticatedDashboardAdminIndexRouteImport.update({
-    id: '/admin/',
-    path: '/admin/',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
-  } as any)
 const authenticatedDashboardAccountIndexRoute =
   authenticatedDashboardAccountIndexRouteImport.update({
     id: '/account/',
     path: '/account/',
     getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardTanstartEddyExamplesExampleLayout6Route =
-  authenticatedDashboardTanstartEddyExamplesExampleLayout6RouteImport.update({
-    id: '/tanstart-eddy-examples/example-layout-6',
-    path: '/tanstart-eddy-examples/example-layout-6',
+const authenticatedDashboardAccountAboutRoute =
+  authenticatedDashboardAccountAboutRouteImport.update({
+    id: '/account/about',
+    path: '/account/about',
     getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardTanstartEddyExamplesExampleLayout5Route =
-  authenticatedDashboardTanstartEddyExamplesExampleLayout5RouteImport.update({
-    id: '/tanstart-eddy-examples/example-layout-5',
-    path: '/tanstart-eddy-examples/example-layout-5',
+const authenticatedDashboardAdminIndexRoute =
+  authenticatedDashboardAdminIndexRouteImport.update({
+    id: '/admin/',
+    path: '/admin/',
     getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardTanstartEddyExamplesExampleLayout4Route =
-  authenticatedDashboardTanstartEddyExamplesExampleLayout4RouteImport.update({
-    id: '/tanstart-eddy-examples/example-layout-4',
-    path: '/tanstart-eddy-examples/example-layout-4',
+const authenticatedDashboardAdminUsersRoute =
+  authenticatedDashboardAdminUsersRouteImport.update({
+    id: '/admin/users',
+    path: '/admin/users',
     getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardTanstartCumberlandExamplesExampleLayout3Route =
-  authenticatedDashboardTanstartCumberlandExamplesExampleLayout3RouteImport.update(
+const authenticatedDashboardTanstartCumberlandExamplesExampleLayout1Route =
+  authenticatedDashboardTanstartCumberlandExamplesExampleLayout1RouteImport.update(
     {
-      id: '/tanstart-cumberland-examples/example-layout-3',
-      path: '/tanstart-cumberland-examples/example-layout-3',
+      id: '/tanstart-cumberland-examples/example-layout-1',
+      path: '/tanstart-cumberland-examples/example-layout-1',
       getParentRoute: () => authenticatedDashboardRouteRoute,
     } as any,
   )
@@ -119,25 +113,48 @@ const authenticatedDashboardTanstartCumberlandExamplesExampleLayout2Route =
       getParentRoute: () => authenticatedDashboardRouteRoute,
     } as any,
   )
-const authenticatedDashboardTanstartCumberlandExamplesExampleLayout1Route =
-  authenticatedDashboardTanstartCumberlandExamplesExampleLayout1RouteImport.update(
+const authenticatedDashboardTanstartCumberlandExamplesExampleLayout3Route =
+  authenticatedDashboardTanstartCumberlandExamplesExampleLayout3RouteImport.update(
     {
-      id: '/tanstart-cumberland-examples/example-layout-1',
-      path: '/tanstart-cumberland-examples/example-layout-1',
+      id: '/tanstart-cumberland-examples/example-layout-3',
+      path: '/tanstart-cumberland-examples/example-layout-3',
       getParentRoute: () => authenticatedDashboardRouteRoute,
     } as any,
   )
-const authenticatedDashboardAdminUsersRoute =
-  authenticatedDashboardAdminUsersRouteImport.update({
-    id: '/admin/users',
-    path: '/admin/users',
+const authenticatedDashboardTanstartEddyExamplesExampleLayout4Route =
+  authenticatedDashboardTanstartEddyExamplesExampleLayout4RouteImport.update({
+    id: '/tanstart-eddy-examples/example-layout-4',
+    path: '/tanstart-eddy-examples/example-layout-4',
     getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
-const authenticatedDashboardAccountAboutRoute =
-  authenticatedDashboardAccountAboutRouteImport.update({
-    id: '/account/about',
-    path: '/account/about',
+const authenticatedDashboardTanstartEddyExamplesExampleLayout5Route =
+  authenticatedDashboardTanstartEddyExamplesExampleLayout5RouteImport.update({
+    id: '/tanstart-eddy-examples/example-layout-5',
+    path: '/tanstart-eddy-examples/example-layout-5',
     getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardTanstartEddyExamplesExampleLayout6Route =
+  authenticatedDashboardTanstartEddyExamplesExampleLayout6RouteImport.update({
+    id: '/tanstart-eddy-examples/example-layout-6',
+    path: '/tanstart-eddy-examples/example-layout-6',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const authenticatedDashboardTanstartEddyExamplesHorsesHorseListRoute =
+  authenticatedDashboardTanstartEddyExamplesHorsesHorseListRouteImport.update({
+    id: '/tanstart-eddy-examples/horses/horse-list',
+    path: '/tanstart-eddy-examples/horses/horse-list',
+    getParentRoute: () => authenticatedDashboardRouteRoute,
+  } as any)
+const ApiV1SystemAboutIndexRoute = ApiV1SystemAboutIndexRouteImport.update({
+  id: '/api/v1/system/about/',
+  path: '/api/v1/system/about/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiV1SystemGlobalClientSettingsIndexRoute =
+  ApiV1SystemGlobalClientSettingsIndexRouteImport.update({
+    id: '/api/v1/system/global-client-settings/',
+    path: '/api/v1/system/global-client-settings/',
+    getParentRoute: () => rootRouteImport,
   } as any)
 const ApiV1TanstartEddyExamplesHorsesIndexRoute =
   ApiV1TanstartEddyExamplesHorsesIndexRouteImport.update({
@@ -145,28 +162,11 @@ const ApiV1TanstartEddyExamplesHorsesIndexRoute =
     path: '/api/v1/tanstart-eddy-examples/horses/',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiV1SystemGlobalClientSettingsIndexRoute =
-  ApiV1SystemGlobalClientSettingsIndexRouteImport.update({
-    id: '/api/v1/system/global-client-settings/',
-    path: '/api/v1/system/global-client-settings/',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const ApiV1SystemAboutIndexRoute = ApiV1SystemAboutIndexRouteImport.update({
-  id: '/api/v1/system/about/',
-  path: '/api/v1/system/about/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ApiV1TanstartEddyExamplesHorsesIdRoute =
   ApiV1TanstartEddyExamplesHorsesIdRouteImport.update({
     id: '/api/v1/tanstart-eddy-examples/horses/$id',
     path: '/api/v1/tanstart-eddy-examples/horses/$id',
     getParentRoute: () => rootRouteImport,
-  } as any)
-const authenticatedDashboardTanstartEddyExamplesHorsesHorseListRoute =
-  authenticatedDashboardTanstartEddyExamplesHorsesHorseListRouteImport.update({
-    id: '/tanstart-eddy-examples/horses/horse-list',
-    path: '/tanstart-eddy-examples/horses/horse-list',
-    getParentRoute: () => authenticatedDashboardRouteRoute,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -326,11 +326,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/(authenticated)': {
-      id: '/(authenticated)'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof authenticatedRouteRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(auth-pages)': {
@@ -340,25 +340,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authPagesRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/(authenticated)': {
+      id: '/(authenticated)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof authenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/(auth-pages)/signup': {
-      id: '/(auth-pages)/signup'
-      path: '/signup'
-      fullPath: '/signup'
-      preLoaderRoute: typeof authPagesSignupRouteImport
-      parentRoute: typeof authPagesRouteRoute
     }
     '/(auth-pages)/login': {
       id: '/(auth-pages)/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof authPagesLoginRouteImport
+      parentRoute: typeof authPagesRouteRoute
+    }
+    '/(auth-pages)/signup': {
+      id: '/(auth-pages)/signup'
+      path: '/signup'
+      fullPath: '/signup'
+      preLoaderRoute: typeof authPagesSignupRouteImport
       parentRoute: typeof authPagesRouteRoute
     }
     '/(authenticated)/dashboard': {
@@ -382,67 +382,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/(authenticated)/dashboard/admin/': {
-      id: '/(authenticated)/dashboard/admin/'
-      path: '/admin'
-      fullPath: '/dashboard/admin/'
-      preLoaderRoute: typeof authenticatedDashboardAdminIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
-    }
     '/(authenticated)/dashboard/account/': {
       id: '/(authenticated)/dashboard/account/'
       path: '/account'
       fullPath: '/dashboard/account/'
       preLoaderRoute: typeof authenticatedDashboardAccountIndexRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
-    }
-    '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-6': {
-      id: '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-6'
-      path: '/tanstart-eddy-examples/example-layout-6'
-      fullPath: '/dashboard/tanstart-eddy-examples/example-layout-6'
-      preLoaderRoute: typeof authenticatedDashboardTanstartEddyExamplesExampleLayout6RouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
-    }
-    '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-5': {
-      id: '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-5'
-      path: '/tanstart-eddy-examples/example-layout-5'
-      fullPath: '/dashboard/tanstart-eddy-examples/example-layout-5'
-      preLoaderRoute: typeof authenticatedDashboardTanstartEddyExamplesExampleLayout5RouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
-    }
-    '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-4': {
-      id: '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-4'
-      path: '/tanstart-eddy-examples/example-layout-4'
-      fullPath: '/dashboard/tanstart-eddy-examples/example-layout-4'
-      preLoaderRoute: typeof authenticatedDashboardTanstartEddyExamplesExampleLayout4RouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
-    }
-    '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-3': {
-      id: '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-3'
-      path: '/tanstart-cumberland-examples/example-layout-3'
-      fullPath: '/dashboard/tanstart-cumberland-examples/example-layout-3'
-      preLoaderRoute: typeof authenticatedDashboardTanstartCumberlandExamplesExampleLayout3RouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
-    }
-    '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-2': {
-      id: '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-2'
-      path: '/tanstart-cumberland-examples/example-layout-2'
-      fullPath: '/dashboard/tanstart-cumberland-examples/example-layout-2'
-      preLoaderRoute: typeof authenticatedDashboardTanstartCumberlandExamplesExampleLayout2RouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
-    }
-    '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-1': {
-      id: '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-1'
-      path: '/tanstart-cumberland-examples/example-layout-1'
-      fullPath: '/dashboard/tanstart-cumberland-examples/example-layout-1'
-      preLoaderRoute: typeof authenticatedDashboardTanstartCumberlandExamplesExampleLayout1RouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
-    }
-    '/(authenticated)/dashboard/admin/users': {
-      id: '/(authenticated)/dashboard/admin/users'
-      path: '/admin/users'
-      fullPath: '/dashboard/admin/users'
-      preLoaderRoute: typeof authenticatedDashboardAdminUsersRouteImport
       parentRoute: typeof authenticatedDashboardRouteRoute
     }
     '/(authenticated)/dashboard/account/about': {
@@ -452,11 +396,74 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authenticatedDashboardAccountAboutRouteImport
       parentRoute: typeof authenticatedDashboardRouteRoute
     }
-    '/api/v1/tanstart-eddy-examples/horses/': {
-      id: '/api/v1/tanstart-eddy-examples/horses/'
-      path: '/api/v1/tanstart-eddy-examples/horses'
-      fullPath: '/api/v1/tanstart-eddy-examples/horses/'
-      preLoaderRoute: typeof ApiV1TanstartEddyExamplesHorsesIndexRouteImport
+    '/(authenticated)/dashboard/admin/': {
+      id: '/(authenticated)/dashboard/admin/'
+      path: '/admin'
+      fullPath: '/dashboard/admin/'
+      preLoaderRoute: typeof authenticatedDashboardAdminIndexRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/admin/users': {
+      id: '/(authenticated)/dashboard/admin/users'
+      path: '/admin/users'
+      fullPath: '/dashboard/admin/users'
+      preLoaderRoute: typeof authenticatedDashboardAdminUsersRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-1': {
+      id: '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-1'
+      path: '/tanstart-cumberland-examples/example-layout-1'
+      fullPath: '/dashboard/tanstart-cumberland-examples/example-layout-1'
+      preLoaderRoute: typeof authenticatedDashboardTanstartCumberlandExamplesExampleLayout1RouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-2': {
+      id: '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-2'
+      path: '/tanstart-cumberland-examples/example-layout-2'
+      fullPath: '/dashboard/tanstart-cumberland-examples/example-layout-2'
+      preLoaderRoute: typeof authenticatedDashboardTanstartCumberlandExamplesExampleLayout2RouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-3': {
+      id: '/(authenticated)/dashboard/tanstart-cumberland-examples/example-layout-3'
+      path: '/tanstart-cumberland-examples/example-layout-3'
+      fullPath: '/dashboard/tanstart-cumberland-examples/example-layout-3'
+      preLoaderRoute: typeof authenticatedDashboardTanstartCumberlandExamplesExampleLayout3RouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-4': {
+      id: '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-4'
+      path: '/tanstart-eddy-examples/example-layout-4'
+      fullPath: '/dashboard/tanstart-eddy-examples/example-layout-4'
+      preLoaderRoute: typeof authenticatedDashboardTanstartEddyExamplesExampleLayout4RouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-5': {
+      id: '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-5'
+      path: '/tanstart-eddy-examples/example-layout-5'
+      fullPath: '/dashboard/tanstart-eddy-examples/example-layout-5'
+      preLoaderRoute: typeof authenticatedDashboardTanstartEddyExamplesExampleLayout5RouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-6': {
+      id: '/(authenticated)/dashboard/tanstart-eddy-examples/example-layout-6'
+      path: '/tanstart-eddy-examples/example-layout-6'
+      fullPath: '/dashboard/tanstart-eddy-examples/example-layout-6'
+      preLoaderRoute: typeof authenticatedDashboardTanstartEddyExamplesExampleLayout6RouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/(authenticated)/dashboard/tanstart-eddy-examples/horses/horse-list': {
+      id: '/(authenticated)/dashboard/tanstart-eddy-examples/horses/horse-list'
+      path: '/tanstart-eddy-examples/horses/horse-list'
+      fullPath: '/dashboard/tanstart-eddy-examples/horses/horse-list'
+      preLoaderRoute: typeof authenticatedDashboardTanstartEddyExamplesHorsesHorseListRouteImport
+      parentRoute: typeof authenticatedDashboardRouteRoute
+    }
+    '/api/v1/system/about/': {
+      id: '/api/v1/system/about/'
+      path: '/api/v1/system/about'
+      fullPath: '/api/v1/system/about/'
+      preLoaderRoute: typeof ApiV1SystemAboutIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/system/global-client-settings/': {
@@ -466,11 +473,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiV1SystemGlobalClientSettingsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/v1/system/about/': {
-      id: '/api/v1/system/about/'
-      path: '/api/v1/system/about'
-      fullPath: '/api/v1/system/about/'
-      preLoaderRoute: typeof ApiV1SystemAboutIndexRouteImport
+    '/api/v1/tanstart-eddy-examples/horses/': {
+      id: '/api/v1/tanstart-eddy-examples/horses/'
+      path: '/api/v1/tanstart-eddy-examples/horses'
+      fullPath: '/api/v1/tanstart-eddy-examples/horses/'
+      preLoaderRoute: typeof ApiV1TanstartEddyExamplesHorsesIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/v1/tanstart-eddy-examples/horses/$id': {
@@ -479,13 +486,6 @@ declare module '@tanstack/react-router' {
       fullPath: '/api/v1/tanstart-eddy-examples/horses/$id'
       preLoaderRoute: typeof ApiV1TanstartEddyExamplesHorsesIdRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/(authenticated)/dashboard/tanstart-eddy-examples/horses/horse-list': {
-      id: '/(authenticated)/dashboard/tanstart-eddy-examples/horses/horse-list'
-      path: '/tanstart-eddy-examples/horses/horse-list'
-      fullPath: '/dashboard/tanstart-eddy-examples/horses/horse-list'
-      preLoaderRoute: typeof authenticatedDashboardTanstartEddyExamplesHorsesHorseListRouteImport
-      parentRoute: typeof authenticatedDashboardRouteRoute
     }
   }
 }

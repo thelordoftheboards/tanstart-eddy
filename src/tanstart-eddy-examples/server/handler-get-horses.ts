@@ -1,7 +1,7 @@
 import { asc, eq } from 'drizzle-orm';
 import { getOrganizationId } from '~/base-nav-and-auth/server/get-organization-id';
-import { db } from '~/lib/db';
-import { tableHorse } from '../db/table-horse';
+import { db } from '~/lib/drizzle/db';
+import { tableHorse } from '../drizzle/table-horse';
 import { type HorseType } from '../schema/horse';
 
 export async function handlerGetHorses() {
@@ -9,13 +9,13 @@ export async function handlerGetHorses() {
 
   const arrHorse: HorseType[] = await db
     .select({
-      id: tableHorse.id,
-      name: tableHorse.name,
-      breed: tableHorse.breed,
       birthYear: tableHorse.birthYear,
+      breed: tableHorse.breed,
       color: tableHorse.color,
-      stallNumber: tableHorse.stallNumber,
+      id: tableHorse.id,
       markings: tableHorse.markings,
+      name: tableHorse.name,
+      stallNumber: tableHorse.stallNumber,
     })
     .from(tableHorse)
     .where(eq(tableHorse.organizationId, organizationId))

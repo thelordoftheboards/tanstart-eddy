@@ -9,6 +9,7 @@ services:
       - "${POSTGRES_EXPOSED_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
+      - ./standalone-db-init.sql:/docker-entrypoint-initdb.d/standalone-db-init.sql:ro
     restart: unless-stopped
     networks:
       - dev-network

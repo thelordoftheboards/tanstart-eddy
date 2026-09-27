@@ -1,24 +1,23 @@
 import { createMiddleware } from '@tanstack/react-start';
-import { OuterError } from '../utils/outer-error';
 import { UserReportableError } from '../utils/user-reportable-error';
 
 /**
- * Global middleware for error handling. It supports OuterError and detects
- * UserReportableError, in which case it reports it with 422 HTTP error code
- * and payload with schema userReportableErrorsSchema
+ * Global middleware for error handling. It walks the error chain via `cause`
+ * and detects UserReportableError, in which case it reports it with 422 HTTP
+ * error code and payload with schema userReportableErrorsSchema
  */
 export const errorHandlingMiddleware = createMiddleware().server(async ({ request, next }) => {
   try {
     const result = await next();
     return result;
-  } catch (error) {
-    console.error(`[${request.url}]:`, error);
+  } catch (err) {
+    console.error(`[${request.url}]:`, err);
 
     // Collect user reportable errors. Notice that there can be non-reportable errors
     // yet they would be ignored at this moment
     const userReportableErrors: Array<{ errorCode: string; message: string }> = [];
-    let currentError = error;
-    while (true) {
+    let currentError: unknown = err;
+    while (currentError instanceof Error) {
       if (currentError instanceof UserReportableError) {
         userReportableErrors.push({
           errorCode: currentError.errorCode,
@@ -26,12 +25,7 @@ export const errorHandlingMiddleware = createMiddleware().server(async ({ reques
         });
       }
 
-      if (currentError instanceof OuterError) {
-        currentError = currentError.innerError;
-        continue;
-      }
-
-      break;
+      currentError = currentError.cause;
     }
 
     // If there are any user reportable errors then retuen a response to the client
@@ -47,6 +41,6 @@ export const errorHandlingMiddleware = createMiddleware().server(async ({ reques
     }
 
     // Not user reportable
-    throw error;
+    throw err;
   }
 });

@@ -3,11 +3,11 @@ import { useRouter } from '@tanstack/react-router';
 import { authClient } from '~/lib/auth/auth-client';
 
 const organizationQueryKeys = {
-  all: ['organizations'] as const,
-  list: () => [...organizationQueryKeys.all, 'list'] as const,
   active: () => [...organizationQueryKeys.all, 'active'] as const,
+  all: ['organizations'] as const,
   full: () => [...organizationQueryKeys.all, 'full'] as const,
   invitations: () => [...organizationQueryKeys.all, 'invitations'] as const,
+  list: () => [...organizationQueryKeys.all, 'list'] as const,
   members: () => [...organizationQueryKeys.all, 'members'] as const,
 };
 
@@ -23,13 +23,13 @@ export const useActiveOrganization = () => {
 
 export const useFullOrganization = () =>
   useQuery({
-    queryKey: organizationQueryKeys.full(),
     queryFn: async () => {
       const data = await authClient.organization.getFullOrganization();
       return data;
     },
+    queryKey: organizationQueryKeys.full(),
     retry: (failureCount, error: Error) => {
-      if (error?.message?.includes('forbidden')) {
+      if (error.message.includes('forbidden')) {
         return false;
       }
       return failureCount < 2;
@@ -51,13 +51,13 @@ export const useSetActiveOrganization = () => {
 
       return result;
     },
+    onError: (error: Error) => {
+      console.error('Set active organization error:', error);
+    },
     onSuccess: () => {
       // Invalidate and refetch organization data
       queryClient.invalidateQueries({ queryKey: organizationQueryKeys.all });
       queryClient.invalidateQueries({ queryKey: ['sessions'] });
-    },
-    onError: (error: Error) => {
-      console.error('Set active organization error:', error);
     },
   });
 };
@@ -68,9 +68,9 @@ export const useCreateOrganization = () => {
   return useMutation({
     mutationFn: async ({ name, slug, logo }: { name: string; slug: string; logo?: string }) => {
       const result = await authClient.organization.create({
+        logo,
         name,
         slug,
-        logo,
       });
 
       if (result.error) {
@@ -79,11 +79,11 @@ export const useCreateOrganization = () => {
 
       return result;
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: organizationQueryKeys.all });
-    },
     onError: (error: Error) => {
       console.error('Create organization error:', error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: organizationQueryKeys.all });
     },
   });
 };
@@ -110,6 +110,9 @@ export const useInviteMember = () => {
 
       return result;
     },
+    onError: (error: Error) => {
+      console.error('Invite member error:', error);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: organizationQueryKeys.members(),
@@ -118,9 +121,6 @@ export const useInviteMember = () => {
         queryKey: organizationQueryKeys.invitations(),
       });
       queryClient.invalidateQueries({ queryKey: organizationQueryKeys.full() });
-    },
-    onError: (error: Error) => {
-      console.error('Invite member error:', error);
     },
   });
 };
@@ -140,14 +140,14 @@ export const useRemoveMember = () => {
 
       return result;
     },
+    onError: (error: Error) => {
+      console.error('Remove member error:', error);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: organizationQueryKeys.members(),
       });
       queryClient.invalidateQueries({ queryKey: organizationQueryKeys.full() });
-    },
-    onError: (error: Error) => {
-      console.error('Remove member error:', error);
     },
   });
 };
@@ -167,14 +167,14 @@ export const useCancelInvitation = () => {
 
       return result;
     },
+    onError: (error: Error) => {
+      console.error('Cancel invitation error:', error);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: organizationQueryKeys.invitations(),
       });
       queryClient.invalidateQueries({ queryKey: organizationQueryKeys.full() });
-    },
-    onError: (error: Error) => {
-      console.error('Cancel invitation error:', error);
     },
   });
 };
@@ -195,13 +195,13 @@ export const useAcceptInvitation = () => {
 
       return result;
     },
+    onError: (error: Error) => {
+      console.error('Accept invitation error:', error);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: organizationQueryKeys.all });
       queryClient.invalidateQueries({ queryKey: ['sessions'] });
       router.navigate({ to: '/dashboard' });
-    },
-    onError: (error: Error) => {
-      console.error('Accept invitation error:', error);
     },
   });
 };
@@ -222,21 +222,20 @@ export const useRejectInvitation = () => {
 
       return result;
     },
+    onError: (error: Error) => {
+      console.error('Reject invitation error:', error);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: organizationQueryKeys.invitations(),
       });
       router.navigate({ to: '/dashboard' });
     },
-    onError: (error: Error) => {
-      console.error('Reject invitation error:', error);
-    },
   });
 };
 
 export const useGetInvitation = (invitationId: string) =>
   useQuery({
-    queryKey: [...organizationQueryKeys.invitations(), invitationId],
     queryFn: async () => {
       const data = await authClient.organization.getInvitation({
         query: {
@@ -250,8 +249,9 @@ export const useGetInvitation = (invitationId: string) =>
 
       return data;
     },
+    queryKey: [...organizationQueryKeys.invitations(), invitationId],
     retry: (failureCount, error: Error) => {
-      if (error?.message?.includes('not found')) {
+      if (error.message.includes('not found')) {
         return false;
       }
       return failureCount < 2;
@@ -265,8 +265,8 @@ export const useUpdateOrganization = () => {
     mutationFn: async ({ organizationId, name, logo }: { organizationId: string; name?: string; logo?: string }) => {
       const result = await authClient.organization.update({
         data: {
-          name,
           logo,
+          name,
         },
         organizationId,
       });
@@ -277,12 +277,12 @@ export const useUpdateOrganization = () => {
 
       return result;
     },
+    onError: (error: Error) => {
+      console.error('Update organization error:', error);
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: organizationQueryKeys.all });
       queryClient.invalidateQueries({ queryKey: organizationQueryKeys.full() });
-    },
-    onError: (error: Error) => {
-      console.error('Update organization error:', error);
     },
   });
 };

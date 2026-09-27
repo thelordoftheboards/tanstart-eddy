@@ -20,28 +20,28 @@ export default function FormFieldTabListBoolean({
 }) {
   const field = useFieldContext<boolean>();
   const isInvalid = field.state.meta.isTouched && !field.state.meta.isValid;
-  const isValidating = field.state.meta.isValidating;
+  const { isValidating } = field.state.meta;
 
   return (
     <Field className={className} data-invalid={isInvalid}>
       <FieldContent>
         <FieldLabel htmlFor={field.name}>{label}</FieldLabel>
-        {description && <FieldDescription>{description}</FieldDescription>}
+        {!!description && <FieldDescription>{description}</FieldDescription>}
       </FieldContent>
 
       <Tabs onValueChange={(value) => field.handleChange(value)} value={field.state.value}>
         <TabsList className="grid w-full grid-cols-2">
           {options.map((option) => (
             <TabsTrigger className="gap-2" key={option.value ? 1 : 0} value={option.value}>
-              {option.icon && <option.icon className="h-4 w-4" />}
+              {!!option.icon && <option.icon className="h-4 w-4" />}
               {option.text}
             </TabsTrigger>
           ))}
         </TabsList>
       </Tabs>
 
-      {isInvalid && <FieldError errors={field.state.meta.errors} />}
-      {isValidating && 'Validating ...'}
+      {!!isInvalid && <FieldError errors={field.state.meta.errors} />}
+      {!!isValidating && 'Validating ...'}
     </Field>
   );
 }
